@@ -110,10 +110,20 @@
   details.acc .cnt{margin-left:auto;font-weight:400;font-size:10.5px;color:var(--faint);text-align:right}
   details.acc .acc-body{padding:8px 15px 13px}
   details.acc>summary>span.txt{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
-  details.acc.sec>summary{font-size:15px;padding:12px 15px}
+  details.acc.sec>summary{font-size:14.5px;padding:14px 16px}
   details.acc.sec>summary .n{display:inline-flex;align-items:center;justify-content:center;width:21px;height:21px;
     border-radius:5px;background:var(--head);color:#fff;font-size:11px;font-weight:700;flex:none}
-  details.acc.sec{margin-top:22px}
+  /* moi khoi thu gon la mot hang doc lap: cach nhau ro, vien trai mau rieng */
+  details.acc.sec{margin:16px 0;border-left-width:4px;border-left-style:solid;
+    box-shadow:0 1px 3px rgba(31,36,33,.05)}
+  details.acc.sec:hover{box-shadow:0 2px 7px rgba(31,36,33,.10)}
+  details.acc.sec.k-land{border-left-color:var(--coral)}
+  details.acc.sec.k-land>summary .n{background:var(--coral);width:auto;padding:0 6px;font-size:10px}
+  details.acc.sec.k-6{border-left-color:var(--amber)}
+  details.acc.sec.k-6>summary .n{background:var(--amber)}
+  details.acc.sec.k-7{border-left-color:var(--teal)}
+  details.acc.sec.k-8{border-left-color:var(--red)}
+  details.acc.sec.k-8>summary .n{background:var(--red)}
   @media(max-width:700px){details.acc>summary .cnt{display:none}}
   details.acc[open]>summary .cta{display:none}
   .note{font-size:11px;color:var(--muted);margin:8px 0 0;line-height:1.5}
@@ -505,8 +515,8 @@
     </div>
   </div>
 
-  <details class="acc">
-    <summary><span class="txt">Chuỗi leo thang 7 tháng — cảnh báo 3 lần, không mốc nào được thực hiện</span><span class="cnt">12 mốc · 09/01 → 28/07<span class="cta"> · bấm để xem</span></span></summary>
+  <details class="acc sec k-land">
+    <summary><span class="n">5b</span><span class="txt">Chuỗi leo thang 7 tháng — cảnh báo 3 lần, không mốc nào được thực hiện</span><span class="cnt">12 mốc · 09/01 → 28/07<span class="cta"> · bấm để xem</span></span></summary>
     <div class="acc-body">
     <table>
       <tr><th style="width:11%">Ngày</th><th style="width:17%">Người phát</th><th>Nội dung</th></tr>
@@ -539,7 +549,7 @@
 
   <!-- ============ 6. MA TRẬN TỒN ĐỌNG ============ -->
 
-  <details class="acc sec">
+  <details class="acc sec k-6">
     <summary><span class="n">6</span><span class="txt">Ma trận tồn đọng — 9/18 đầu mục đang chờ nội bộ</span><span class="cnt">3 kỳ 09/07 → 24/07<span class="cta"> · bấm để xem</span></span></summary>
     <div class="acc-body">  <div class="card" style="padding:8px 12px 12px">
     <table>
@@ -574,7 +584,7 @@
 
   <!-- ============ 7. QUYẾT ĐỊNH ============ -->
 
-  <details class="acc sec">
+  <details class="acc sec k-7">
     <summary><span class="n">7</span><span class="txt">Quyết định cần ra — 9 việc, xếp theo cấp thiết &amp; giá trị tiền</span><span class="cnt">quỹ đất → DIY tuần này<span class="cta"> · bấm để xem</span></span></summary>
     <div class="acc-body">  <div class="card" style="padding:4px 15px">
     <div class="dec"><div class="rank">1</div><div class="body"><b>Ra quyết định mô hình đầu tư cho quỹ đất hạ tầng xã hội — cấp HĐQT/TGĐ</b><br><span style="color:var(--muted)">Bế tắc đã kéo dài 7 tháng và nguyên nhân đã rõ: đối tác muốn CĐT bỏ vốn xây, CĐT không muốn bỏ vốn. Không có ai ở cấp ban giải được mâu thuẫn này. Cần chọn một trong ba: (a) CĐT xây phần vỏ rồi cho thuê dài hạn, (b) mô hình BCC/chia doanh thu, (c) bán đứt lô đất cho nhà đầu tư thứ cấp. Giữ nguyên trạng nghĩa là mặc định chọn phương án vận hành tạm 12–24 tháng mà chính BQL đã dự báo.</span></div><div class="money"><b>11,73 ha</b><small>1,8% đã ký hợp đồng</small></div></div>
@@ -601,7 +611,7 @@
 
   <!-- ============ 8. CẢNH BÁO DỮ LIỆU ============ -->
 
-  <details class="acc sec">
+  <details class="acc sec k-8">
     <summary><span class="n">8</span><span class="txt">Cảnh báo chất lượng dữ liệu — 8 vấn đề, 4 mức Cao</span><span class="cnt">đọc trước khi trích số<span class="cta"> · bấm để xem</span></span></summary>
     <div class="acc-body">  <div class="card" style="padding:8px 12px 12px">
     <table>
