@@ -98,6 +98,18 @@
   .dec .body{flex:1;font-size:12px}
   .dec .body b{font-size:12.5px}
 
+  /* accordion — danh sách chi tiết thu gọn mặc định */
+  details.acc{background:var(--card);border:1px solid var(--line);border-radius:9px;margin-bottom:11px;overflow:hidden}
+  details.acc>summary{cursor:pointer;list-style:none;padding:11px 15px;font-size:12.5px;font-weight:700;
+    color:var(--head);display:flex;align-items:center;gap:9px;user-select:none;transition:background .12s}
+  details.acc>summary::-webkit-details-marker{display:none}
+  details.acc>summary::before{content:"\25B8";font-size:12px;color:var(--teal);display:inline-block;transition:transform .15s;flex:none}
+  details.acc[open]>summary::before{transform:rotate(90deg)}
+  details.acc>summary:hover{background:#f7f6f1}
+  details.acc[open]>summary{border-bottom:1px solid var(--line)}
+  details.acc .cnt{margin-left:auto;font-weight:400;font-size:10.5px;color:var(--faint);text-align:right}
+  details.acc .acc-body{padding:8px 15px 13px}
+  details.acc[open]>summary .cta{display:none}
   .note{font-size:11px;color:var(--muted);margin:8px 0 0;line-height:1.5}
   .warn{border-left:4px solid var(--red);background:#fdf3f2}
   .ok{border-left:4px solid var(--green);background:#f5faee}
@@ -198,8 +210,9 @@
     </div>
   </div>
 
-  <h3 style="margin-top:16px">Danh sách chi tiết — Vinh: 13 căn đã cam kết (1.386,73 m² = 21,3% NLA)</h3>
-  <div class="card" style="padding:6px 12px 10px">
+  <details class="acc">
+    <summary>Danh sách chi tiết — Vinh: 13 căn đã cam kết<span class="cnt">1.386,73 m² · 21,3% NLA · 7 thương hiệu<span class="cta"> — bấm để xem</span></span></summary>
+    <div class="acc-body">
     <table>
       <tr><th>Mã căn</th><th>Thương hiệu</th><th>Ngành hàng</th><th class="num">NLA m²</th><th class="num">Tầng</th><th class="num">Giá NS $/m²</th><th>Trạng thái</th><th>Bàn giao</th></tr>
       <tr><td class="lab">P1_0110</td><td>Green Garden</td><td>Siêu thị</td><td class="num">67,13</td><td class="num">1</td><td class="num">6</td><td><span class="b g">Khai trương</span></td><td>—</td></tr>
@@ -220,9 +233,11 @@
     <p class="note"><span class="lab">Siêu thị chiếm 43,1% diện tích đã cam kết</span> (Siba 3 căn 309,81 m² + WinMart+ 2 căn 220,28 + Green Garden 67,13). F&amp;B — ngành chiếm 57,3% doanh thu tiềm năng — mới có <span class="lab">đúng 1 căn</span> (Crepes). Văn phòng BQL 231,10 m² là sử dụng nội bộ, không phát sinh doanh thu. Nói cách khác, Vinh đang được mở hàng bằng siêu thị chứ chưa có lực kéo lưu lượng khách.</p>
     <p class="note"><span class="lab" style="color:var(--amber)">Bốn mốc bàn giao dồn vào 4 tuần tới:</span> Crepes 31/07 → Siba ×3 căn 09/08 → Roxana ×2 căn 10/08 → Dino Billiards ×2 căn 26/08. Đây là cửa sổ vận hành căng nhất của Vinh từ đầu năm; trượt một mốc là mất cả tháng doanh thu của căn đó.</p>
     <p class="note"><span class="lab">Lệch dữ liệu:</span> P3_0216 và P3_0218 ghi ngành "Giải trí" ở bảng theo dõi nhưng bảng căn gốc xếp là "Cafe" ($8/m²). Cần thống nhất trước khi ký hợp đồng vì ảnh hưởng tới đơn giá và tenant mix.</p>
-  </div>
-  <h3 style="margin-top:16px">Danh sách chi tiết — Long An: 60 căn đã cam kết (3.823,32 m² = 89,3% NLA)</h3>
-  <div class="card" style="padding:6px 12px 10px">
+    </div>
+  </details>
+  <details class="acc">
+    <summary>Danh sách chi tiết — Long An: 60 căn đã cam kết<span class="cnt">3.823,32 m² · 89,3% NLA · 36 thương hiệu<span class="cta"> — bấm để xem</span></span></summary>
+    <div class="acc-body">
     <table>
       <tr><th>Căn</th><th>Thương hiệu</th><th>Ngành hàng</th><th class="num">NLA m²</th><th>Nguồn</th><th class="num">Thuê đ/m²</th><th>Ngày cọc</th><th>Trạng thái</th></tr>
       <tr style="background:#f1efe7"><td colspan="8" class="lab" style="font-size:11px;letter-spacing:.3px">ĐÃ KHAI TRƯƠNG — 44 căn · 2.937,82 m²</td></tr>
@@ -292,7 +307,8 @@
     <p class="note"><span class="lab">F&amp;B (26 căn, 37,7%) và Cafe/Văn phòng (20 căn, 37,2%) chiếm 74,9% diện tích đã cam kết.</span> Nhưng toàn bộ 20 căn "Cafe/VP" đều thuộc nguồn <span class="lab">BKD — là sàn đại lý bất động sản dùng tầng 1 làm quán, tầng 2 làm văn phòng</span>, không phải bán lẻ thuần. Đây cũng chính là nhóm có 16 hợp đồng chưa ký. Nếu bóc nhóm này ra, bán lẻ thực chất của Eco Bazaar chỉ còn khoảng 2.400 m².</p>
     <p class="note"><span class="lab" style="color:var(--red)">Tập trung khách thuê:</span> 3 thương hiệu lớn nhất — LuluLala (4 căn), Puro (6 căn), Lebon (5 căn) — chiếm 15 căn / 803,90 m² = <span class="lab">21,0% diện tích cam kết</span>. Trong đó 11 căn Puro và Lebon đã ký từ 13/11/2025 và <span class="lab">đến nay vẫn chưa mở cửa</span>. Rủi ro tập trung cộng với rủi ro tiến độ nằm cùng một chỗ. Tổng cộng 14 thương hiệu thuê từ 2 căn trở lên, chiếm 56,2% diện tích.</p>
     <p class="note">Chỉ 1/52 căn có giá dưới ngân sách: <span class="lab">Spa 135 (K41) ở 80.000 đ/m², thấp hơn 20%</span>, cọc 14/07/2026 — cũng là căn cọc gần đây nhất. LuluLala 4 căn đã chốt nhưng chưa ghi nhận đơn giá, cần theo dõi xem có tiếp tục chiết khấu không.</p>
-  </div>
+    </div>
+  </details>
 
   <!-- ============ 3. VINH SÂU ============ -->
   <h2><span class="n">3</span>Vinh — vấn đề nằm ở F&amp;B</h2>
