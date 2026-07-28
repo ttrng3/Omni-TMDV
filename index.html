@@ -109,6 +109,12 @@
   details.acc[open]>summary{border-bottom:1px solid var(--line)}
   details.acc .cnt{margin-left:auto;font-weight:400;font-size:10.5px;color:var(--faint);text-align:right}
   details.acc .acc-body{padding:8px 15px 13px}
+  details.acc>summary>span.txt{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+  details.acc.sec>summary{font-size:15px;padding:12px 15px}
+  details.acc.sec>summary .n{display:inline-flex;align-items:center;justify-content:center;width:21px;height:21px;
+    border-radius:5px;background:var(--head);color:#fff;font-size:11px;font-weight:700;flex:none}
+  details.acc.sec{margin-top:22px}
+  @media(max-width:700px){details.acc>summary .cnt{display:none}}
   details.acc[open]>summary .cta{display:none}
   .note{font-size:11px;color:var(--muted);margin:8px 0 0;line-height:1.5}
   .warn{border-left:4px solid var(--red);background:#fdf3f2}
@@ -500,7 +506,7 @@
   </div>
 
   <details class="acc">
-    <summary>Chuỗi leo thang 7 tháng — BQLDA cảnh báo 3 lần, TGĐ nhắc 1 lần, không mốc cam kết nào được thực hiện<span class="cnt">12 mốc · 09/01 → 28/07/2026 · trích email<span class="cta"> — bấm để xem</span></span></summary>
+    <summary><span class="txt">Chuỗi leo thang 7 tháng — cảnh báo 3 lần, không mốc nào được thực hiện</span><span class="cnt">12 mốc · 09/01 → 28/07<span class="cta"> · bấm để xem</span></span></summary>
     <div class="acc-body">
     <table>
       <tr><th style="width:11%">Ngày</th><th style="width:17%">Người phát</th><th>Nội dung</th></tr>
@@ -532,10 +538,9 @@
   </div>
 
   <!-- ============ 6. MA TRẬN TỒN ĐỌNG ============ -->
-  <h2><span class="n">6</span>Ma trận tồn đọng — theo dõi qua 3 kỳ báo cáo tuần</h2>
 
-  <details class="acc">
-    <summary>Một nửa số tồn đọng không nằm trong tay TMDV — 9/18 đầu mục đang chờ nội bộ, 2 mục đã biến mất khỏi báo cáo<span class="cnt">18 đầu mục · 3 kỳ 09/07 → 24/07<span class="cta"> — bấm để xem</span></span></summary>
+  <details class="acc sec">
+    <summary><span class="n">6</span><span class="txt">Ma trận tồn đọng — 9/18 đầu mục đang chờ nội bộ</span><span class="cnt">3 kỳ 09/07 → 24/07<span class="cta"> · bấm để xem</span></span></summary>
     <div class="acc-body">  <div class="card" style="padding:8px 12px 12px">
     <table>
       <tr><th style="width:23%">Đầu mục</th><th style="width:8%">Dự án</th><th style="width:19%">09/07</th><th style="width:19%">16/07</th><th style="width:23%">24/07</th><th style="width:8%">Xu hướng</th></tr>
@@ -568,10 +573,9 @@
   </details>
 
   <!-- ============ 7. QUYẾT ĐỊNH ============ -->
-  <h2><span class="n">7</span>Quyết định cần ra — xếp theo mức cấp thiết và giá trị tiền</h2>
 
-  <details class="acc">
-    <summary>9 quyết định — từ mô hình đầu tư quỹ đất (cấp HĐQT) đến ký 16 HĐ đại lý và chốt DIY trong tuần này<span class="cnt">xếp theo cấp thiết &amp; giá trị tiền<span class="cta"> — bấm để xem</span></span></summary>
+  <details class="acc sec">
+    <summary><span class="n">7</span><span class="txt">Quyết định cần ra — 9 việc, xếp theo cấp thiết &amp; giá trị tiền</span><span class="cnt">quỹ đất → DIY tuần này<span class="cta"> · bấm để xem</span></span></summary>
     <div class="acc-body">  <div class="card" style="padding:4px 15px">
     <div class="dec"><div class="rank">1</div><div class="body"><b>Ra quyết định mô hình đầu tư cho quỹ đất hạ tầng xã hội — cấp HĐQT/TGĐ</b><br><span style="color:var(--muted)">Bế tắc đã kéo dài 7 tháng và nguyên nhân đã rõ: đối tác muốn CĐT bỏ vốn xây, CĐT không muốn bỏ vốn. Không có ai ở cấp ban giải được mâu thuẫn này. Cần chọn một trong ba: (a) CĐT xây phần vỏ rồi cho thuê dài hạn, (b) mô hình BCC/chia doanh thu, (c) bán đứt lô đất cho nhà đầu tư thứ cấp. Giữ nguyên trạng nghĩa là mặc định chọn phương án vận hành tạm 12–24 tháng mà chính BQL đã dự báo.</span></div><div class="money"><b>11,73 ha</b><small>1,8% đã ký hợp đồng</small></div></div>
 
@@ -596,10 +600,9 @@
   </details>
 
   <!-- ============ 8. CẢNH BÁO DỮ LIỆU ============ -->
-  <h2><span class="n">8</span>Cảnh báo chất lượng dữ liệu</h2>
 
-  <details class="acc">
-    <summary>8 vấn đề dữ liệu — 4 mức Cao, 4 mức Trung bình. Đọc trước khi trích số ra ngoài báo cáo này<span class="cnt">gồm 2 nguồn đã mất và 2 giả định<span class="cta"> — bấm để xem</span></span></summary>
+  <details class="acc sec">
+    <summary><span class="n">8</span><span class="txt">Cảnh báo chất lượng dữ liệu — 8 vấn đề, 4 mức Cao</span><span class="cnt">đọc trước khi trích số<span class="cta"> · bấm để xem</span></span></summary>
     <div class="acc-body">  <div class="card" style="padding:8px 12px 12px">
     <table>
       <tr><th style="width:26%">Vấn đề</th><th style="width:12%">Mức độ</th><th>Chi tiết &amp; ảnh hưởng tới các con số ở trên</th></tr>
