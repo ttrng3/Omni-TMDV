@@ -1,0 +1,7 @@
+*.conf
+.tmdv-publish.conf
+*token*
+*.pem
+*.key
+.env
+.DS_Store
