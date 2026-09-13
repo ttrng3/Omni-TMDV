@@ -1,0 +1,613 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>TMDV Điều hành</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Playfair+Display:wght@600;700;800&display=swap">
+<style>
+:root{
+  --paper:#F4F3EC;--surface:#FBFAF6;--sunk:#EFEDE4;--card:#FFFFFF;
+  --ink:#191D19;--ink-soft:#43483F;--muted:#77766B;
+  --rule:#E3E1D6;--rule-soft:#EEEDE4;
+  --accent:#0E6B50;--accent-soft:#E7F1EB;--accent-line:#B7D5C7;--accent-deep:#0A4436;
+  --critical:#A8271A;--critical-soft:#F7ECE9;--critical-line:#E0B6AA;
+  --warning:#8A5A00;--warning-soft:#F6EFDD;--warning-line:#E2CF9F;
+  --shadow:0 1px 2px rgba(28,33,24,.05),0 8px 24px rgba(28,33,24,.06);
+  --shadow-sm:0 1px 2px rgba(28,33,24,.045),0 3px 8px rgba(28,33,24,.04);
+  --serif:"Playfair Display",Georgia,"Times New Roman",serif;
+  --sans:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:40px 30px 80px}
+h1,h2,h3,h4{margin:0;color:var(--ink);text-wrap:balance}
+h1{font-family:var(--serif);font-weight:800;font-size:37px;line-height:1.08;letter-spacing:-.01em}
+h2{font-family:var(--serif);font-weight:700;font-size:23px;line-height:1.2;margin-top:56px;padding-top:20px;border-top:1px solid var(--rule);display:flex;align-items:baseline;gap:14px}
+h2 .k{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--accent);font-style:italic;letter-spacing:0;line-height:1}
+h3{font-family:var(--sans);font-size:15px;font-weight:600;margin-top:20px;letter-spacing:-.01em}
+h4{font-family:var(--sans);font-size:14px;font-weight:600;letter-spacing:-.005em}
+p{margin:10px 0;max-width:70ch}
+.lead{font-size:15.5px;color:var(--ink-soft);max-width:74ch;line-height:1.62}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.hdr{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;padding-bottom:22px;border-bottom:2px solid var(--accent-deep)}
+.hdr h1{margin:10px 0 10px}
+.hdr .meta{font-family:var(--mono);font-size:11.5px;color:var(--muted);line-height:1.9;text-align:right}
+.num,.n{font-variant-numeric:tabular-nums}
+.tabs{display:flex;gap:4px;margin:26px 0 0;border-bottom:1px solid var(--rule);flex-wrap:wrap}
+.tab{appearance:none;background:none;border:0;border-bottom:2px solid transparent;padding:12px 18px 13px;font:inherit;font-weight:600;color:var(--muted);cursor:pointer;margin-bottom:-1px;transition:color .15s}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{color:var(--accent);border-bottom-color:var(--accent)}
+.tab:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+.tab .hint{display:block;font-weight:400;font-size:11.5px;color:var(--muted);margin-top:2px}
+.panel{padding-top:4px}
+.verdict{margin:32px 0 6px;padding:26px 30px;border:1px solid var(--rule);border-left:4px solid var(--accent);background:var(--card);border-radius:6px;box-shadow:var(--shadow)}
+.verdict h2{font-family:var(--serif);border:0;margin:0;padding:0;font-size:24px;line-height:1.28;font-weight:700;display:block}
+.verdict p{max-width:none;color:var(--ink-soft);margin:14px 0 0;font-size:14.5px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:26px}
+.kpi{padding:20px 20px 18px;background:var(--card);border:1px solid var(--rule);border-top:3px solid var(--accent-line);border-radius:6px;box-shadow:var(--shadow-sm)}
+.kpi .v{font-family:var(--serif);font-size:32px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.kpi .l{font-size:12.5px;color:var(--ink-soft);margin-top:10px;line-height:1.45}
+.kpi .s{font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-top:9px;line-height:1.6}
+.kpi.crit{border-top-color:var(--critical)}.kpi.crit .v{color:var(--critical)}
+.kpi.warn{border-top-color:var(--warning)}.kpi.warn .v{color:var(--warning)}
+.pv{font-family:var(--mono);font-size:9.5px;font-weight:500;padding:1px 4px;border-radius:2px;border:1px solid var(--rule);vertical-align:1px;white-space:nowrap;margin-left:3px;color:var(--muted)}
+.pv.v{color:var(--accent);border-color:var(--accent-line)}
+.pv.a{color:var(--warning);border-color:var(--warning-line)}
+.pv.l{color:var(--muted)}
+.provkey{display:flex;flex-wrap:wrap;gap:16px;margin-top:14px;font-size:11.5px;color:var(--muted)}
+.pillars{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:20px}
+.pil{border:1px solid var(--rule);background:var(--card);padding:20px 22px;border-radius:6px;box-shadow:var(--shadow-sm)}
+.pil .top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.pil h3{margin:0;font-size:14.5px;font-weight:600}
+.pil .tag{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.pil .big{font-family:var(--serif);font-size:27px;font-weight:800;font-variant-numeric:tabular-nums;margin-top:10px;letter-spacing:-.01em}
+.pil .big small{font-family:var(--mono);font-size:11px;color:var(--muted);font-weight:400;letter-spacing:0}
+.pil ul{margin:14px 0 0;padding-left:16px}
+.pil li{margin:7px 0;font-size:13px;color:var(--ink-soft)}
+.pil .fresh{font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:14px;padding-top:11px;border-top:1px solid var(--rule-soft)}
+.pil.crit{border-top:3px solid var(--critical)}.pil.warn{border-top:3px solid var(--warning)}.pil.ok{border-top:3px solid var(--accent)}
+.barrow{margin-top:18px}
+.barrow .lab{display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;color:var(--ink-soft)}
+.bar{display:flex;height:32px;border:1px solid var(--rule);border-radius:4px;overflow:hidden;box-shadow:var(--shadow-sm)}
+.seg{display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10.5px;color:var(--ink);overflow:hidden;border-right:1px solid #fff}
+.seg span{white-space:nowrap}
+.b-live{background:#0E6B50;color:#fff}.b-int{background:#D6DDD4}.b-signed{background:#AECFBF}.b-locked{background:#D3E4DA}.b-neg{background:#ECE3C4}.b-vac{background:#EFD8D2}
+.b-live span{color:#fff}
+.legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:13px;font-size:11.5px;color:var(--muted)}
+.lg{display:inline-flex;align-items:center;gap:6px}.sw{width:11px;height:11px;border:1px solid var(--rule);display:inline-block;border-radius:2px}
+.stages{display:grid;grid-template-columns:repeat(6,1fr);gap:11px;margin-top:16px}
+.stage{border:1px solid var(--rule);padding:13px 14px;background:var(--card);border-radius:5px;box-shadow:var(--shadow-sm)}
+.stage .t{font-weight:600;font-size:13px}
+.stage .d{font-size:11.5px;color:var(--muted);margin-top:4px;line-height:1.4}
+.stage .c{font-family:var(--mono);font-size:11.5px;margin-top:10px;color:var(--ink-soft);line-height:1.6}
+.stage.hi{border-color:var(--critical-line)}
+.tw{overflow-x:auto;margin-top:16px;border:1px solid var(--rule);border-radius:6px;box-shadow:var(--shadow-sm)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{padding:10px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--rule-soft)}
+th{background:var(--surface);font-weight:600;font-size:11px;color:var(--muted);white-space:nowrap;text-transform:uppercase;letter-spacing:.05em}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+.sub{font-size:11.5px;color:var(--muted);margin-top:3px}
+td.proj{white-space:nowrap;font-family:var(--mono);font-size:12px}
+td.risk{min-width:300px}
+.pill{display:inline-block;font-size:10.5px;font-weight:600;padding:2px 8px;border:1px solid var(--rule);border-radius:10px;white-space:nowrap}
+.st-crit{color:var(--critical);border-color:var(--critical-line);background:var(--critical-soft)}
+.st-warn{color:var(--warning);border-color:var(--warning-line);background:var(--warning-soft)}
+.st-ok{color:var(--accent);border-color:var(--accent-line);background:var(--accent-soft)}
+.st-neg{color:var(--ink-soft)}.st-info{color:var(--muted)}
+.dl-over{color:var(--critical);font-weight:600}
+.trend td.flat{color:var(--muted)}
+.xd{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+.xd .c{border:1px solid var(--rule);padding:20px 22px;border-radius:6px;background:var(--card);box-shadow:var(--shadow-sm)}
+.xd .c .money{font-family:var(--serif);font-size:23px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.xd .c .money small{font-family:var(--mono);font-size:11px;color:var(--muted);margin-left:8px;font-weight:400;letter-spacing:0}
+.xd .c h4{margin-top:10px;font-size:14.5px}
+.xd .c p{font-size:13px;max-width:none;color:var(--ink-soft);margin:8px 0 0}
+.owner{font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-top:12px}
+.sev{font-family:var(--mono);font-size:10.5px;font-weight:600}
+.sev.h{color:var(--critical)}.sev.m{color:var(--warning)}
+details.acc{border:1px solid var(--rule);margin-top:14px;background:var(--card);border-radius:6px;box-shadow:var(--shadow-sm)}
+details.acc summary{cursor:pointer;padding:15px 20px;font-weight:600;font-size:14px;list-style:none;display:flex;justify-content:space-between;gap:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+details.acc summary::-webkit-details-marker{display:none}
+details.acc summary .r{font-weight:400;color:var(--muted);font-size:11.5px;font-family:var(--mono)}
+details.acc summary::before{content:"+";font-family:var(--mono);color:var(--accent);margin-right:10px;font-weight:500}
+details.acc[open] summary::before{content:"\2013"}
+details.acc[open] summary{border-bottom:1px solid var(--rule-soft)}
+details.acc .body{padding:16px 20px 20px}
+details.acc .body .tw{border:1px solid var(--rule);box-shadow:none}
+.note{font-size:12px;color:var(--muted);margin-top:11px;max-width:80ch;line-height:1.65}
+.callout{border:1px solid var(--rule);border-left:4px solid var(--warning);padding:14px 18px;margin-top:16px;background:var(--surface);border-radius:5px}
+.callout.crit{border-left-color:var(--critical)}
+.callout.ok{border-left-color:var(--accent)}
+.callout p{max-width:none;margin:4px 0;font-size:13px}
+.tl{margin-top:20px;border-left:1px solid var(--rule);padding-left:0}
+.tlrow{display:grid;grid-template-columns:82px 14px 1fr;gap:12px;padding:11px 0;border-bottom:1px solid var(--rule-soft)}
+.tlrow:last-child{border-bottom:0}
+.tlrow .dt{font-family:var(--mono);font-size:11.5px;color:var(--muted);text-align:right;padding-right:4px}
+.tlrow .dot{width:9px;height:9px;border-radius:50%;margin-top:5px;margin-left:-5px;border:2px solid var(--card)}
+.tlrow .body{font-size:13px;color:var(--ink-soft)}
+.tlrow .body .cat{font-family:var(--mono);font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-left:8px}
+.d-legal{background:var(--critical)}.d-recover{background:#C2410C}.d-lease{background:var(--accent)}.d-otl{background:#2563A8}.d-policy{background:var(--muted)}.d-budget{background:var(--warning)}.d-land{background:#6D28A8}
+.tlkey{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px;font-size:11px;color:var(--muted)}
+.tlkey .lg .sw{border-radius:50%;width:9px;height:9px}
+.gov{display:grid;grid-template-columns:1fr;margin-top:16px;border:1px solid var(--rule);border-radius:6px;overflow:hidden;box-shadow:var(--shadow-sm);background:var(--card)}
+.govrow{display:grid;grid-template-columns:200px 96px 1fr;gap:14px;padding:14px 18px;border-bottom:1px solid var(--rule-soft);align-items:baseline}
+.govrow:last-child{border-bottom:0}
+.govrow .g-name{font-weight:600;font-size:13px}
+.govrow .g-txt{font-size:12.5px;color:var(--ink-soft)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:16px}
+.foot{margin-top:56px;padding-top:18px;border-top:2px solid var(--accent-deep);font-size:11.5px;color:var(--muted)}
+.foot p{max-width:none;line-height:1.7}
+@media (max-width:900px){.kpis{grid-template-columns:repeat(2,1fr)}.pillars,.xd,.two{grid-template-columns:1fr}.stages{grid-template-columns:repeat(3,1fr)}.hdr .meta{text-align:left}.govrow{grid-template-columns:1fr;gap:4px}}
+@media (max-width:560px){.kpis{grid-template-columns:1fr}.stages{grid-template-columns:1fr}.tlrow{grid-template-columns:66px 14px 1fr};h1{font-size:30px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{
+  body{background:#fff}
+  :root{--muted:#333;--ink-soft:#222;--paper:#fff;--shadow:none;--shadow-sm:none}
+  .verdict,.kpi,.pil,.stage,.tw,.xd .c,details.acc,.gov,.bar{box-shadow:none!important}
+  .tabs{display:none}
+  .panel[hidden]{display:block!important}
+  .kpi,.stage,.pil,.xd .c,details.acc,.callout,.verdict,.tlrow,.govrow,tr{break-inside:avoid}
+  .kpi,.stage,.pil,.xd .c,.callout,.verdict,th{background:#fff!important}
+  details.acc{border:1px solid #999}
+  details.acc summary::before{content:""}
+  .seg,.dot,.b-live,.b-int,.b-signed,.b-locked,.b-neg,.b-vac,.d-legal,.d-recover,.d-lease,.d-otl,.d-policy,.d-budget,.d-land{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  a{color:inherit;text-decoration:none}
+  .wrap{padding:0;max-width:none}
+}
+</style>
+
+<div class="wrap">
+<header class="hdr">
+  <div>
+    <div class="eyebrow">Ban Đầu tư · Thương mại dịch vụ · Phát triển cộng đồng — OMNI / DB Group</div>
+    <h1>TMDV Điều hành</h1>
+    <p class="lead">Hệ sinh thái ba trụ cột trên hai dự án — Eco Central Park (Vinh) &amp; Eco Retreat (Long An) · 128 căn thương mại · ~34 lô quỹ đất HTXH · phát triển cộng đồng</p>
+  </div>
+  <div class="meta">Kỳ dữ liệu: 12/09/2026 · làm mới tự động qua Google Drive (cloud) 12/09<br>Bản trình: 12/09/2026 · dành cho TGĐ · P.TGĐ Vận hành · Chủ tịch<br>Freshness nguồn: ECP_CT1 chào thuê 08/09 (không đổi) · ER_Bazaar 11/09 · ECP_CT1 Tiến độ khách 12/09 · Theo dõi ĐT đối tác 17/07<br>Mật: <span style="color:var(--critical)">restricted</span> — tên khách thuê, giá thuê, tranh chấp</div>
+</header>
+
+<div class="tabs" role="tablist" aria-label="Chế độ xem">
+  <button class="tab" role="tab" id="tab-exec" aria-selected="true" aria-controls="exec">Tổng quan điều hành<span class="hint">Bản ngắn — 3 phút đọc</span></button>
+  <button class="tab" role="tab" id="tab-ops" aria-selected="false" aria-controls="ops">Vận hành chi tiết<span class="hint">Từng căn · từng lô · pipeline</span></button>
+  <button class="tab" role="tab" id="tab-ctrl" aria-selected="false" aria-controls="ctrl">Dòng thời gian &amp; Kiểm soát<span class="hint">Lịch sử điều hành · độ tin dữ liệu</span></button>
+</div>
+
+<!-- ============================ TAB 1 : EXECUTIVE ============================ -->
+<section class="panel" id="exec" role="tabpanel" aria-labelledby="tab-exec">
+
+<div class="verdict">
+  <h2>Danh mục cho thuê thu được 16,0% tiềm năng ngân sách. Khối 6,94 tỷ đ/năm đã ký/đã chốt nhưng chưa ra tiền — gần gấp đôi doanh thu đang thu. Nút thắt là quyết định, không phải thiếu khách.</h2>
+  <p>Thu toàn danh mục không đổi so với bản 09/09 (16,0%). Chuyển động kỳ này ở khâu điều hành, không ở doanh thu: (1) công cụ thu hồi bắt đầu được áp — tờ trình 09/09 (Thanh→Hiền→Nghĩa) đề xuất thanh lý HĐ trước hạn + hoàn cọc cho 4 căn Eco Bazaar Long An đã thu hồi (K16, K23, K56, K59), tái cho thuê; (2) mâu thuẫn K56 được làm rõ — đúng là Công ty Văn Minh (KVC), đã thu hồi, đang tái cho thuê Sở Công Thương; (3) Song Cát chốt lịch họp 10h00 14/09 (online). Khối 9 căn Vinh ghi kép "khai trương" (739,34 m²) vẫn chưa kiểm chứng, chưa ghi nhận.</p>
+</div>
+
+<div class="kpis">
+  <div class="kpi crit"><div class="v n">16,0%</div><div class="l">Hiệu suất thu — cho thuê toàn danh mục</div><div class="s">3,69 / 23,09 tỷ đ/năm · không đổi vs 09/09 <span class="pv v" title="Tính lại từng căn 12/09: Vinh master 08/09 không đổi; LA ER_Bazaar 11/09">✓ĐC</span></div></div>
+  <div class="kpi warn"><div class="v n">6,94 tỷ</div><div class="l">Đã ký hoặc đã chốt, chưa ra tiền</div><div class="s">34 căn · dư địa số 1 <span class="pv l" title="Giữ từ bản 21/08; file chi tiết đang dịch chuyển">~</span></div></div>
+  <div class="kpi"><div class="v n">+1,78 tỷ</div><div class="l">Chuyển động 04/09–08/09 <em>chưa kiểm chứng</em></div><div class="s">9 căn ghi "khai trương" · chờ BQL xác nhận <span class="pv a" title="Trạng thái ghi kép, ô tổng chưa đổi">GĐ</span></div></div>
+  <div class="kpi crit"><div class="v n">1/34</div><div class="l">Quỹ đất HTXH đã ký đối tác</div><div class="s">1,8% · 11,73 ha · chỉ Edison (7-GD1) <span class="pv l" title="Theo dõi tiến độ đối tác + tờ trình">~</span></div></div>
+  <div class="kpi warn"><div class="v n">50–75 tỷ</div><div class="l">Capex TM-01 chờ một quyết định</div><div class="s">Central Retail · im lặng ~44 ngày <span class="pv l">~</span></div></div>
+  <div class="kpi crit"><div class="v n">~322 tỷ</div><div class="l">Ngân sách ĐT&amp;PTCĐ 2026 (đã trình)</div><div class="s">bản 21/08 ghi ~250 tỷ — lệch chưa hoà <span class="pv a">GĐ</span></div></div>
+</div>
+<div class="provkey">
+  <span><span class="pv v">✓ĐC</span> Đã đối chiếu — tính lại từ file nguồn kỳ này</span>
+  <span><span class="pv l">~</span> Khả năng — nguồn hiện hành, chưa tính lại độc lập</span>
+  <span><span class="pv a">GĐ</span> Giả định / chưa hoà — ghi rõ để không đọc nhầm là số thật</span>
+</div>
+
+<h2><span class="k">01</span>Hệ sinh thái TMDV — ba trụ cột, một trục kiểm soát</h2>
+<p class="lead">Một đội DB Group (Thanh · Đào · Hiền) chạy ba mảng xuyên hai dự án trên cùng một trục quản trị. Quyết định vốn lớn nhất nằm ở Trụ cột 2 — quỹ đất, không phải cho thuê.</p>
+<div class="pillars">
+  <div class="pil crit"><div class="top"><h3>Trụ cột 1 — Cho thuê TMDV</h3><span class="tag">128 căn · 2 dự án</span></div>
+    <div class="big">3,69 <small>/ 23,09 tỷ đ/năm · 16,0%</small> <span class="pv v">✓ĐC</span></div>
+    <ul>
+      <li>Vinh 62 căn: đang thu 0,56 tỷ (3,1%); trống 7,01 tỷ, 52% ở tầng 2–3 chưa từng chào</li>
+      <li>Long An 66 căn: đang thu 3,13 tỷ (60,9% — <em>38 căn theo file vs 27 căn theo BQL</em>)</li>
+      <li>6,94 tỷ đã ký/đã chốt chưa mở — tăng thu không cần thêm khách</li>
+    </ul>
+    <div class="fresh">Nguồn: ECP_CT1 (Google Sheet, sửa 08/09) · ER_Bazaar.xlsx (sửa 07/09)</div>
+  </div>
+  <div class="pil crit"><div class="top"><h3>Trụ cột 2 — Quỹ đất HTXH</h3><span class="tag">~34 lô · 11,73 ha</span></div>
+    <div class="big">1/34 <small>đã ký đối tác · 1,8%</small> <span class="pv l">~</span></div>
+    <ul>
+      <li>Đã ký: Edison (7-GD1, Long An). Vinh 0/10 lô</li>
+      <li>Vốn lớn treo: TM-01 Central Retail (11.253 m², capex 50–75 tỷ); nhà thể thao lô CC (12 tỷ, Vinh); 8 sân pickleball 5-GD1 (Long An)</li>
+      <li>Đối tác đang chạy: Edison, Bamboo (trường), Tâm Anh (y tế), CBRE &amp; Savills (tư vấn ĐT/thị trường). 18.369 m² đất Vinh quá hạn/không đơn vị vận hành</li>
+    </ul>
+    <div class="fresh">Nguồn: 2. ĐẦU TƯ HTXH (Edison/Bamboo/Y tế) · Theo dõi tiến độ đối tác.xlsx · hộp thư. Danh mục 34 lô đang hợp nhất — chưa có một cadastre sạch</div>
+  </div>
+  <div class="pil warn"><div class="top"><h3>Trụ cột 3 — Phát triển cộng đồng</h3><span class="tag">PTCĐ · hoạt động &amp; chi</span></div>
+    <div class="big">~322 tỷ <small>ngân sách ĐT&amp;PTCĐ 2026 (đã trình 03/04)</small> <span class="pv a">GĐ</span></div>
+    <ul>
+      <li>Chương trình: 8/3 "Hương Tháng Ba", Eco Joy Park (T4–5), đối tác activation AGDE</li>
+      <li>Vai trò chiến lược: tạo mật độ/traffic — chính "chờ cư dân đông hơn" là lý do từ chối lặp nhiều nhất ở cho thuê</li>
+      <li>Ngân sách chưa hoà: bản trình 03/04 ghi ~322 tỷ; bản dashboard 21/08 ghi ~250 tỷ</li>
+    </ul>
+    <div class="fresh">Nguồn: hộp thư (đề xuất ngân sách 03/04) · 2. Ngân sách. Trụ cột nhẹ theo phê duyệt D-1</div>
+  </div>
+  <div class="pil warn"><div class="top"><h3>Trục kiểm soát — KSNB/QTRR</h3><span class="tag">quản trị · báo cáo</span></div>
+    <div class="big">3 việc hở <small>công cụ có, chưa được áp</small> <span class="pv v">✓ĐC</span></div>
+    <ul>
+      <li>Báo cáo tuần: bản đầy đủ cuối là Tuần 3/T8 (21/08); Tuần 4 chỉ còn 2 PDF layout, không có deck</li>
+      <li>Quy trình thu hồi 4 bước (Pháp chế duyệt 19/06) — áp K56 ba lần, ~7 vụ Bazaar còn treo</li>
+      <li>SOP TMDV×BQL nộp 17/08, chờ chốt "ai chủ trì thanh lý gian hàng"; Mẫu HĐ đã khoá 27/05</li>
+    </ul>
+    <div class="fresh">Nguồn: 8. Báo cáo tuần · 3. Quy trình · hộp thư. Chi tiết ở tab Kiểm soát</div>
+  </div>
+</div>
+
+<h2><span class="k">02</span>Tiền đang ở đâu — bản đồ doanh thu cho thuê theo giá trị</h2>
+<p class="lead">Mỗi dải rộng theo <strong>tiền thuê/năm ngân sách</strong> (tỷ đ), không theo diện tích — Vinh giữ 60% diện tích nhưng ~78% giá trị. <span class="pv v">✓ĐC</span> tính lại từng căn 08/09; tổng khớp 23,09 tỷ.</p>
+<div class="barrow"><div class="lab"><span>Toàn danh mục · 23,09 tỷ đ/năm</span><span class="n">đang thu 3,69 tỷ (16,0%)</span></div><div class="bar"><div class="seg b-live" style="width:15.98%" title="Đang thu: 3,69 tỷ"><span>3.69</span></div><div class="seg b-int" style="width:2.25%" title="VP nội bộ: 0,52 tỷ"></div><div class="seg b-signed" style="width:16.15%" title="Đã ký HĐ, chưa mở: 3,73 tỷ"><span>3.73</span></div><div class="seg b-locked" style="width:14.54%" title="Đã chốt, chưa ký: 3,36 tỷ"><span>3.36</span></div><div class="seg b-neg" style="width:20.70%" title="Đang đàm phán: 4,78 tỷ"><span>4.78</span></div><div class="seg b-vac" style="width:30.36%" title="Trống: 7,01 tỷ"><span>7.01</span></div></div></div>
+<div class="barrow"><div class="lab"><span>Eco Central Park — Vinh · 17,96 tỷ đ/năm · 62 căn</span><span class="n">đang thu 0,56 tỷ (3,1%)</span></div><div class="bar"><div class="seg b-live" style="width:3.12%" title="Đang thu: 0,56 tỷ"></div><div class="seg b-int" style="width:1.22%" title="VP nội bộ: 0,22 tỷ"></div><div class="seg b-signed" style="width:16.98%" title="Đã ký HĐ, chưa mở: 3,05 tỷ"><span>3.05</span></div><div class="seg b-locked" style="width:15.76%" title="Đã chốt, chưa ký: 2,83 tỷ"><span>2.83</span></div><div class="seg b-neg" style="width:23.83%" title="Đang đàm phán: 4,28 tỷ"><span>4.28</span></div><div class="seg b-vac" style="width:39.03%" title="Trống: 7,01 tỷ"><span>7.01</span></div></div></div>
+<div class="barrow"><div class="lab"><span>Eco Retreat — Long An · 5,14 tỷ đ/năm · 66 căn</span><span class="n">đang thu 3,13 tỷ (60,9% — chưa kiểm chứng)</span></div><div class="bar"><div class="seg b-live" style="width:60.89%" title="Đang thu: 3,13 tỷ"><span>3.13</span></div><div class="seg b-int" style="width:5.84%" title="VP nội bộ: 0,30 tỷ"><span>0.30</span></div><div class="seg b-signed" style="width:13.31%" title="Đã ký HĐ, chưa mở: 0,68 tỷ"><span>0.68</span></div><div class="seg b-locked" style="width:10.24%" title="Đã chốt, chưa ký: 0,53 tỷ"><span>0.53</span></div><div class="seg b-neg" style="width:9.71%" title="Đang đàm phán: 0,50 tỷ"><span>0.50</span></div></div></div>
+<div class="legend"><span class="lg"><i class="sw b-live"></i>Đang thu tiền</span><span class="lg"><i class="sw b-int"></i>VP nội bộ (không thu)</span><span class="lg"><i class="sw b-signed"></i>Đã ký HĐ, chưa mở</span><span class="lg"><i class="sw b-locked"></i>Đã chốt, chưa ký</span><span class="lg"><i class="sw b-neg"></i>Đang đàm phán</span><span class="lg"><i class="sw b-vac"></i>Trống</span></div>
+<p class="note">Khối "đã ký/đã chốt chưa mở" = 6,94 tỷ đ/năm là chỗ duy nhất tăng thu không cần thêm khách; Long An đã hết m² trống. Giả định: doanh thu = đơn giá ngân sách × NLA, tỷ giá 27.000 đ/USD (GĐ), chưa trừ ưu đãi — trần lý thuyết, không phải dòng tiền.</p>
+
+<h2><span class="k">03</span>Năm quyết định thuộc cấp Ban lãnh đạo</h2>
+<p class="lead">Xếp theo giá trị tiền × mức khẩn. Mỗi thẻ là một quyết định có thể ra trong một cuộc họp; hồ sơ chi tiết ở tab Vận hành chi tiết và Dòng thời gian.</p>
+<div class="xd">
+  <div class="c"><div class="money n">5,88 tỷ/năm<small>Vinh · 14 căn · đã ký/đã chốt</small></div><h4>Ép mở cửa khối đã ký / đã chốt ở Vinh — đặt ngày khai trương cam kết cho từng căn</h4><p>Việc số 1 nhiều tuần liên tiếp. Crepes "thi công xong" từ 31/07, Hiếu Kiên Spa nhận MB 06/08, Siba 3 căn hẹn 09/08, Roxana 2 căn hẹn 10/08, Dino Billiards mốc 26/08 trôi không kết quả. Chuyển động 04–09/09 ở file (ACE home, Canifa) cần BQL xác nhận trước khi ghi nhận doanh thu.</p><div class="owner">Chủ trì: TMDV (Thanh) · BQLVH ECP · hạn báo lại 7 ngày</div></div>
+  <div class="c"><div class="money n">1,06 tỷ/năm<small>Long An · 16 căn · khách cầm MB ~300 ngày</small></div><h4>Long An: thu hồi hay ép mở — công cụ có, thiếu quyết định dùng</h4><p>Puro (6 căn), Lebon (4), Mỳ cay Seoul, Spa 135, LuluLala (4) đã nhận MB và không mở; 11/12 căn cọc cùng ngày 13/11/2025. Hạn "20/04 toàn bộ phải hoạt động" trôi hơn 4 tháng. Quy trình thu hồi 4 bước đã duyệt 19/06, áp K56 ba lần — chưa nhân rộng.</p><div class="owner">Chủ trì: P.TGĐ Vận hành · BQL ELA · Pháp chế</div></div>
+  <div class="c"><div class="money n">330 tr<small>Vinh · môi giới Song Cát · 76,6% doanh thu Vinh phụ thuộc</small></div><h4>Chốt hồ sơ thanh toán Song Cát — 09/09 CĐT gửi Song Cát dự thảo Phụ lục điều chỉnh</h4><p>09/09 CĐT gửi Song Cát dự thảo hồ sơ (Phụ lục điều chỉnh HĐ 001/HĐTV/2026/VL-ECP + Biên bản nghiệm thu + Bảng xác nhận khách thuê), chốt thanh toán theo lấp đầy thực Song Cát 4,93% (220,28/4.470,61 m²): Đợt 1 = 300 tr × 4,93% = 14,78 tr; lần 1 = 150 tr × (34,10% lấp đầy)×(4,93%/10%) = 73,91 tr → tổng <strong>~88,69 tr</strong> thay cho 450 tr danh nghĩa. Song Cát rà soát &amp; hoàn thiện để thanh toán. <strong>12/09: chốt lịch họp trực tuyến 10h00 thứ Hai 14/09</strong> để thống nhất Phụ lục. Song Cát mang về 220,28 m² đang thu — đội tự chào không thêm m² nào nhiều tuần.</p><div class="owner">Chủ trì: GĐ Khối ĐT&amp;TMDV · Pháp chế · Kế toán thuế</div></div>
+  <div class="c"><div class="money n">1,2 tỷ/năm<small>Long An · Everyhalf · hết hạn 31/08</small></div><h4>Everyhalf giai đoạn 2: trần bù lỗ + KPI traffic, hoặc dừng và chào lại Sale Gallery</h4><p>HĐ hết hạn 31/08; không quyết thì trôi sang GĐ2 ở mức bù doanh thu 100 tr/tháng, không trần, không KPI. Everyhalf im lặng nhiều tuần — im lặng có lợi cho họ vì mặc định nghiêng về phía họ. Ngày hết hạn là đòn bẩy duy nhất trong năm, đã trôi 12 ngày tính đến bản trình.</p><div class="owner">Chủ trì: TMDV (Thanh) · cần chữ ký cấp TGĐ</div></div>
+  <div class="c" style="grid-column:1 / -1"><div class="money n">11.253 m² · capex 50–75 tỷ<small>Vinh · TM-01 · Central Retail · im lặng ~44 ngày</small></div><h4>Trả lời Central Retail về TM-01 và quyết bài toán quỹ đất — cấp TGĐ/HĐQT</h4><p>Ba việc treo, cả ba thuộc trách nhiệm Ecopark: bản chào ngược 28/07 chưa phản hồi; bản vẽ hạ tầng 1/500 chưa gửi; câu hỏi điều chỉnh cục bộ quy hoạch (MĐXD &lt;45%, 1 tầng) lên tỉnh Nghệ An chưa ai trả lời. Đây là đối tác quỹ đất có tiến triển thật; hơn một tháng im lặng là ngưỡng một đối tác cỡ CRV thường đọc là từ chối. Cùng lúc, nhà thể thao lô CC (12 tỷ, Vinh) và 8 sân pickleball 5-GD1 (Long An) đang xin duyệt riêng rẽ — cần một quyết định danh mục thay vì hai. CBRE đang tham gia tư vấn đầu tư (từ 21/05); nên khai thác trước khi khoá phương án.</p><div class="owner">Chủ trì: TGĐ OMNI · P.TGĐ Vận hành · QHTK · KSNB/QTRR theo dõi</div></div>
+</div>
+
+<h2><span class="k">04</span>Bản đồ rủi ro — đọc trước khi tin số</h2>
+<div class="tw"><table>
+<thead><tr><th>Rủi ro</th><th>Mức</th><th>Tác động</th><th>Tín hiệu kích hoạt (tripwire)</th></tr></thead>
+<tbody>
+<tr><td>File nguồn động đậy nhưng ghi trạng thái kép ("Tiếp cận khách, Đã khai trương") 04–07/09; ô tổng chưa đổi</td><td><span class="sev h">CAO</span></td><td>Không phân biệt được mở cửa thật với lỗi nhập; nếu tin nhầm, danh mục đọc 23,7% thay vì 16,0%</td><td>BQL xác nhận từng mã căn ACE home/Canifa/Waynes/Eco-shop đã kinh doanh thật, có ngày khai trương &amp; tháng thu đầu</td></tr>
+<tr><td>Long An "60,9%" có thể sai — file 38 căn khai trương vs BQL 27 căn hoạt động</td><td><span class="sev h">CAO</span></td><td>Chênh tối đa 11 căn ≈ 0,9 tỷ đ/năm; mọi so sánh Vinh–Long An lệch</td><td>BQL ELA xác nhận danh sách căn thực kinh doanh tại 08/09, đối chiếu từng mã căn</td></tr>
+<tr><td>K56 — <strong>đã hoà giải (tờ trình 09/09)</strong>: đúng là Cty Văn Minh (làm VP setup KVC), đã thu hồi MB; file cập nhật "Đã chốt · Sở Công Thương"</td><td><span class="sev m">ĐANG ĐÓNG</span></td><td>Mâu thuẫn file↔BQL đã khép; còn theo dõi Sở Công Thương nhận MB T9/2026 &amp; hoàn cọc 24,48 tr sau cấn trừ</td><td>BQL xác nhận Sở Công Thương nhận MB &amp; tháng thu đầu; tờ trình 09/09 được Ban LĐ phê duyệt</td></tr>
+<tr><td>Tiền lệ chính sách: 16 HĐ Bazaar thuê 18 tháng = miễn 18 tháng (0 tháng thu ròng); phí QL 14.000/căn chưa có tờ trình</td><td><span class="sev h">CAO</span></td><td>Hở sườn kiểm toán; đòn bẩy cho khách đàm phán lại; mọi deal sau so bì</td><td>Bất kỳ HĐ nào ký trên Mẫu chưa khoá hoặc mức phí chưa phê duyệt</td></tr>
+<tr><td>Pháp lý: P1_0109/Lụa (CĐT đơn phương dừng OTL đã ký — Điều 302–305 LTM 2005); GOFRESH đã đầu tư ~600 tr, treo thu hồi 11 tuần</td><td><span class="sev h">CAO</span></td><td>Tiền lệ áp cho mọi OTL còn hiệu lực; thu hồi khách đã đầu tư sau im lặng dài = rủi ro kiện</td><td>Pháp chế chốt trần bồi thường; rà toàn bộ OTL còn hiệu lực</td></tr>
+<tr><td>Ngân sách 2026 chưa hoà: bản trình 03/04 ~322 tỷ vs dashboard 21/08 ~250 tỷ</td><td><span class="sev m">TRUNG BÌNH</span></td><td>Mọi tỷ lệ "hiệu suất trên ngân sách" phụ thuộc mẫu số chưa chốt</td><td>Kế toán/BKH xác nhận con số ngân sách ĐT&amp;PTCĐ 2026 đã duyệt</td></tr>
+</tbody></table></div>
+<div class="callout ok"><p><strong>Khác biệt so với bản 09/09.</strong> Làm mới cloud 12/09: thu toàn danh mục giữ nguyên <strong>16,0%</strong> — tính lại từng căn (Vinh master không đổi 08/09: 6.522,96 m²/17,96 tỷ; Long An ER_Bazaar sửa 11/09: 4.279,71 m²/5,14 tỷ, đang thu 3,13 tỷ/60,9% không đổi). Chuyển động: (1) <strong>tờ trình 09/09 thu hồi 4 căn Eco Bazaar</strong> (K16·K23·K56·K59) — công cụ thu hồi bắt đầu được áp; (2) <strong>K56 hết mâu thuẫn</strong> — Cty Văn Minh đã thu hồi, tái cho thuê Sở Công Thương; K56 &amp; K59 chuyển đàm phán → đã chốt (LA đã chốt 4→6 căn, đàm phán 8→6); (3) Song Cát chốt lịch họp 14/09. Khối 9 căn Vinh "khai trương" chưa kiểm chứng (739,34 m²) vẫn treo.</p></div>
+</section>
+
+<!-- ============================ TAB 2 : OPERATIONS ============================ -->
+<section class="panel" id="ops" role="tabpanel" aria-labelledby="tab-ops" hidden>
+
+<h2 style="border:0;margin-top:20px;padding-top:0"><span class="k">A</span>Quy trình một căn — số căn ở mỗi bước (128 căn)</h2>
+<div class="stages">
+  <div class="stage"><div class="t">Trống</div><div class="d">chưa có khách / đã rơi về</div><div class="c">Vinh 27 · 7,01 tỷ<br>Long An 0</div></div>
+  <div class="stage"><div class="t">Đang đàm phán</div><div class="d">đã đi site / bàn mô hình</div><div class="c">Vinh 16 · 4,28 tỷ<br>Long An 6 · 0,50 tỷ</div></div>
+  <div class="stage hi"><div class="t">Đã chốt, chưa ký</div><div class="d">chốt MB, HĐ chưa ký (OTL ≠ HĐ)</div><div class="c">Vinh 4 · 2,83 tỷ<br>Long An 6 · 0,53 tỷ</div></div>
+  <div class="stage hi"><div class="t">Đã ký HĐ, chưa mở</div><div class="d">bàn giao / thi công / chờ mở</div><div class="c">Vinh 10 · 3,05 tỷ<br>Long An 12 · 0,68 tỷ</div></div>
+  <div class="stage"><div class="t">Khai trương, đang thu</div><div class="d">phát sinh doanh thu theo HĐ</div><div class="c">Vinh 3 · 0,56 tỷ<br>Long An 38 (BQL 27?) · 3,13 tỷ</div></div>
+  <div class="stage"><div class="t">VP nội bộ</div><div class="d">BQL/BKD dùng, không thu</div><div class="c">Vinh 2 · 0,22 tỷ<br>Long An 4 · 0,30 tỷ</div></div>
+</div>
+<p class="note">Kiểm soát tại từng bước: (1) hồ sơ vào từ BKD kèm tờ trình đã duyệt, không phải email; (2) OTL và HĐ ghi trạng thái riêng; (3) mọi HĐ đối chiếu chính sách "thời hạn = miễn phí + tối thiểu 12 tháng" &amp; Mẫu HĐ TMDV (khoá 27/05) trước trình ký; (4) khai trương chỉ ghi khi BQL xác nhận kinh doanh thật.</p>
+
+<h2><span class="k">B</span>Eco Central Park — Vinh · 62 căn · 6.522,96 m²</h2>
+<p>F&amp;B là toàn bộ câu chuyện của Vinh: 2.266,97 m² tầng 1 @ 14 $/m² = phần lớn giá trị. <span class="pv v">✓ĐC</span> Đối chiếu 08/09: ô tổng "đã khai trương" 287,41 m² không đổi từ 21/08; dòng chi tiết xuất hiện mục 04–07/09 ghi kép (mục C dưới).</p>
+
+<details class="acc"><summary>Đã cam kết — 19 căn · 555 tr/tháng<span class="r">khai trương 3 · nội bộ 2 · đã ký 10 · đã chốt 4</span></summary><div class="body">
+<div class="tw"><table>
+<thead><tr><th>Căn</th><th>Thương hiệu</th><th>Ngành</th><th class="num">NLA m²</th><th class="num">$/m²</th><th>Trạng thái</th><th>Ghi chú (file 08/09)</th></tr></thead>
+<tbody>
+<tr><td>P1_0110</td><td>Green Garden</td><td>Siêu thị</td><td class="num">67,13</td><td class="num">6</td><td>Khai trương</td><td>HKD chưa xuất được hoá đơn để thanh toán đợt 3</td></tr>
+<tr><td>P3_0101 · P3_0103</td><td>WinMart+</td><td>Siêu thị</td><td class="num">220,28</td><td class="num">6</td><td>Khai trương</td><td>Song Cát follow — 76,6% doanh thu Vinh</td></tr>
+<tr><td>P3_0201 · P3_0301</td><td>BQL</td><td>Văn phòng</td><td class="num">231,10</td><td class="num">3</td><td>Nội bộ</td><td>Không phát sinh doanh thu</td></tr>
+<tr><td>P3_0109A</td><td>Nhà hàng Nhật</td><td>F&amp;B</td><td class="num">107,47</td><td class="num">14</td><td>Đã ký HĐ</td><td>Ký &amp; nhận MB 15/08</td></tr>
+<tr><td>P3_0121</td><td>Crepes</td><td>F&amp;B</td><td class="num">127,33</td><td class="num">14</td><td>Đã ký HĐ</td><td>"Thi công xong, vận hành được" từ 31/07 — chưa khai trương. Miễn phí 10 năm</td></tr>
+<tr><td>P2_0111</td><td>Hiếu Kiên Spa</td><td>Dịch vụ</td><td class="num">109,32</td><td class="num">14*</td><td>Đã ký HĐ</td><td>Nhận MB 06/08 — chưa mở. Ô đơn giá trống trong file</td></tr>
+<tr><td>P3_0102·0106A·0106</td><td>Siba</td><td>Siêu thị</td><td class="num">309,81</td><td class="num">6</td><td>Đã ký HĐ</td><td>Bàn giao 09/08 — quá hạn. "Đang thiết kế, chậm thi công"</td></tr>
+<tr><td>P2_0105A·0105</td><td>Roxana</td><td>Nội thất</td><td class="num">234,50</td><td class="num">5</td><td>Đã ký HĐ</td><td>Bàn giao 10/08, đã cọc — quá hạn</td></tr>
+<tr><td>P3_0216·0218</td><td>Dino Billiards</td><td>Giải trí</td><td class="num">196,58</td><td class="num">8</td><td>Đã ký HĐ</td><td>Cọc 15/07, đang làm HĐ — cụm 42,5 tr/tháng</td></tr>
+<tr><td>P3_0119</td><td>Bonchon</td><td>F&amp;B</td><td class="num">166,72</td><td class="num">14</td><td>Đã chốt</td><td>"Đang làm hợp đồng" — không đổi nhiều kỳ</td></tr>
+<tr><td>P3_0118·0120·0122</td><td>Daddy Cool</td><td>F&amp;B</td><td class="num">456,44</td><td class="num">14</td><td>Đã chốt</td><td>Cụm 172,5 tr/tháng — khách lớn nhất danh mục; "đang trình chính sách hợp tác"</td></tr>
+</tbody></table></div>
+<p class="note">* Ô đơn giá P2_0111 trống trong file; dùng 14 $/m² theo bảng master ngành hàng (F&amp;B). Nếu thấp hơn, khối "đã ký" Vinh cao tối đa ~0,44 tỷ đ/năm.</p>
+</div></details>
+
+<details class="acc"><summary>Đang đàm phán — 16 căn · 357 tr/tháng<span class="r">phễu treo trên 3 quyết định</span></summary><div class="body">
+<div class="tw"><table>
+<thead><tr><th>Căn</th><th>Khách đang theo</th><th>Ngành</th><th class="num">NLA m²</th><th>Ghi chú</th></tr></thead>
+<tbody>
+<tr><td>P1_0103·P1_0105·P1_0105A</td><td>Every PM / Starbucks / Jollibee</td><td>Gia dụng/GD</td><td class="num">360,06</td><td>3 căn phụ thuộc một quyết định của Every PM (bàn với cổ đông); 08/09 file ghi P1_0105A "khai trương" (chưa kiểm chứng — mục C)</td></tr>
+<tr><td>P2_0106·0108·0108A·0109·0110</td><td>DIY / KKV → ACE home</td><td>Gia dụng</td><td class="num">384,60</td><td>Song Cát follow; 04/09 file ghi ACE home "khai trương" (chưa kiểm chứng — mục C)</td></tr>
+<tr><td>P3_0110·0112·0116A·0116</td><td>Phê La / Pizza 4P</td><td>F&amp;B</td><td class="num">416,87</td><td>Cả hai ưu tiên đi site nơi khác trước</td></tr>
+<tr><td>P3_0108</td><td>Pizza 4P / Hai Thành</td><td>F&amp;B</td><td class="num">107,47</td><td>Poseidon đã rút khỏi Vinh</td></tr>
+<tr><td>P1_0102·P2_0102</td><td>Canifa / Hasaki / Chanh</td><td>Thời trang</td><td class="num">179,04</td><td>07/09 file ghi Canifa "khai trương" (chưa kiểm chứng — mục C)</td></tr>
+<tr><td>P3_0205·P3_0219A</td><td>(chưa ghi tên)</td><td>Gym/Tiêm chủng</td><td class="num">184,00</td><td>CĐT follow · không có ghi chú</td></tr>
+</tbody></table></div>
+<p class="note">~1.269 m² (≈19,5% diện tích Vinh) treo trên đúng ba quyết định (Pizza 4P, DIY/ACE, Every PM). Nếu cả ba nói không, căn trống Vinh nhảy từ 27 lên 40.</p>
+</div></details>
+
+<details class="acc"><summary>Trống — 27 căn · 584 tr/tháng<span class="r">52% ở tầng 2–3, chưa từng chào thật</span></summary><div class="body">
+<p class="note">Nhóm lớn nhất: 14 căn tầng 2–3 (spa/wellness · giáo dục · gym · tiêm chủng, 1.440,67 m²) chưa có một dòng khách nào — nằm hoàn toàn trong tầm tay TMDV tự quyết. Nhóm còn lại vướng "chờ cư dân đông hơn" (Bébita, Chip Chip, Pharmacity) — vấn đề mật độ dân cư, thuộc Trụ cột 3, không phải chào thuê. Căn P3_0119A (162,39 m², lớn nhất còn trống) đang tranh chấp Lụa/TMDV-P10109, kẹt Pháp chế.</p>
+</div></details>
+
+<h2><span class="k">C</span>Chuyển động Vinh "khai trương" — vẫn chưa kiểm chứng tại 12/09</h2>
+<p class="lead">Dòng chi tiết file Vinh xuất hiện các mục "Đã khai trương" tháng 9, nhưng trạng thái ghi kép và ô tổng chưa đổi. Ghi nhận doanh thu chỉ sau khi BQL xác nhận từng mã căn.</p>
+<div class="tw"><table>
+<thead><tr><th>Ngày (file)</th><th>Khách</th><th>Căn</th><th class="num">NLA m²</th><th class="num">Nếu đúng: tỷ đ/năm</th><th>Vì sao chưa tính</th></tr></thead>
+<tbody>
+<tr><td>04/09</td><td>ACE home (qua Song Cát)</td><td>P2_0106·0108·0108A·0109·0110</td><td class="num">384,60</td><td class="num">0,623</td><td>Trạng thái "Tiếp cận khách, Đã khai trương" — mâu thuẫn</td></tr>
+<tr><td>07/09</td><td>Canifa (qua Song Cát)</td><td>P1_0102·P2_0102</td><td class="num">179,04</td><td class="num">0,870</td><td>Cùng lỗi ghi kép; trước đó là "đàm phán/trống"</td></tr>
+<tr><td>05/08</td><td>Waynes Coffee</td><td>P1_0109</td><td class="num">55,30</td><td class="num">0,090</td><td>Cùng căn Phúc Long đã từ chối; ghi kép</td></tr>
+<tr><td>08/09*</td><td>Eco-shop (Malaysia)</td><td>P1_0105A</td><td class="num">120,40</td><td class="num">0,195</td><td>Mới ở kỳ 08/09; KH "tiếp cận", muốn ≥400 m², dự mở "trong 1 năm nữa" → khai trương là bất hợp lý, gần như chắc lỗi nhập</td></tr>
+<tr><td colspan="3"><strong>Tổng nếu xác nhận</strong></td><td class="num">739,34</td><td class="num">1,778</td><td>Sẽ nâng Vinh đang thu 0,56 → ~2,34 tỷ; danh mục 16,0% → ~23,7%</td></tr>
+</tbody></table></div>
+
+<h2><span class="k">D</span>Eco Retreat — Long An · 66 căn · 4.279,71 m² (Eco Bazaar)</h2>
+<p>Đơn giá đồng loạt 100.000 đ/m²/tháng (trừ K41 Spa 135 ở 80.000, −20%). File ER_Bazaar sửa 11/09: <strong>đang thu không đổi 38 căn / 3,13 tỷ (60,9%)</strong>; thay đổi là K56 &amp; K59 chuyển đàm phán → đã chốt (là 2 căn đã thu hồi, tái cho thuê theo tờ trình 09/09) → đã chốt 4→6 căn, đàm phán 8→6. Toàn bộ dư địa nằm ở căn KDTM do TMDV tự chào — trong phạm vi TMDV tự quyết. <span class="pv v">✓ĐC</span> tính lại từng căn 11/09; khớp ô tổng của file.</p>
+<details class="acc"><summary>Đã ký HĐ, chưa mở — 12 căn · 57 tr/tháng<span class="r">11/12 cọc cùng ngày 13/11/2025</span></summary><div class="body">
+<div class="tw"><table>
+<thead><tr><th>Căn</th><th>Thương hiệu</th><th class="num">NLA m²</th><th class="num">Thuê đ/m²</th><th>Ghi chú</th></tr></thead>
+<tbody>
+<tr><td>K8·K9·K10·K11·K43·K44</td><td>Puro</td><td class="num">264,04</td><td class="num">100.000</td><td>Cọc 13/11/2025 — hơn 9 tháng chưa mở</td></tr>
+<tr><td>K20·K21·K53·K54</td><td>Lebon</td><td class="num">183,08</td><td class="num">100.000</td><td>Cọc 13/11/2025</td></tr>
+<tr><td>K22</td><td>Mỳ cay Seoul</td><td class="num">40,80</td><td class="num">100.000</td><td>Cọc 13/11/2025</td></tr>
+<tr><td>K41</td><td>Spa 135</td><td class="num">81,60</td><td class="num">80.000</td><td>Cọc 14/07/2026 · −20% dưới ngân sách</td></tr>
+</tbody></table></div>
+<p class="note">487,92 m² Puro/Lebon @100.000 = 48,8 tr/tháng đang mất; hạn "20/04 toàn bộ hoạt động" trôi hơn 4 tháng không chế tài. Đây là nơi công cụ thu hồi cần được áp.</p>
+</div></details>
+<details class="acc"><summary>Đã chốt (6 căn) &amp; đang đàm phán (6 căn)<span class="r">K56 đã rõ — thu hồi &amp; tái cho thuê</span></summary><div class="body">
+<div class="tw"><table>
+<thead><tr><th>Căn</th><th>Khách</th><th class="num">NLA m²</th><th>Trạng thái</th><th>Ghi chú</th></tr></thead>
+<tbody>
+<tr><td>K2·K3·K37·K38</td><td>LuluLala (nội thất)</td><td class="num">315,98</td><td>Đã chốt</td><td>Khách lớn nhất LA theo diện tích; ô tiền thuê trống; hồ sơ nội bộ "đề xuất đổi vị trí"</td></tr>
+<tr><td>K1·K36·K66</td><td>Beer Bar / GS 25</td><td class="num">228,39</td><td>Đàm phán</td><td>"Cửa hàng phải đạt 20tr/ngày ⇒ cư dân ít" — không đổi 6 kỳ</td></tr>
+<tr><td>K16</td><td>Cơm Nhật / Cơm Síu Lập (đang chào)</td><td class="num">105,60</td><td>Thu hồi → tái chào</td><td>Đã thu hồi MB (Kingfood không vào, tờ trình 09/09); đang chào Cơm Nhật, Cơm Síu Lập</td></tr>
+<tr><td>K56</td><td>Sở Công Thương (thu hồi từ Cty Văn Minh)</td><td class="num">81,60</td><td>Đã chốt</td><td><strong>Đã rõ (tờ trình 09/09):</strong> Cty Văn Minh làm VP setup KVC, không KD → đã thu hồi MB (cọc 24,48 tr); Sở Công Thương nhận MB T9/2026. Mâu thuẫn file↔BQL trước đây được hoà</td></tr>
+<tr><td>K59</td><td>Coffee &amp; Music</td><td class="num">40,80</td><td>Đã chốt</td><td>Đã thu hồi MB (cọc 12,24 tr, tờ trình 09/09) → chốt khách mới</td></tr>
+<tr><td>K23 · K55</td><td>K23 (đang chào) · Midora Cafe (K55)</td><td class="num">81,60</td><td>Thu hồi / đàm phán</td><td>K23 đã thu hồi MB (cọc 12,24 tr, tờ trình 09/09), đang chào Ẩm Thực Hương Lúa / Gà rán Five Star; K55 Midora đàm phán</td></tr>
+</tbody></table></div>
+</div></details>
+
+<h2><span class="k">E</span>Trụ cột 2 — Quỹ đất HTXH · 11,73 ha · ~34 lô</h2>
+<p>Hai dự án có 11,73 ha đất giáo dục, y tế, văn hoá, thương mại phải bàn giao kèm nhà cho cư dân. Đúng một lô đã ký — Edison (7-GD1, 0,21 ha, 1.831 chỗ, tuyển sinh T2/2027) = 1,8%. Vinh 0/10 lô có đối tác; 3.599 chỗ học đã quy hoạch chưa có đơn vị ký vận hành. Hai lô có diễn biến thật nhất (TM-01 với CRV; lô CC nhà thể thao 12 tỷ) <strong>không nằm trong file quản lý quỹ đất</strong> — hồ sơ điều hành lệch thực tế ở đúng hai lô quan trọng nhất. Đối tác đang chạy: Edison, Baboo, Tâm Anh (y tế), Dragonfly/Inschool, CBRE &amp; Savills (tư vấn ĐT/thị trường).</p>
+<div class="two">
+<div class="callout crit"><p><strong>TM-01 / Central Retail — im lặng từ 30/07 (~44 ngày).</strong> Lô thương mại 11.253,4 m², lớn nhất hai dự án. Ba việc treo thuộc Ecopark: bản chào ngược 30/07 chưa phản hồi; câu hỏi 29/07 về điều chỉnh cục bộ quy hoạch (giảm MĐXD dưới 45%, chỉ 1 tầng) chưa ai trả lời — phải lên tỉnh Nghệ An; 4 nhóm bản vẽ hạ tầng 1/500 còn nợ. CRV không thể chốt capex 50–75 tỷ khi chưa biết được xây mấy tầng. Chi tiết đàm phán ở hồ sơ CRV TM-01 riêng.</p></div>
+<div class="callout"><p><strong>Lô CC Vinh (4.811,8 m²) — nhà thể thao capex ~12 tỷ.</strong> QHTK có thiết kế hoàn chỉnh 16/07; BQLVH ECP nộp kế hoạch vận hành đúng hạn 14/08; chờ duyệt thi công trong khi hạn bàn giao lô CC là T8/2026. Cùng mô hình đang xin duyệt ở Long An (8 sân pickleball, 5-GD1) — hai hồ sơ, hai luồng, không bản so sánh, không P&amp;L chung.</p></div>
+</div>
+
+<details class="acc"><summary>Long An · 24 lô · 7,13 ha — theo trạng thái đối tác<span class="r">1 đã ký · 2 lập P&amp;L · 2 đàm phán · 4 chưa có · 15 tự vận hành</span></summary><div class="body">
+<div class="tw"><table>
+<thead><tr><th>Lô</th><th>Hạng mục</th><th class="num">ha</th><th>Đối tác dài hạn</th><th>Trạng thái</th><th>Khai thác tạm</th></tr></thead>
+<tbody>
+<tr><td>7-GD1</td><td>Liên cấp TH–THCS–THPT · 1.831 chỗ</td><td class="num">0,21</td><td>Edison</td><td><span class="pill st-ok">Đã ký · đang xây</span></td><td>—</td></tr>
+<tr><td>1-GD1</td><td>Liên cấp TH–THCS · 760 chỗ</td><td class="num">0,91</td><td>Baboo</td><td>Đối tác lập P&amp;L (hứa ký T5, T6 — trôi)</td><td>—</td></tr>
+<tr><td>3-GD1</td><td>Mầm non · 241 chỗ</td><td class="num">0,29</td><td>Baboo</td><td>Đối tác lập P&amp;L</td><td>TMDV từng đề xuất, chưa vào PA</td></tr>
+<tr><td>5-GD1</td><td>Liên cấp TH–THCS · 1.400 chỗ</td><td class="num">1,68</td><td>Trường người Hoa &amp; Dragonfly</td><td>Đàm phán</td><td>8 sân Pickleball</td></tr>
+<tr><td>1-YT1</td><td>Y tế</td><td class="num">0,32</td><td>Tâm Anh</td><td>Đàm phán từ đầu năm, chưa triển khai</td><td>VP bàn giao PK1/PK3</td></tr>
+<tr><td>4-GD1</td><td>Mầm non · 288 chỗ</td><td class="num">0,35</td><td>—</td><td>Chưa có · quá hạn 30/6</td><td>TT đào tạo nội bộ</td></tr>
+<tr><td>5-GD2</td><td>Mầm non · 359 chỗ</td><td class="num">0,43</td><td>—</td><td>Chưa có</td><td>—</td></tr>
+<tr><td>7-GD2</td><td>Mầm non · 551 chỗ</td><td class="num">0,70</td><td>—</td><td>Chưa có</td><td>—</td></tr>
+<tr><td>5-YT1</td><td>Y tế</td><td class="num">0,16</td><td>—</td><td>Chưa có</td><td>—</td></tr>
+<tr><td>15 lô CĐT tự vận hành</td><td>DV, VH, TM</td><td class="num">2,08</td><td>Nội bộ</td><td>Tự vận hành</td><td>—</td></tr>
+</tbody></table></div>
+<h4 style="margin-top:14px">Khai thác tạm 3 lô · 2,35 ha — tờ trình treo từ 22/06</h4>
+<div class="tw"><table>
+<thead><tr><th>Lô</th><th class="num">ha</th><th>Công năng tạm</th><th class="num">Capex thiết bị</th><th>Đối tác dài hạn song song</th></tr></thead>
+<tbody>
+<tr><td>1-YT1</td><td class="num">0,32</td><td>TT vận hành &amp; phục vụ bàn giao PK1/PK3</td><td class="num">50,26 tr</td><td>Tâm Anh · đàm phán</td></tr>
+<tr><td>4-GD1</td><td class="num">0,35</td><td>Nhà văn hoá &amp; TT đào tạo nội bộ (50 chỗ)</td><td class="num">60,12 tr</td><td>Chưa có · quá hạn 30/6</td></tr>
+<tr><td>5-GD1</td><td class="num">1,68</td><td>08 sân Pickleball trong nhà + khán đài</td><td class="num">chưa có</td><td>Trường người Hoa &amp; Dragonfly · đàm phán</td></tr>
+<tr><td><strong>Tổng</strong></td><td class="num">2,35</td><td>33% quỹ đất Long An</td><td class="num">110,39 tr</td><td></td></tr>
+</tbody></table></div>
+<p class="note">Ba lỗ hổng để duyệt được: (1) capex xây dựng chưa lượng hoá — 110 tr chỉ là thiết bị; nếu nhà đa năng 5-GD1 cùng cấp nhà thể thao lô CC (~12 tỷ), chi phí thật lớn hơn phần đã trình khoảng 100 lần; (2) opex 12–24 tháng chưa có dù tờ trình nói "tự trang trải"; (3) chưa có tiêu chí thoát khi đối tác dài hạn vào.</p>
+</div></details>
+
+<details class="acc"><summary>Vinh · 10 lô · 4,60 ha — file không ghi lô nào có đối tác<span class="r">18.369,4 m² (40%) quá hạn hoặc bàn giao mà chưa có đơn vị vận hành</span></summary><div class="body">
+<div class="tw"><table>
+<thead><tr><th>Lô</th><th>Hạng mục</th><th class="num">m²</th><th>Bàn giao cho KH</th><th>Đối tác / diễn biến</th></tr></thead>
+<tbody>
+<tr><td>TM-01</td><td>Đất thương mại</td><td class="num">11.253,4</td><td>Khu đất độc lập</td><td>CRV — im lặng từ 30/07 (không có trong file quỹ đất)</td></tr>
+<tr><td>CC</td><td>Đất HTXH</td><td class="num">4.811,8</td><td>T8/2026 — đến hạn</td><td>Nhà thể thao 12 tỷ · chờ duyệt (không có trong file quỹ đất)</td></tr>
+<tr><td>GD-02</td><td>Trường mầm non</td><td class="num">4.581,4</td><td>Đã bàn giao</td><td>Chưa có</td></tr>
+<tr><td>GD-03</td><td>Trường mầm non</td><td class="num">5.762,2</td><td>Đã bàn giao</td><td>Chưa có</td></tr>
+<tr><td>CC-03</td><td>Đất HTXH</td><td class="num">5.411,8</td><td>T5/2026 — trễ</td><td>Chưa có</td></tr>
+<tr><td>GD-04</td><td>Trường mầm non</td><td class="num">2.614,0</td><td>T5/2026 — trễ</td><td>Chưa có</td></tr>
+<tr><td>GD-01 · TM-02 · CC-02 · GD-02(DA2)</td><td>MN / TM / HTXH</td><td class="num">11.531,1</td><td>T8–T12/2026</td><td>(trống)</td></tr>
+</tbody></table></div>
+<p class="note">Nguồn: "TMDV - Đầu Tư Task list", sửa lần cuối 18/08. Vinh có 3.599 chỗ học quy hoạch chưa có đơn vị vận hành ký.</p>
+</div></details>
+<div class="callout crit"><p><strong>Không có một sổ quỹ đất chuẩn duy nhất — cảnh báo trước khi dùng bất kỳ số diện tích nào.</strong> <span class="pv a">GĐ</span> Ba nguồn không khớp nhau về mã lô, số lô và diện tích: (1) <em>QUY DAT v2</em> (27/02) — Vinh 5 lô GD, 17.506 m² (bỏ TM-01 &amp; CC); Long An 13 lô, 83.569 m² (8,36 ha). (2) <em>TMDV - Đầu Tư Task list</em> (18/08, nguồn dashboard đang dùng) — Vinh 10 lô 4,60 ha; Long An 24 lô 7,13 ha. (3) <em>Theo dõi tiến độ đối tác</em> (17/07) — bộ mã thứ ba, chỉ trạng thái. <strong>Lệch nghiêm trọng nhất:</strong> lô trường Edison ghi <strong>0,21 ha</strong> (task list, "7-GD1") so với <strong>2,20 ha</strong> (QUY DAT, "GD-02", 21.981 m²) — chênh 10 lần. Một trường liên cấp 1.831 chỗ không thể nằm trên 0,21 ha, nên diện tích Long An trong dashboard nhiều khả năng đang bị ghi thiếu. <strong>Việc KSNB:</strong> chốt MỘT sổ quỹ đất chuẩn, hoà mã lô + diện tích, trước khi bất kỳ số HTXH nào vào tờ trình HĐQT.</p></div>
+
+<details class="acc"><summary>Cadastre đầy đủ 34 lô HTXH — hợp nhất 3 nguồn, đối chiếu từng lô<span class="r">10 Vinh · 24 Long An · diện tích chưa hoà</span></summary><div class="body">
+<h4>Vinh — 10 lô · 4,60 ha <span class="pv l">~</span> (nguồn: TMDV Task list 18/08; QUY DAT v2 chỉ có 5 lô GD, bỏ TM-01 &amp; CC)</h4>
+<div class="tw"><table>
+<thead><tr><th>Lô</th><th>Chức năng</th><th class="num">m²</th><th>Đối tác / trạng thái</th></tr></thead>
+<tbody>
+<tr><td>TM-01</td><td>Thương mại</td><td class="num">11.253</td><td>Central Retail — chờ CĐT trả lời (~44 ngày); capex 50–75 tỷ</td></tr>
+<tr><td>CC</td><td>HTXH / thể thao</td><td class="num">4.811</td><td>Nhà thể thao 12 tỷ — chờ duyệt; hạn bàn giao T8</td></tr>
+<tr><td>GD-01</td><td>Mầm non</td><td class="num">3.056</td><td>Trống — đến hạn T8</td></tr>
+<tr><td>GD-02</td><td>Mầm non</td><td class="num">4.581</td><td>Đã bàn giao, chưa có đơn vị vận hành</td></tr>
+<tr><td>GD-03</td><td>Mầm non</td><td class="num">5.762</td><td>Đã bàn giao, chưa có đơn vị vận hành</td></tr>
+<tr><td>GD-04</td><td>Mầm non</td><td class="num">2.614</td><td>Trễ T5</td></tr>
+<tr><td>CC-02</td><td>HTXH (TMDV &amp; VH)</td><td class="num">4.274</td><td>Chưa có · T12</td></tr>
+<tr><td>CC-03</td><td>HTXH</td><td class="num">5.411</td><td>Trễ T5</td></tr>
+<tr><td>TM-02</td><td>Thương mại</td><td class="num">1.049</td><td>Đến hạn T8</td></tr>
+<tr><td>GD-02 (DA2)</td><td>Mầm non</td><td class="num">3.151</td><td>Chưa có · T12</td></tr>
+</tbody></table></div>
+<h4 style="margin-top:14px">Long An — 24 lô · 7,13 ha (task list) / 8,36 ha (QUY DAT) <span class="pv a">GĐ</span> — diện tích &amp; mã lô chưa hoà giữa các nguồn</h4>
+<div class="tw"><table>
+<thead><tr><th>Lô (task list / QUY DAT)</th><th>Chức năng</th><th class="num">m²</th><th>Đối tác · trạng thái (tracker 17/07)</th></tr></thead>
+<tbody>
+<tr><td>7-GD1 <span class="pv a">GĐ</span> ("GD-02" ở QUY DAT)</td><td>Liên cấp TH-THCS-THPT · 1.831 chỗ</td><td class="num">2.100 / 21.981 ⚠</td><td><strong>Edison — ĐÃ KÝ, đang xây</strong>. Diện tích lệch 10× giữa hai sổ</td></tr>
+<tr><td>1-GD1</td><td>Liên cấp / GD</td><td class="num">9.121</td><td>Bamboo — treo: HĐTV không muốn đầu tư (đòi CĐT xây thô, xa Q2)</td></tr>
+<tr><td>3-GD1</td><td>Mầm non</td><td class="num">2.892</td><td>Bamboo (đang làm việc) · Inschool (chưa có nhu cầu)</td></tr>
+<tr><td>4-GD1</td><td>Mầm non</td><td class="num">3.456</td><td>Dragonfly + Equest tiếp cận — cả hai đòi CĐT xây thô</td></tr>
+<tr><td>5-GD1 ("GD-05")</td><td>Liên cấp</td><td class="num">16.797</td><td>Dragonfly tiếp cận (đòi xây thô); Trường người Hoa ĐÃ DỪNG</td></tr>
+<tr><td>5-GD2</td><td>Mầm non</td><td class="num">4.308</td><td>Chưa có đối tác</td></tr>
+<tr><td>7-GD2</td><td>Mầm non</td><td class="num">6.967</td><td>Chưa có đối tác</td></tr>
+<tr><td>1-YT1 ("DATP 1-1")</td><td>Y tế</td><td class="num">3.170</td><td><strong>Tâm Anh ĐÃ DỪNG</strong> → VITALIA×DKGROUP + Gary đang tiếp cận</td></tr>
+<tr><td>5-YT1</td><td>Y tế</td><td class="num">1.551</td><td>CĐT tự làm — trung tâm sơ cứu / chăm sóc sức khỏe</td></tr>
+<tr><td>VH1</td><td>Văn hóa</td><td class="num">5.136</td><td>CĐT — định hướng "Eco Hub" (anh Cảnh)</td></tr>
+<tr><td>DV1</td><td>Dịch vụ</td><td class="num">2.609</td><td>CĐT tự vận hành</td></tr>
+<tr><td>4-DV1</td><td>Thương mại</td><td class="num">2.874</td><td>CĐT tự vận hành</td></tr>
+<tr><td>5-TM11</td><td>Thương mại</td><td class="num">2.707</td><td>CĐT tự vận hành</td></tr>
+<tr><td>+ ~11 lô còn lại</td><td>DV / VH / TM tự vận hành</td><td class="num">chưa hoà</td><td>Task list gộp thành "15 lô CĐT tự vận hành, 2,08 ha"; QUY DAT chỉ nêu 4 lô trên. 11 lô còn lại chưa có mã riêng thống nhất — <span class="pv a">GĐ</span> cần bóc từ sổ chuẩn</td></tr>
+</tbody></table></div>
+<p class="note">Bảng trên hợp nhất TMDV Task list (18/08, mã lô vận hành) + QUY DAT v2 (27/02, có mã DV/VH/TM) + Theo dõi tiến độ đối tác (17/07, trạng thái đối tác). Không nguồn nào đơn lẻ liệt kê đủ 34 lô có mã riêng; 11 lô dịch vụ/văn hóa/thương mại "tự vận hành" ở Long An chưa được bóc tách nhất quán. Diện tích nhiều lô lệch giữa hai sổ — xem cảnh báo đỏ phía trên. Đây là bản đối chiếu tốt nhất từ nguồn hiện có, không phải sổ chuẩn.</p>
+</div></details>
+<p class="note">Nguồn Trụ cột 2: 2. ĐẦU TƯ HTXH (Edison/Bamboo/Y tế · QUY DAT v2 · Theo dõi tiến độ đối tác) · "TMDV - Đầu Tư Task list" · hộp thư. Ba sổ quỹ đất chưa hoà — xem cadastre đầy đủ &amp; cảnh báo đỏ ở trên.</p>
+</section>
+
+<!-- ============================ TAB 3 : TIMELINE & CONTROL ============================ -->
+<section class="panel" id="ctrl" role="tabpanel" aria-labelledby="tab-ctrl" hidden>
+
+<h2 style="border:0;margin-top:20px;padding-top:0"><span class="k">F</span>Dòng thời gian điều hành — 09/01 → 12/09/2026</h2>
+<p class="lead">Lịch sử các bất cập/escalation dựng từ ba hộp thư DB Group (chỉ đọc, 137 luồng từ 01/01) + tờ trình. Bản 07/09 không có lớp này. Dưới là các mốc chính; ledger đầy đủ hoàn thiện ở bước tiếp theo (D-2).</p>
+<div class="tl">
+  <div class="tlrow"><div class="dt">09/01</div><div class="dot d-land"></div><div class="body">HTXH phân khu 1-3-4 Eco Retreat gắn tiến độ bàn giao nhà — <em>escalation sớm nhất</em><span class="cat">Quỹ đất</span></div></div>
+  <div class="tlrow"><div class="dt">28/02</div><div class="dot d-budget"></div><div class="body">Đề xuất ngân sách chương trình 8/3 "Hương Tháng Ba" (PTCĐ Vinh)<span class="cat">Ngân sách</span></div></div>
+  <div class="tlrow"><div class="dt">17/03</div><div class="dot d-lease"></div><div class="body">Everyhalf đề xuất gia hạn — mức bù doanh thu 100 tr/tháng (khởi nguồn quyết định GĐ2)<span class="cat">Điều khoản thuê</span></div></div>
+  <div class="tlrow"><div class="dt">26–30/03</div><div class="dot d-otl"></div><div class="body">OTL WinMart (8 năm, miễn 4 năm, 160.000đ/m² từ năm 5) · Green Garden mở cửa hàng thực phẩm<span class="cat">OTL/HĐ</span></div></div>
+  <div class="tlrow"><div class="dt">28/03</div><div class="dot d-policy"></div><div class="body">Nghiệm thu bàn giao khu 115 căn TMDV (Eco Bazaar) — rà soát &amp; sắp xếp lại toàn khu<span class="cat">Quy trình</span></div></div>
+  <div class="tlrow"><div class="dt">03/04</div><div class="dot d-budget"></div><div class="body">Trình ngân sách ĐT&amp;PTCĐ 2026 — <strong>~322 tỷ</strong> (dashboard 21/08 ghi ~250 tỷ — chưa hoà)<span class="cat">Ngân sách</span></div></div>
+  <div class="tlrow"><div class="dt">04/04</div><div class="dot d-legal"></div><div class="body">Phản hồi HĐ môi giới Song Cát lần đầu — <em>khởi nguồn tranh chấp phí</em><span class="cat">Tranh chấp</span></div></div>
+  <div class="tlrow"><div class="dt">09/04</div><div class="dot d-recover"></div><div class="body">Rà soát Mẫu thông báo thanh lý HĐ / thu hồi MB Eco Bazaar — <em>tạo công cụ thu hồi</em><span class="cat">Thu hồi</span></div></div>
+  <div class="tlrow"><div class="dt">25/04</div><div class="dot d-land"></div><div class="body">Grand Opening Eco Retreat<span class="cat">Quỹ đất</span></div></div>
+  <div class="tlrow"><div class="dt">15/05</div><div class="dot d-recover"></div><div class="body">Nhiều căn Bazaar "hoạt động không thường xuyên/chưa hoạt động" dù đã phát thông báo — rà soát thu hồi<span class="cat">Thu hồi</span></div></div>
+  <div class="tlrow"><div class="dt">21/05</div><div class="dot d-land"></div><div class="body">CBRE Investment team vào tư vấn (commented version, chờ align)<span class="cat">Quỹ đất</span></div></div>
+  <div class="tlrow"><div class="dt">27/05</div><div class="dot d-policy"></div><div class="body">Mẫu HĐ thuê TMDV được Pháp chế chốt &amp; khoá — cơ sở áp dụng thống nhất<span class="cat">Quy trình</span></div></div>
+  <div class="tlrow"><div class="dt">11–16/06</div><div class="dot d-recover"></div><div class="body">Họp khách 11&amp;13/06; K23/K55, GOFRESH, Phượng Trang vào diện gia hạn/thu hồi<span class="cat">Thu hồi</span></div></div>
+  <div class="tlrow"><div class="dt">19/06</div><div class="dot d-recover"></div><div class="body">Quy trình thu hồi 4 bước được Pháp chế duyệt<span class="cat">Thu hồi</span></div></div>
+  <div class="tlrow"><div class="dt">21/07</div><div class="dot d-policy"></div><div class="body">Triển khai báo cáo vận hành định kỳ hằng tuần khu Eco Bazaar<span class="cat">Quy trình</span></div></div>
+  <div class="tlrow"><div class="dt">31/07–14/08</div><div class="dot d-legal"></div><div class="body">Tư vấn pháp lý Lụa / P1-0109 (đơn phương dừng OTL đã ký — nghĩa vụ bồi thường)<span class="cat">Tranh chấp</span></div></div>
+  <div class="tlrow"><div class="dt">04–17/08</div><div class="dot d-lease"></div><div class="body">Đẩy tiến độ thi công &amp; khai trương ECP Vinh (danh sách MB đã chào thuê + mốc)<span class="cat">Điều khoản thuê</span></div></div>
+  <div class="tlrow"><div class="dt">11–17/08</div><div class="dot d-recover"></div><div class="body">K56 Eco Bazaar thu hồi lần 3; SOP TMDV×BQL nộp — chờ chốt "ai chủ trì thanh lý"<span class="cat">Thu hồi / Quy trình</span></div></div>
+  <div class="tlrow"><div class="dt">21/08</div><div class="dot d-policy"></div><div class="body">Báo cáo tuần đầy đủ cuối (deck + 4 PDF layout); các kỳ sau chỉ còn layout<span class="cat">Quy trình</span></div></div>
+  <div class="tlrow"><div class="dt">11/08→09/09</div><div class="dot d-legal"></div><div class="body">Tranh chấp phí Song Cát leo thang → 08/09 trình hồ sơ điều chỉnh nội bộ → 09/09 CĐT gửi Song Cát dự thảo Phụ lục HĐ + nghiệm thu + bảng xác nhận; thanh toán theo lấp đầy thực 4,93% (~88,69 tr thay cho 450 tr danh nghĩa)<span class="cat">Tranh chấp</span></div></div>
+  <div class="tlrow"><div class="dt">09–11/09</div><div class="dot d-recover"></div><div class="body">Tờ trình 09/09 (Thanh→Hiền→Nghĩa): thanh lý HĐ trước hạn + hoàn cọc, thu hồi 4 căn Eco Bazaar LA (K16·K23·K56·K59), tái cho thuê — <em>công cụ thu hồi lần đầu áp diện rộng</em>. K56 = Cty Văn Minh (đã rõ) → Sở Công Thương; K59 → Coffee &amp; Music<span class="cat">Thu hồi</span></div></div>
+  <div class="tlrow"><div class="dt">12/09</div><div class="dot d-legal"></div><div class="body">Song Cát chốt lịch họp trực tuyến 10h00 thứ Hai 14/09 để thống nhất Phụ lục điều chỉnh phí môi giới<span class="cat">Tranh chấp</span></div></div>
+</div>
+<div class="tlkey">
+  <span class="lg"><i class="sw d-land"></i>Quỹ đất/đối tác</span><span class="lg"><i class="sw d-budget"></i>Ngân sách</span><span class="lg"><i class="sw d-lease"></i>Điều khoản thuê</span><span class="lg"><i class="sw d-otl"></i>OTL/HĐ</span><span class="lg"><i class="sw d-policy"></i>Chính sách/Quy trình</span><span class="lg"><i class="sw d-recover"></i>Thu hồi</span><span class="lg"><i class="sw d-legal"></i>Tranh chấp pháp lý</span>
+</div>
+
+<h2><span class="k">G</span>Sức khoẻ trục kiểm soát — KSNB/QTRR</h2>
+<p class="lead">Trạng thái của chính hệ điều hành: công cụ đã có nhưng chưa được áp là dạng rủi ro nguy hiểm nhất, vì tạo tiền lệ "quy định không có hiệu lực".</p>
+<div class="gov">
+  <div class="govrow"><div class="g-name">Báo cáo tuần</div><div><span class="pill st-crit">Suy giảm</span></div><div class="g-txt">Bản đầy đủ cuối: Tuần 3/T8 (21/08). Tuần 4 chỉ còn 2 PDF layout, không có deck narrative. Deck vốn chỉ là danh sách "Bất cập &amp; tồn đọng" — trạng thái thật nằm ở file tracker + layout.</div></div>
+  <div class="govrow"><div class="g-name">Quy trình thu hồi MB</div><div><span class="pill st-warn">Bắt đầu áp</span></div><div class="g-txt">4 bước, Pháp chế duyệt 19/06 (85 ngày trước). <strong>Tờ trình 09/09 áp cho 4 căn Eco Bazaar (K16·K23·K56·K59)</strong> — thanh lý + hoàn cọc, tái cho thuê. Còn treo: Puro (6), Lebon (4), GOFRESH… Cần chốt để chế tài có tiền lệ dứt điểm.</div></div>
+  <div class="govrow"><div class="g-name">SOP TMDV × BQL</div><div><span class="pill st-warn">Chờ chốt</span></div><div class="g-txt">Nộp 17/08. Kẹt đúng một câu: ai chủ trì thanh lý gian hàng. Cho tới khi chốt, trách nhiệm bàn giao–thu hồi vẫn mờ.</div></div>
+  <div class="govrow"><div class="g-name">Mẫu HĐ &amp; chính sách</div><div><span class="pill st-ok">Đã khoá</span></div><div class="g-txt">Mẫu HĐ TMDV chốt 27/05. Chính sách bất biến: thời hạn thuê = miễn phí + tối thiểu 12 tháng. Cần kiểm mọi HĐ ký sau có đúng Mẫu &amp; mức phí đã duyệt.</div></div>
+  <div class="govrow"><div class="g-name">Đối chiếu dữ liệu</div><div><span class="pill st-warn">Ô tổng ≠ chi tiết</span></div><div class="g-txt">Vinh có hai sổ trạng thái lệch nhau: master "chào thuê mặt bằng" (08/09) vs "Tiến độ khách" (sửa 12/09) — cùng khai trương 287,41 m² nhưng đã ký/đã chốt phân loại khác; "Tình trạng shop CT01" vẫn cộng thừa 604,88 m² (7.127,84 vs 6.522,96). Long An: file 38 vs BQL 27. Cần BQL xác nhận từng mã căn &amp; đóng băng một sổ chuẩn.</div></div>
+  <div class="govrow"><div class="g-name">Phân phối &amp; bảo mật</div><div><span class="pill st-ok">Một artifact</span></div><div class="g-txt">Chuyển từ hai trang Pages công khai (dữ liệu cũ, kho mã công khai) sang một artifact truy cập có kiểm soát, cập nhật tại chỗ. Dữ liệu restricted không còn nằm nơi công khai.</div></div>
+</div>
+
+<details class="acc"><summary>Hồ sơ pipeline &amp; nhóm thu hồi — 12 mục còn treo<span class="r">mốc kỳ 21–31/08 · đối chiếu 08/09</span></summary><div class="body">
+<p class="note">Các hồ sơ ngoài 5 quyết định lớn ở tab Tổng quan; dựng từ thân email ba hộp thư (chỉ đọc), mốc thời gian theo kỳ 21–31/08. "Chưa xác minh" = con số không xuất hiện trong thân email (chưa mở file đính kèm theo tham số D-3).</p>
+<div class="tw"><table>
+<thead><tr><th>Dự án</th><th>Hồ sơ</th><th>Trạng thái</th><th>Bước tiếp theo · chủ trì</th></tr></thead>
+<tbody>
+<tr><td>ECP</td><td>Sibafood (P3_0102·0106A·0106) — HĐ+OTL</td><td><span class="pill st-warn">Chờ ký · im 63+ ngày</span></td><td>Deadline cứng bằng văn bản, ưu đãi hết hiệu lực sau hạn · Đào</td></tr>
+<tr><td>ER</td><td>GOFRESH (K32·K64)</td><td><span class="pill st-crit">Thu hồi · rủi ro kiện</span></td><td>Khách đã đầu tư ~600 tr; thu hồi sau im lặng dài = rủi ro · Pháp chế</td></tr>
+<tr><td>ER</td><td>CTCP Eco Retreat Land (K33·K65)</td><td><span class="pill st-crit">Thu hồi · xung đột lợi ích</span></td><td>Khách là công ty trong nhóm — chuẩn chế tài phải cao hơn · Pháp chế</td></tr>
+<tr><td>ER</td><td>Phạm Thị Huyền (K59) · hết hiệu lực 21/05</td><td><span class="pill st-crit">Treo &gt;100 ngày</span></td><td>BQL báo cáo dứt điểm gia hạn/thu hồi · Đào/BQL</td></tr>
+<tr><td>ER</td><td>Phượng Trang (K23·K55) · Trần Thanh Phong (K58·K26) · Kiều Vân (K24)</td><td><span class="pill st-crit">Treo — hết hiệu lực</span></td><td>Đóng dứt điểm từng vụ theo quy trình 4 bước · Đào/BQL/Pháp chế</td></tr>
+<tr><td>ECP</td><td>Green Garden — hộ KD chưa xuất được hoá đơn</td><td><span class="pill st-crit">Treo</span></td><td>Ra quy tắc chung: chỉ chi cho pháp nhân/HKD xuất HĐ hợp lệ · Kế toán</td></tr>
+<tr><td>Chung</td><td>Phí QL 14.000đ (ELA) vs 27.000đ (ECP) — chênh 93%</td><td><span class="pill st-crit">Không tờ trình</span></td><td>Trình phê duyệt hồi tố; giữ mức đang thu cho HĐ đã ký · Kế toán/Pháp chế</td></tr>
+<tr><td>Chung</td><td>16 HĐ Bazaar (BKD) — 18 tháng = miễn 18 tháng</td><td><span class="pill st-warn">Chờ ký</span></td><td>BKD nộp tờ trình đã duyệt + Phụ lục khôi phục ưu đãi nếu chấm dứt sớm</td></tr>
+<tr><td>ECP</td><td>WinMart — Song Cát nói khai trương 28/06 để đòi phí</td><td><span class="pill st-warn">Xác minh</span></td><td>BQLVH xác nhận văn bản: đã ký? ngày mở? tháng thu đầu? · BQLVH</td></tr>
+<tr><td>ECP</td><td>Đối tác quảng cáo CT1 · biển nhận diện TTTM</td><td><span class="pill st-info">Đàm phán/Info</span></td><td>Ước doanh thu/năm trước khi tìm nhà thầu; chốt ngân sách biển · Hiền/BQLVH</td></tr>
+</tbody></table></div>
+</div></details>
+
+<details class="acc"><summary>Ma trận tồn đọng — báo cáo tuần của đội đã ngừng là công cụ điều hành<span class="r">17 → 14 → 6 → 0 → 2 → 2 → không phát hành</span></summary><div class="body">
+<p class="note">Việc ngắn dần không phải vì xong mà vì rơi khỏi danh sách. Hai đầu mục còn được báo cáo đều là việc chờ Pháp chế/Kế toán — việc TMDV không kiểm soát; năm việc TMDV kiểm soát được và có giá trị tiền lớn nhất thì không được nhắc.</p>
+<div class="tw"><table>
+<thead><tr><th>Đầu mục</th><th>DA</th><th>31/07</th><th>14/08</th><th>21/08</th><th>28/08+</th><th>Xu hướng</th></tr></thead>
+<tbody>
+<tr><td>Căn P10109 – Nguyễn Thị Lụa</td><td>Vinh</td><td>Chuyển Pháp chế</td><td>"Chưa phản hồi"</td><td>"Nếu KH đồng ý gặp thì hẹn"</td><td>—</td><td class="dl-over">kẹt 5 kỳ</td></tr>
+<tr><td>Chính sách công nợ căn đã thu hồi</td><td>LA</td><td>"Trình 1 thể"</td><td>Trắng</td><td>"Trình bổ sung không truy thu ưu đãi"</td><td>—</td><td class="dl-over">kẹt 5 kỳ · chưa duyệt</td></tr>
+<tr><td>Xuất hoá đơn HKD Green Garden</td><td>Vinh</td><td>Cần PA thanh toán đợt 3</td><td>"Đang theo Pháp chế/Kế toán"</td><td>Mất</td><td>—</td><td>mất dấu, không có dòng "đã đóng"</td></tr>
+<tr><td>4 mốc bàn giao Vinh đã trượt</td><td>Vinh</td><td>—</td><td>Không</td><td>Không</td><td>—</td><td class="dl-over">trượt 21–31 ngày, chưa từng báo</td></tr>
+<tr><td>Puro / Lebon (12 căn đã ký)</td><td>LA</td><td>Không</td><td>Không</td><td>Không</td><td>—</td><td class="dl-over">mất dấu 4 kỳ · ~9,8 tháng</td></tr>
+<tr><td>16 HĐ thuê đại lý BKD</td><td>LA</td><td>Không</td><td>Không</td><td>Không</td><td>—</td><td class="dl-over">mất dấu · 1,30 tỷ/năm</td></tr>
+<tr><td>Nhà thể thao lô CC · 12 tỷ</td><td>Vinh</td><td>—</td><td>—</td><td>Không</td><td>—</td><td>mới · biết qua hộp thư</td></tr>
+<tr><td>TM-01 / Central Retail</td><td>Vinh</td><td>Chưa từng</td><td>Chưa từng</td><td>Chưa từng</td><td>—</td><td class="dl-over">im lặng · cấp TGĐ</td></tr>
+</tbody></table></div>
+<p class="note">Đề xuất cơ chế: báo cáo tuần có danh sách đầu mục cố định với trạng thái đóng/mở (chỉ được xoá khi có dòng "đã đóng"), hoặc bỏ hẳn và thay bằng đối chiếu file chào thuê tự động như bản này. SOP TMDV×BQL là chỗ để cài luật đó.</p>
+</div></details>
+
+<details class="acc"><summary>Cảnh báo chất lượng dữ liệu — 12 mục (5 mức CAO)<span class="r">đọc trước khi dùng bất kỳ số nào</span></summary><div class="body">
+<div class="tw"><table>
+<thead><tr><th>Vấn đề</th><th>Mức</th><th>Chi tiết &amp; ảnh hưởng</th></tr></thead>
+<tbody>
+<tr><td>File động đậy 04–07/09 nhưng ghi trạng thái kép; ô tổng chưa đổi</td><td><span class="sev h">CAO</span></td><td>ACE home/Canifa/Waynes/Eco-shop (9 căn, 739,34 m²) ghi "Tiếp cận khách, Đã khai trương". Không phân biệt mở thật với lỗi nhập; nếu tin nhầm, danh mục đọc 23,7% thay vì 16,0%</td></tr>
+<tr><td>Nguồn dữ liệu Vinh từng bị thay file</td><td><span class="sev h">CAO</span></td><td>Trạng thái theo căn nằm ở "ECP_CT1_Tiến độ khách"; NLA/đơn giá ở bảng master file cũ. Cần TMDV xác nhận file chính thức và đóng băng file kia</td></tr>
+<tr><td>Long An: file 38 khai trương vs BQL 27 hoạt động</td><td><span class="sev h">CAO</span></td><td>Hồ sơ nghiệm thu 115 căn nêu K4, K12, K18, K52 "không hoạt động thường xuyên". Chênh tối đa 11 căn ≈ 0,9 tỷ đ/năm. Chỉ số 60,9% chưa kiểm chứng</td></tr>
+<tr><td>K56 — <strong>đã hoà</strong> (tờ trình 09/09)</td><td><span class="sev m">ĐÓNG</span></td><td>Xác nhận: Cty Văn Minh (KVC) đã thu hồi MB; file cập nhật "Đã chốt · Sở Công Thương nhận MB T9/2026". Bản BQL đúng; mâu thuẫn khép lại</td></tr>
+<tr><td>Khối tổng hợp Vinh cộng thừa 604,88 m²</td><td><span class="sev h">CAO</span></td><td>Khối "I. Thông tin chung" ra 7.127,84 m² so với 6.522,96 m² thật (9,3%). Lỗi tồn nhiều kỳ. Mọi số ở đây tính lại từ 62 dòng căn</td></tr>
+<tr><td>Cột "Ngày update" ngừng cập nhật</td><td><span class="sev m">TB</span></td><td>Gần như toàn bộ dòng ghi 25/07 hoặc 31/07 dù ghi chú sửa tới giữa tháng 8</td></tr>
+<tr><td>P2_0111 &amp; P3_0109 thiếu đơn giá</td><td><span class="sev m">TB</span></td><td>Dùng 14 $/m² theo bảng master. Nếu thấp hơn, khối "đã ký" Vinh cao tối đa ~0,44 tỷ đ/năm</td></tr>
+<tr><td>K23 · K55 mâu thuẫn trạng thái</td><td><span class="sev m">TB</span></td><td>Cọc 22/01/2026, tiền thuê 100.000đ nhưng "đàm phán" nhiều tuần. Ảnh hưởng tối đa 8,2 tr/tháng</td></tr>
+<tr><td>Tỷ giá 27.000 đ/USD là giả định</td><td><span class="sev m">TB</span></td><td>Suy từ file Vinh; lệch 1.000 đ ≈ 0,67 tỷ đ/năm ở tiềm năng Vinh</td></tr>
+<tr><td>Doanh thu "theo ngân sách", không phải thực thu</td><td><span class="sev m">TB</span></td><td>Chưa trừ miễn phí thuê / fit-out (Crepes 10 năm; Mixue chào 3 năm). Trần lý thuyết</td></tr>
+<tr><td>Ngân sách 2026 chưa hoà: ~322 tỷ (03/04) vs ~250 tỷ (bản cũ)</td><td><span class="sev m">TB</span></td><td>Mọi tỷ lệ "trên ngân sách" phụ thuộc mẫu số chưa chốt</td></tr>
+<tr><td>Tài liệu chưa mở qua connector (theo D-3)</td><td><span class="sev m">TB</span></td><td>Báo cáo BQL 18/08 (hoà 38 vs 27); "Sport_Park_CC.docx"; "Theo dõi tiến độ đối tác.xlsx" (cadastre 34 lô). Sẽ mở ở bước tiếp theo nếu thiếu điều khoản</td></tr>
+</tbody></table></div>
+</div></details>
+
+<details class="acc"><summary>Chuỗi leo thang quỹ đất — 18 mốc · 09/01 → 08/09/2026<span class="r">cảnh báo 3 lần, không mốc nào được thực hiện</span></summary><div class="body">
+<div class="tw"><table>
+<thead><tr><th>Ngày</th><th>Người phát</th><th>Nội dung</th></tr></thead>
+<tbody>
+<tr><td>09/01</td><td>BQLDA Eco Retreat</td><td>Cảnh báo lần 1: HTXH chưa triển khai, "rủi ro lớn ảnh hưởng bàn giao nhà" (NĐ 06/2021)</td></tr>
+<tr><td>06/03 · 18/03</td><td>BQLDA Eco Retreat</td><td>Cảnh báo lần 2 &amp; 3: "chưa thấy triển khai thực tế ngoài hiện trường"; yêu cầu kế hoạch cụ thể</td></tr>
+<tr><td>08/04</td><td>Ecopark → CRV</td><td>Mở kênh TM-01: "Investment Cooperation Model Framework", đề nghị chọn mô hình trong 7 ngày</td></tr>
+<tr><td>10/04</td><td>TMDV</td><td>Cam kết PK1 GD01 ký T6; 3-GD1 ký T5 — cả hai đã trôi</td></tr>
+<tr><td>13/04</td><td>CRV</td><td>Key terms TM-01: mall 1–1,5 tầng ~5.000 m² GFA; shared capex 50–75 tỷ; miễn thuê 5 năm</td></tr>
+<tr><td>16/04</td><td>TGĐ</td><td>"Việc đã giao cho bên vận hành… đến nay chưa có. Báo cáo ngay kế hoạch."</td></tr>
+<tr><td>21/04→19/05</td><td>Ecopark ↔ CRV</td><td>Phản biện 5 điểm; grace 18–24 tháng thay vì 5 năm; Deal Summary 13/05; 19/05 hai lựa chọn thuê dài hạn/chuyển nhượng</td></tr>
+<tr><td>21/05</td><td>CBRE</td><td>Investment team vào tư vấn (commented version, chờ align)</td></tr>
+<tr><td>17–19/06</td><td>QHTK · P.TGĐ VH</td><td>3 lô LA chưa có đối tác → thiết kế công trình tạm; BQL trình khai thác tạm 3 lô, thiết bị 110 tr</td></tr>
+<tr><td>16/07</td><td>QHTK → Omni</td><td>Lô CC Vinh có thiết kế nhà thể thao ~12 tỷ; TGĐ yêu cầu kế hoạch vận hành trước 15/8</td></tr>
+<tr><td>29–30/07</td><td>CRV</td><td>Xin 4 nhóm bản vẽ 1/500; hỏi CAO điều chỉnh cục bộ QH (MĐXD &lt;45%, 1 tầng); 30/07 gửi bản chào ngược</td></tr>
+<tr><td>14/08</td><td>BQLVH ECP</td><td>Nộp "Kế hoạch vận hành Sport_Park_CC" đúng hạn; chờ duyệt thi công 12 tỷ</td></tr>
+<tr><td>12/09</td><td>Hiện trạng</td><td>Baboo vẫn "lập P&amp;L"; Tâm Anh DỪNG → VITALIA×DKGROUP/Gary tiếp cận; khai thác tạm treo ~82 ngày; CRV im lặng ~44 ngày; 1/34 lô đã ký</td></tr>
+</tbody></table></div>
+</div></details>
+
+<h2><span class="k">H</span>Lớp tin cậy — giả định &amp; điểm chưa hoà</h2>
+<div class="two">
+  <div>
+    <h4>Giả định cố định</h4>
+    <p class="note">Tỷ giá 27.000 đ/USD (suy từ cột PDV file Vinh) — lệch 1.000 đ ≈ 0,67 tỷ đ/năm ở tiềm năng Vinh. Doanh thu = đơn giá ngân sách × NLA, chưa trừ miễn phí thuê &amp; hỗ trợ fit-out (Crepes miễn 10 năm; Mixue được chào miễn 3 năm) — trần lý thuyết, không phải dự báo dòng tiền. Không có số doanh thu bán hàng thực tế của tenant. Ngân sách 2026 (~322 tỷ trình / ~250 tỷ bản cũ) chưa xác nhận là số đã duyệt.</p>
+  </div>
+  <div>
+    <h4>Điểm chưa hoà — cần một câu trả lời</h4>
+    <p class="note">(1) 9 căn Vinh ghi "khai trương" 04/09–08/09 (gồm Eco-shop P1_0105A) — thật hay lỗi nhập? → BQL. (2) Long An 38 vs 27 căn hoạt động → BQL ELA. (3) K56: KVC/Galaxy hay game Văn Minh thu hồi? → TMDV × BQL. (4) Ngân sách 322 vs 250 → Kế toán/BKH. (5) Đơn giá P2_0111 trống. Mỗi điểm gắn một chủ trì; không tự hoà giải trong dashboard.</p>
+  </div>
+</div>
+<div class="callout"><p><strong>Cách tính.</strong> Mọi số cho thuê tính lại từng căn từ file nguồn (không lấy ô tổng — file Vinh từng cộng thừa 604,88 m²): 62 căn Vinh khớp NLA 6.522,96 m² &amp; tiềm năng 17,958 tỷ; 66 căn Long An khớp 4.279,71 m² &amp; 5,14 tỷ. Nhãn nguồn: <span class="pv v">✓ĐC</span> đã đối chiếu · <span class="pv l">~</span> khả năng · <span class="pv a">GĐ</span> giả định/chưa hoà.</p></div>
+
+</section>
+
+<div class="foot">
+  <p><strong>TMDV Điều hành</strong> · nguyên mẫu bản dựng lại (Phase 2) · làm mới tự động cloud (Drive + M365 chỉ đọc) 12/09/2026 · dữ liệu 12/09/2026 (Vinh master chào thuê không đổi 08/09; Long An ER_Bazaar 11/09) · dành cho TGĐ OMNI · P.TGĐ Vận hành · Chủ tịch. Nguồn: shared drive "BAN ĐẦU TƯ, TMDV, PTCĐ" (file chào thuê Vinh/Long An, 8. Báo cáo tuần, 2. ĐẦU TƯ HTXH, Ngân sách) + 3 hộp thư DB Group (thanhlt · daola · hientt — chỉ đọc, 137 luồng từ 01/01). Bản .md/.json trên Drive là bản gốc; artifact là mặt đọc. Số liệu cho thuê đã tính lại từng căn trong sandbox; các mục gắn <span class="pv a">GĐ</span>/<span class="pv l">~</span> chưa kiểm chứng độc lập.</p>
+</div>
+</div>
+
+<script>
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('.tab'));
+  function sel(id){
+    tabs.forEach(function(t){
+      var on=t.getAttribute('aria-controls')===id;
+      t.setAttribute('aria-selected',on?'true':'false');
+      var p=document.getElementById(t.getAttribute('aria-controls'));
+      if(p) p.hidden=!on;
+    });
+  }
+  tabs.forEach(function(t){
+    t.addEventListener('click',function(){sel(t.getAttribute('aria-controls'));});
+    t.addEventListener('keydown',function(e){
+      var i=tabs.indexOf(t);
+      if(e.key==='ArrowRight'||e.key==='ArrowLeft'){
+        e.preventDefault();
+        var j=(i+(e.key==='ArrowRight'?1:tabs.length-1))%tabs.length;
+        tabs[j].focus();sel(tabs[j].getAttribute('aria-controls'));
+      }
+    });
+  });
+})();
+</script>
+</body></html>
