@@ -1,9 +1,9 @@
 {
- "generatedUtc": "2026-09-21T11:00:00Z",
- "asof": "14/09/2026",
+ "generatedUtc": "2026-09-22T09:05:31Z",
+ "asof": "22/09/2026",
  "lead": "Hệ sinh thái ba trụ cột trên hai dự án — Eco Central Park (Vinh) &amp; Eco Retreat (Long An) · 128 căn thương mại · ~34 lô quỹ đất HTXH · phát triển cộng đồng",
  "eyebrow": "Ban Đầu tư · Thương mại dịch vụ · Phát triển cộng đồng — OMNI / DB Group",
- "meta": "Kỳ dữ liệu: 14/09/2026 · làm mới tự động qua Google Drive (cloud) 14/09<br>Bản trình: 14/09/2026 · dành cho TGĐ · P.TGĐ Vận hành · Chủ tịch<br>Freshness nguồn: ECP_CT1 chào thuê 08/09 (không đổi) · ER_Bazaar 11/09 (không đổi) · ECP_CT1 Tiến độ khách 12/09 (không đổi) · Theo dõi ĐT đối tác 17/07 · hộp thư 3 tài khoản DB Group không truy cập trực tiếp 14/09 (khác tenant) — soát qua hộp thư OMNI của Ty<br>Mật: <span style=\"color:var(--critical)\">restricted</span> — tên khách thuê, giá thuê, tranh chấp",
+ "meta": "Kỳ dữ liệu: 22/09/2026 · nguồn mới nhất 16/09 · làm mới tự động qua Google Drive + Microsoft 365 (cloud) 22/09<br>Bản trình: 22/09/2026 · dành cho TGĐ · P.TGĐ Vận hành · Chủ tịch<br>Freshness nguồn: ECP_CT1_Tiến độ khách 15/09 · ER_Bazaar 15/09 · Database Khách thuê Vinh 16/09 · Database Khách thuê LA 15/09 · ECP_CT1 chào thuê (lead-log) 08/09 (không đổi) · Theo dõi ĐT đối tác 17/07 · thư: hộp OMNI qua Microsoft 365, người gửi @dbgroup.com.vn 13–22/09 — 3 hộp DB Group không quét trực tiếp<br>Mật: <span style=\"color:var(--critical)\">restricted</span> — tên khách thuê, giá thuê, tranh chấp",
  "tabs": [
   {
    "id": "exec",
