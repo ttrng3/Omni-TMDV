@@ -75,6 +75,7 @@ sensitivity changes, that is a fresh decision for Ty.
 | `tools/build-fragment.py` | Derives the artifact page from `index.html`. |
 | `tools/reconcile.py` | Diffs this repo's `data/` against the artifact's copy. Shared, shape-agnostic. |
 | `.github/workflows/freshness-check.yml` | Opens an issue if the job stops, or if the trackers go quiet. |
+| `.github/workflows/validate.yml` | Runs the two checks above on every push to `data/` or `index.html`, and opens an issue if what was published does not validate. |
 
 The KPI cards live inside the `exec` panel. They are deliberately **not** also
 copied into `index.json` — two copies of the same number is how they drift.
@@ -134,6 +135,29 @@ files published alongside the page are same-origin, so the renderer's relative
 - To tell the two blank-page causes apart: read the artifact's `index.html`
   back and count `<html>` tags. Two means it nested. One means the markup is
   fine and it is the same-call publish problem above.
+
+## Guards on `main`
+
+Two different failure questions, two different guards — a dashboard can be
+stale, or it can be fresh and wrong, and neither guard sees the other's case.
+
+| Guard | Answers | Reacts by |
+| --- | --- | --- |
+| `freshness-check.yml` (daily) | Did the job run? Are the trackers moving? | Opening a `stale-data` issue |
+| `validate.yml` (every push) | Is what we published actually renderable? | Opening a `broken-data` issue |
+
+`validate.yml` is deliberately **not** a required status check. The weekly
+routine commits straight to `main` through the GitHub API, and a required check
+would block it — trading a visibly broken page for a silently stale one, which
+is the worse failure and the one this repo already had. It is loud, not
+preventive.
+
+**Branch protection (set 2026-09-22):** force-pushes and branch deletion are
+blocked on `main`, for admins too. Ordinary pushes are untouched, so the
+routine works exactly as before. The reason the rule includes admins: the
+routine pushes with Ty's own credential, so an admin exemption would exempt the
+one identity capable of overwriting the data, and the freshness check cannot
+see an overwrite — the timestamps would look perfect.
 
 ## Why it changed
 

@@ -1,0 +1,80 @@
+name: Validate published data
+
+# The freshness check answers "did the job run?". It reads timestamps, so a run
+# that ran on time and wrote broken panels passes it. This answers "is what we
+# published actually renderable?" — tag balance and the A-K section sequence —
+# and it runs on the routine's own commits, which is where the bad HTML comes
+# from. The 2026-09-22 stray </div> shipped through two refreshes because
+# nothing looked at the content.
+#
+# Deliberately NOT a required status check: the weekly routine commits straight
+# to main through the GitHub API, and a required check would block it and leave
+# the dashboard stale instead. A failure here is loud, not preventive.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "data/**"
+      - "index.html"
+      - "tools/validate-panels.py"
+  pull_request:
+    paths:
+      - "data/**"
+      - "index.html"
+      - "tools/validate-panels.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Panels are well-formed
+        id: panels
+        run: python3 tools/validate-panels.py | tee panels.log
+
+      - name: Artifact fragment still builds
+        # Catches the other way this page dies: a renderer edit that leaves a
+        # document tag in the fragment publishes an artifact that renders blank
+        # with no console error and nothing to debug from.
+        run: python3 tools/build-fragment.py
+
+      - name: Open an issue if the published data is broken
+        if: failure() && github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          body=$(printf '%s\n' \
+            "Commit \`${{ github.sha }}\` published data that does not validate." \
+            "" \
+            '```' \
+            "$(cat panels.log 2>/dev/null || echo 'validate-panels.py produced no output — it failed before reporting.')" \
+            '```' \
+            "" \
+            "The page is still serving. Whatever is malformed is being silently reparented by the browser," \
+            "so it will look almost right. Fix the panel JSON, do not publish around it." \
+            "" \
+            "Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}")
+          existing=$(gh issue list --state open --label broken-data --json number --jq '.[0].number // empty')
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "$body"
+          else
+            gh label create broken-data --color B60205 --description "Published panel data failed validation" 2>/dev/null || true
+            gh issue create --title "TMDV dashboard: published data failed validation" --label broken-data --body "$body"
+          fi
+
+      - name: Close the issue once it validates again
+        if: success() && github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          for n in $(gh issue list --state open --label broken-data --json number --jq '.[].number'); do
+            gh issue close "$n" --comment "Validates again as of \`${{ github.sha }}\`."
+          done
