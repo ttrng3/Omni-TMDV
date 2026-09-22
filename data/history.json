@@ -1,0 +1,179 @@
+{
+ "_readme": [
+  "Append-only series, one row per refresh. NEVER rewrite or delete a past row:",
+  "this file exists because the trend was thrown away once already — before the",
+  "2026-09-22 split every period lived inside a 300 KB HTML file that was deleted",
+  "on the next run, and only 14/09 and 22/09 survived in git. Rows 31/08 to 14/09",
+  "were reconstructed from the run records on Drive, each cited in `src`.",
+  "",
+  "Every value carries a trust tag, same vocabulary as the page: v = ✓ĐC",
+  "(recomputed from source rows this run), l = ~ (current source, not",
+  "independently recomputed), a = GĐ (assumption / unreconciled). A value whose",
+  "tag differs from the previous period's has NOT necessarily moved — the basis",
+  "may have changed. Say so in `note` rather than letting it read as growth."
+ ],
+ "unit": "tỷ đ/năm, except pct (%)",
+ "metrics": [
+  {
+   "key": "pct",
+   "label": "Hiệu suất thu danh mục",
+   "unit": "%",
+   "lead": true
+  },
+  {
+   "key": "collected",
+   "label": "Đang thu",
+   "unit": "tỷ"
+  },
+  {
+   "key": "vinh",
+   "label": "— Vinh",
+   "unit": "tỷ",
+   "sub": true
+  },
+  {
+   "key": "longan",
+   "label": "— Long An",
+   "unit": "tỷ",
+   "sub": true
+  },
+  {
+   "key": "committed",
+   "label": "Đã ký/đã chốt, chưa ra tiền",
+   "unit": "tỷ"
+  }
+ ],
+ "series": [
+  {
+   "asof": "31/08",
+   "iso": "2026-08-31",
+   "src": "93 Knowledge Base/Claude outputs/TMDV/20260907_TMDV_Dieu-hanh_v1.md",
+   "pct": {
+    "v": 16.0,
+    "t": "v"
+   },
+   "collected": {
+    "v": 3.69,
+    "t": "v"
+   },
+   "vinh": {
+    "v": 0.56,
+    "t": "v"
+   },
+   "longan": {
+    "v": 3.13,
+    "t": "l",
+    "note": "File 38 căn vs BQL 27 — chưa kiểm chứng"
+   },
+   "committed": {
+    "v": 6.94,
+    "t": "l",
+    "note": "Giữ nguyên từ bản 21/08 — chưa tính lại độc lập ở kỳ này"
+   }
+  },
+  {
+   "asof": "09/09",
+   "iso": "2026-09-09",
+   "src": "93 Knowledge Base/Claude outputs/TMDV/20260909_TMDV_Dieuhanh_v2.md",
+   "pct": {
+    "v": 16.0,
+    "t": "v"
+   },
+   "collected": {
+    "v": 3.688,
+    "t": "v"
+   },
+   "vinh": {
+    "v": 0.559,
+    "t": "v"
+   },
+   "longan": {
+    "v": 3.129,
+    "t": "l"
+   },
+   "committed": {
+    "v": 6.94,
+    "t": "l",
+    "note": "Giữ nguyên từ bản 21/08 — chưa tính lại độc lập ở kỳ này"
+   }
+  },
+  {
+   "asof": "12/09",
+   "iso": "2026-09-12",
+   "src": "93 Knowledge Base/Claude outputs/TMDV/20260912_TMDV_Dieuhanh_v1.md",
+   "pct": {
+    "v": 16.0,
+    "t": "v"
+   },
+   "collected": {
+    "v": 3.689,
+    "t": "v"
+   },
+   "vinh": {
+    "v": 0.559,
+    "t": "v"
+   },
+   "longan": {
+    "v": 3.129,
+    "t": "l"
+   },
+   "committed": {
+    "v": 6.94,
+    "t": "l",
+    "note": "Giữ nguyên từ bản 21/08 — chưa tính lại độc lập ở kỳ này"
+   }
+  },
+  {
+   "asof": "14/09",
+   "iso": "2026-09-14",
+   "src": "93 Knowledge Base/Claude outputs/TMDV/20260914_TMDV_Dieuhanh_v1.md",
+   "pct": {
+    "v": 16.0,
+    "t": "v"
+   },
+   "collected": {
+    "v": 3.689,
+    "t": "v"
+   },
+   "vinh": {
+    "v": 0.559,
+    "t": "v"
+   },
+   "longan": {
+    "v": 3.13,
+    "t": "l"
+   },
+   "committed": {
+    "v": 6.94,
+    "t": "l",
+    "note": "Giữ nguyên từ bản 21/08 — chưa tính lại độc lập ở kỳ này"
+   }
+  },
+  {
+   "asof": "22/09",
+   "iso": "2026-09-22",
+   "src": "data/panels/exec.json (kỳ hiện hành)",
+   "pct": {
+    "v": 16.0,
+    "t": "v"
+   },
+   "collected": {
+    "v": 3.69,
+    "t": "v"
+   },
+   "vinh": {
+    "v": 0.56,
+    "t": "v"
+   },
+   "longan": {
+    "v": 3.13,
+    "t": "l"
+   },
+   "committed": {
+    "v": 7.69,
+    "t": "v",
+    "note": "Đổi CƠ SỞ, không phải tăng trưởng: 6,94 được giữ từ 21/08 chưa tính lại; 22/09 tính lại từng căn. Chuyển động thật kỳ này chỉ +0,47 tỷ (P3_0116)"
+   }
+  }
+ ]
+}

@@ -63,6 +63,36 @@ p{margin:10px 0;max-width:70ch}
 .pv.pv.a{color:var(--warning);border-color:var(--warning-line)}
 .pv.pv.l{color:var(--muted)}
 .provkey{display:flex;flex-wrap:wrap;gap:16px;margin-top:14px;font-size:11.5px;color:var(--muted)}
+/* Trend strip. Deliberately a TABLE, not a sparkline: across the five recovered
+   periods pct/collected/vinh/longan vary by under 0.2% — they are flat lines —
+   and the only metric that moves (committed, 10.6%) moves because its basis
+   changed, not because the business did. Sparklines here would draw four dead
+   lines and one fake step. If real variance ever appears, revisit; until then a
+   table with an explicit delta is the honest form. */
+.trend{margin-top:26px;border:1px solid var(--rule);border-radius:6px;background:var(--card);box-shadow:var(--shadow-sm);overflow:hidden}
+.trend .th{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:13px 18px 11px;border-bottom:1px solid var(--rule-soft);flex-wrap:wrap}
+.trend .th h3{font-size:13.5px;margin:0}
+.trend .th .sub{font-family:var(--mono);font-size:10.5px;color:var(--muted)}
+.trend table{font-size:12.5px}
+.trend th,.trend td{padding:7px 12px;border-bottom:1px solid var(--rule-soft)}
+.trend th{background:var(--surface);font-size:10px}
+.trend td.m{color:var(--ink-soft);white-space:nowrap}
+.trend td.m.sub{padding-left:24px;color:var(--muted);font-size:12px}
+.trend tr.lead td{font-weight:600;color:var(--ink)}
+.trend td.p{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.trend td.now{background:var(--accent-soft)}
+.trend td.d{text-align:right;font-family:var(--mono);font-weight:600;white-space:nowrap}
+.trend td.d.flat{color:var(--muted)}
+.trend td.d.up{color:var(--accent)}
+.trend td.d.basis{color:var(--warning)}
+.trend .foot{padding:11px 18px 13px;font-size:11.5px;color:var(--muted);line-height:1.6}
+/* Instrument trust — distinct from the risk map. The risk map is about the
+   business; this is about whether the numbers on this page can be relied on. */
+.unsafe{margin-top:22px;border:1px solid var(--critical-line);border-left:4px solid var(--critical);border-radius:6px;background:var(--critical-soft);padding:16px 20px 14px}
+.unsafe h3{font-size:13px;margin:0 0 4px;color:var(--critical)}
+.unsafe ol{margin:8px 0 0;padding-left:20px}
+.unsafe li{font-size:13px;color:var(--ink-soft);margin:6px 0;line-height:1.55}
+.unsafe .where{font-family:var(--mono);font-size:10px;color:var(--muted);margin-left:4px}
 .pillars{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:20px}
 .pil{border:1px solid var(--rule);background:var(--card);padding:20px 22px;border-radius:6px;box-shadow:var(--shadow-sm)}
 .pil .top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
@@ -158,7 +188,7 @@ details.acc .body .tw{border:1px solid var(--rule);box-shadow:none}
   .hdr .meta summary{display:none}
   .hdr .meta .more{display:block!important}
   .panel[hidden]{display:block!important}
-  .kpi,.stage,.pil,.xd .c,details.acc,.callout,.verdict,.tlrow,.govrow,tr{break-inside:avoid}
+  .kpi,.stage,.pil,.xd .c,details.acc,.callout,.verdict,.tlrow,.govrow,tr,.trend,.unsafe{break-inside:avoid}
   .kpi,.stage,.pil,.xd .c,.callout,.verdict,th{background:#fff!important}
   details.acc{border:1px solid #999}
   details.acc summary::before{content:""}
@@ -225,6 +255,70 @@ function wireTabs(){
 })();
 }
 
+const TAGNAME = {v: '\u2713\u0110C', l: '~', a: 'G\u0110'};
+function tag(cell){
+  if (!cell || !cell.t) return '';
+  const title = cell.note ? ` title="${cell.note.replace(/"/g, '&quot;')}"` : '';
+  return ` <span class="pv ${cell.t}"${title}>${TAGNAME[cell.t] || cell.t}</span>`;
+}
+function fmt(n, unit){
+  const s = Number(n).toLocaleString('vi-VN', {minimumFractionDigits: unit === '%' ? 1 : 2,
+                                               maximumFractionDigits: unit === '%' ? 1 : 3});
+  return unit === '%' ? s + '%' : s;
+}
+function renderTrend(h){
+  const rows = h.series || [];
+  if (rows.length < 2) return;
+  const first = rows[0], last = rows[rows.length - 1];
+  const span = `${first.asof} \u2192 ${last.asof}`;
+
+  const body = (h.metrics || []).map(m => {
+    const cells = rows.map((r, i) => {
+      const c = r[m.key];
+      return `<td class="p${i === rows.length - 1 ? ' now' : ''}">`
+           + (c ? fmt(c.v, m.unit) : '\u2014') + '</td>';
+    }).join('');
+    const a = first[m.key], b = last[m.key];
+    let delta = '<td class="d flat">\u2014</td>';
+    if (a && b) {
+      const diff = b.v - a.v;
+      // A tag change means the basis changed. Calling that a delta would invent
+      // a trend the business did not produce — the exact error this file guards.
+      if (a.t !== b.t) {
+        delta = `<td class="d basis" title="${(b.note || 'Cơ sở tính đổi giữa hai kỳ').replace(/"/g, '&quot;')}">đổi cơ sở</td>`;
+      } else if (Math.abs(diff) < 0.005) {
+        delta = '<td class="d flat">không đổi</td>';
+      } else {
+        delta = `<td class="d up">${diff > 0 ? '+' : ''}${fmt(diff, m.unit)}</td>`;
+      }
+    }
+    return `<tr class="${m.lead ? 'lead' : ''}"><td class="m${m.sub ? ' sub' : ''}">${m.label}`
+         + tag(last[m.key]) + `</td>${cells}${delta}</tr>`;
+  }).join('');
+
+  const head = rows.map((r, i) =>
+    `<th class="num"${i === rows.length - 1 ? ' style="color:var(--accent)"' : ''}>${r.asof}</th>`).join('');
+
+  // Sits directly under the KPI block: the board's first question after "what is
+  // it?" is "which way is it going?", and that is the seam between them.
+  const host = document.createElement('div');
+  host.id = 'trend';
+  const provkey = document.querySelector('#exec .provkey');
+  if (provkey) provkey.insertAdjacentElement('afterend', host);
+  else document.getElementById('exec').prepend(host);
+
+  host.innerHTML =
+    '<div class="trend">'
+    + `<div class="th"><h3>Xu hướng ${rows.length} kỳ &middot; ${span}</h3>`
+    + '<span class="sub">tỷ đ/năm · cột cuối = kỳ hiện hành</span></div>'
+    + `<div class="tw" style="margin:0;border:0;box-shadow:none"><table><thead><tr><th>Chỉ số</th>${head}`
+    + '<th class="num">Δ</th></tr></thead><tbody>' + body + '</tbody></table></div>'
+    + '<p class="foot">Chuỗi trước 22/09 dựng lại từ bản ghi từng lần chạy trên Drive — '
+    + 'mỗi dòng ghi nguồn trong <code>data/history.json</code>. "Đổi cơ sở" nghĩa là nhãn tin cậy '
+    + 'giữa hai kỳ khác nhau: số đổi vì cách tính đổi, không phải vì việc kinh doanh đổi.</p>'
+    + '</div>';
+}
+
 async function boot(){
   const idx = await getJSON('index.json');
   document.getElementById('lead').innerHTML = idx.lead || '';
@@ -243,6 +337,12 @@ async function boot(){
   const ids = Object.keys(idx.panels || {});
   const loaded = await Promise.all(ids.map(id => getJSON('panels/' + idx.panels[id] + '.json')));
   ids.forEach((id, i) => { document.getElementById(id).innerHTML = loaded[i].html; });
+  // The trend is a separate file so the weekly job appends one row instead of
+  // rewriting the exec panel, and so losing a panel never loses the series.
+  if (idx.history) {
+    try { renderTrend(await getJSON(idx.history)); }
+    catch (e) { console.warn('history unavailable:', e.message); }
+  }
   wireTabs();
 }
 boot().catch(err => {

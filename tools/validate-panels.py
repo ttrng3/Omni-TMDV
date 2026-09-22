@@ -13,6 +13,18 @@ Checks, per panel:
   - the panel declares the section letters the renderer expects, in order
   - the panel is a fragment: no <html>, <head>, <body> or doctype
 
+And on data/history.json, if present:
+  - the series only ever grows, and past rows are never rewritten (compared
+    against the copy in git HEAD)
+  - periods are unique and in chronological order
+  - every metric the manifest declares exists in every row, with a trust tag
+
+The history guard matters more than it looks. This dashboard already lost its
+trend once: before the 2026-09-22 split each period lived inside a 300 KB HTML
+file that the next run deleted, and only two periods survived in git. Rows
+before 22/09 were reconstructed from run records on Drive. There is no third
+copy to reconstruct from.
+
 Usage:
     python3 tools/validate-panels.py [data-dir]     # default: data
 
@@ -20,6 +32,7 @@ Exits 0 when every panel is clean, 1 on the first panel that is not.
 """
 import json
 import pathlib
+import subprocess
 import sys
 from html.parser import HTMLParser
 
@@ -82,11 +95,73 @@ def check(tab, html):
     return errors
 
 
+def check_history(path):
+    """Append-only, ordered, fully-tagged. Compared against git HEAD when we can."""
+    errors = []
+    d = json.loads(path.read_text(encoding="utf-8"))
+    series = d.get("series") or []
+    if not series:
+        return ["history has no series rows"]
+
+    keys = [m["key"] for m in d.get("metrics", [])]
+    seen = set()
+    prev_iso = ""
+    for i, row in enumerate(series):
+        where = f"row {i} ({row.get('asof', '?')})"
+        iso = row.get("iso", "")
+        if not iso:
+            errors.append(f"{where}: no iso date")
+        elif iso < prev_iso:
+            errors.append(f"{where}: iso {iso} is older than the row before it ({prev_iso})")
+        prev_iso = max(prev_iso, iso)
+        if iso in seen:
+            errors.append(f"{where}: duplicate period {iso} — append a run, do not re-file one")
+        seen.add(iso)
+        if not row.get("src"):
+            errors.append(f"{where}: no src — every row states where its numbers came from")
+        for k in keys:
+            cell = row.get(k)
+            if cell is None:
+                errors.append(f"{where}: missing metric '{k}'")
+            elif "v" not in cell or not cell.get("t"):
+                errors.append(f"{where}: metric '{k}' has no value/trust tag")
+
+    # Append-only, checked against what is committed rather than trusted.
+    head = subprocess.run(["git", "show", f"HEAD:{path.as_posix()}"],
+                          capture_output=True, text=True)
+    if head.returncode == 0:
+        try:
+            old = json.loads(head.stdout).get("series") or []
+        except ValueError:
+            old = []
+        if len(series) < len(old):
+            errors.append(f"history shrank: {len(old)} rows in HEAD, {len(series)} now — "
+                          "rows are appended, never removed")
+        else:
+            for i, (a, b) in enumerate(zip(old, series)):
+                if a != b:
+                    errors.append(f"row {i} ({a.get('asof', '?')}) was rewritten — "
+                                  "a past period is a record, not a draft")
+    return errors
+
+
 def main(root="data"):
     panels = sorted((pathlib.Path(root) / "panels").glob("*.json"))
     if not panels:
         sys.exit(f"no panels under {root}/panels")
     failed = False
+
+    hist = pathlib.Path(root) / "history.json"
+    if hist.exists():
+        errors = check_history(hist)
+        if errors:
+            failed = True
+            print(f"FAIL {hist}")
+            for e in errors:
+                print(f"  - {e}")
+        else:
+            n = len(json.loads(hist.read_text(encoding="utf-8"))["series"])
+            print(f"ok   {hist}  ({n} periods, append-only)")
     for path in panels:
         d = json.loads(path.read_text(encoding="utf-8"))
         errors = check(d.get("id", path.stem), d.get("html", ""))

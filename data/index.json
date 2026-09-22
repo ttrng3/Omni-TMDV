@@ -27,5 +27,6 @@
   "ctrl": "ctrl"
  },
  "pages": "https://ttrng3.github.io/Omni-TMDV/",
- "repo": "https://github.com/ttrng3/Omni-TMDV"
+ "repo": "https://github.com/ttrng3/Omni-TMDV",
+ "history": "history.json"
 }
