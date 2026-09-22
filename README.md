@@ -84,15 +84,36 @@ copied into `index.json` — two copies of the same number is how they drift.
 ## What belongs on each tab
 
 Revised 2026-09-22. The executive tab had grown to 4,344 px — taller than either
-detail tab — because every refresh added to it and nothing ever left. It is now
-2,009 px and is the shortest of the three. Keep it that way.
+detail tab — because every refresh added to it and nothing ever left. It was cut
+to 2,009 px; with the decision sheet and collapsed lenses it is 2,643 px
+(ops 6,528 · ctrl 3,833) and is still the shortest. Keep it that way.
 
 **`exec` — what gets decided in a meeting. Nothing else.**
 verdict · three KPI cards · the trust-tag key · **the five-period trend strip** ·
 the next contractual deadline · **the three instrument-trust findings** ·
-§01 the five board-level decisions · a collapsed Δ-since-last-issue block.
+§01 the **decision sheet** · three **collapsed role lenses** (CFO · Chủ tịch ·
+TGĐ) · a collapsed Δ-since-last-issue block.
 Three KPI cards, not six: a fourth costs more than it tells, and every number
 dropped from here still exists on another tab.
+
+Restructured 2026-09-22 at Ty's request, reading the page as CFO, Chairman and
+CEO in turn:
+
+- **KPI cards serve the three readers.** Card 1 is labelled a *ceiling*, not
+  cash. Card 3 is the cash gap (`? tỷ — tiền thuê thực thu, chưa đo được`) and
+  stays a red "?" until Kế toán supplies invoiced/collected by unit — do not
+  fill it from budget rate. WinMart (76,6% of Vinh "đang thu") carries a 4-year
+  rent-free OTL; that is why the ceiling cannot be read as cash.
+- **§01 is a table, one row per decision**: the ask · money · cost of waiting ·
+  options A/B · the page's recommendation (labelled as such, not an approved
+  policy) · deadline · who decides. Recompute every "N ngày" from the run date.
+- **Role lenses** (collapsed, so the tab stays the shortest): CFO = ceiling →
+  contracted-after-free-rent → invoiced → collected bridge plus money-out
+  ledger; Chủ tịch = the direction question (revenue line vs. density tool),
+  HTXH obligation, and a decision-latency table (days each item has waited);
+  TGĐ = team KPI (tracker tab "KPI") vs committed m², pro-rated by day of year,
+  plus the team's own missed dates. Per-person KPI is not measurable until the
+  tracker records who owns each unit — say so, do not guess.
 
 The trend strip and the instrument-trust block were added 2026-09-22 and are
 part of the contract, not decoration. A snapshot cannot answer *"is this getting
