@@ -1,0 +1,31 @@
+{
+ "generatedUtc": "2026-09-21T11:00:00Z",
+ "asof": "14/09/2026",
+ "lead": "Hệ sinh thái ba trụ cột trên hai dự án — Eco Central Park (Vinh) &amp; Eco Retreat (Long An) · 128 căn thương mại · ~34 lô quỹ đất HTXH · phát triển cộng đồng",
+ "eyebrow": "Ban Đầu tư · Thương mại dịch vụ · Phát triển cộng đồng — OMNI / DB Group",
+ "meta": "Kỳ dữ liệu: 14/09/2026 · làm mới tự động qua Google Drive (cloud) 14/09<br>Bản trình: 14/09/2026 · dành cho TGĐ · P.TGĐ Vận hành · Chủ tịch<br>Freshness nguồn: ECP_CT1 chào thuê 08/09 (không đổi) · ER_Bazaar 11/09 (không đổi) · ECP_CT1 Tiến độ khách 12/09 (không đổi) · Theo dõi ĐT đối tác 17/07 · hộp thư 3 tài khoản DB Group không truy cập trực tiếp 14/09 (khác tenant) — soát qua hộp thư OMNI của Ty<br>Mật: <span style=\"color:var(--critical)\">restricted</span> — tên khách thuê, giá thuê, tranh chấp",
+ "tabs": [
+  {
+   "id": "exec",
+   "label": "Tổng quan điều hành",
+   "hint": "Bản ngắn — 3 phút đọc"
+  },
+  {
+   "id": "ops",
+   "label": "Vận hành chi tiết",
+   "hint": "Từng căn · từng lô · pipeline"
+  },
+  {
+   "id": "ctrl",
+   "label": "Dòng thời gian &amp; Kiểm soát",
+   "hint": "Lịch sử điều hành · độ tin dữ liệu"
+  }
+ ],
+ "panels": {
+  "exec": "exec",
+  "ops": "ops",
+  "ctrl": "ctrl"
+ },
+ "pages": "https://ttrng3.github.io/Omni-TMDV/",
+ "repo": "https://github.com/ttrng3/Omni-TMDV"
+}
