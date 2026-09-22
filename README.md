@@ -7,6 +7,11 @@ Eco Retreat (Long An) — commercial leasing, HTXH land bank, community
 development, and the KSNB/QTRR control spine. Three tabs: executive summary,
 per-unit detail, timeline and control health.
 
+**This file is the runbook.** The weekly routine is told to read it first and
+that it outranks the routine's own prompt, stored memory, and any Drive
+document. There is deliberately no second copy — a runbook that exists twice
+drifts, and the stale copy is the one that gets followed.
+
 ## How this repo is the source of truth
 
 ```
@@ -21,31 +26,42 @@ weekly routine ──writes──▶ data/index.json + data/panels/<tab>.json
              (index.html)                 (its own copy of data/)
 ```
 
-`index.html` is a **renderer with no data in it** (~17 KB, was ~77 KB). It
+`index.html` is a **renderer with no data in it** (~18 KB, was ~77 KB). It
 fetches `data/` at load — relative first, falling back to the published
 `https://ttrng3.github.io/Omni-TMDV/data/` — so the same file works as a Pages
 site, as an artifact, and from a local copy.
 
-## Why it changed
+## Sources and surfaces
 
-The weekly routine used to rebuild the whole page, republish the artifact, drop
-a standalone HTML copy on Drive, and have a second routine mirror that file to
-GitHub. The published page was downstream of the artifact, every hop carried the
-whole document, and a dated `archive/status_*.html` series accumulated beside it.
+Everything the job reads and everything it writes, in one place. If a value
+here disagrees with a prompt or a Drive note, this table wins.
 
-Now the routine writes data and the page renders it. A refresh rewrites only the
-panel whose numbers actually moved (~19–27 KB) instead of the whole page.
+| What | Where | Access |
+| --- | --- | --- |
+| Vinh leasing tracker | Shared drive `BAN ĐẦU TƯ, TMDV, PTCĐ` → `1. Thông tin chung / 8. Báo cáo tuần` → `ECP_CT1_Theo dõi chào thuê mặt bằng`, `ECP_CT1_Tiến độ khách`, `Database Khách thuê Vinh.xlsx` | Google Drive connector, read-only |
+| Long An leasing tracker | same folder → `ER_Bazaar_Theo dõi chào thuê mặt bằng.xlsx`, `Database Khách thuê LA` | Google Drive connector, read-only |
+| Land bank (Trụ cột 2) | same shared drive → `2. ĐẦU TƯ HTXH`, `Theo dõi tiến độ đối tác.xlsx`, `TMDV - Đầu Tư Task list` | Google Drive connector, read-only |
+| Escalation threads | OMNI mailbox via Microsoft 365, senders `@dbgroup.com.vn` (thanhlt@, daola@, hientt@) | M365 connector, **read-only — never send or modify** |
+| Weekly routine | `trig_01Ff3aQaqt1w2YEpUvo7LmXe` — "TMDV weekly refresh (Drive trackers → GitHub data)", cron `0 11 * * 0` (Sun 18:00 Asia/Saigon), cloud-only, model Opus | claude.ai/code/routines |
+| Pages surface | https://ttrng3.github.io/Omni-TMDV/ | public |
+| Artifact surface | https://claude.ai/artifact/G8dn2paT2MhyUMSsYukg4U (UUID form: `claude.ai/code/artifact/7a89f357-7a95-41eb-ae31-cf12bdf13c9d` — same artifact) · title + favicon 🏬 **frozen** | private |
+| Freshness guard | `.github/workflows/freshness-check.yml`, daily 11:00 Asia/Saigon | opens an issue on this repo |
 
-The split was verified by rendering the old page and the new one and hashing
-each tab's text independently:
+The three DB Group mailboxes are a different tenant and cannot be scanned
+directly by the automation identity. Escalations are picked up from the OMNI
+mailbox, which is CC'd on the TMDV threads. Say so on the page — do not let a
+narrower scan read as a full one.
 
-| tab | chars | hash | tables | rows |
-| --- | --- | --- | --- | --- |
-| exec | 9,897 | `537c37f` | 1 | 7 |
-| ops | 13,347 | `299220d6` | 10 | 87 |
-| ctrl | 12,167 | `9b582f7b` | 4 | 48 |
+### Confidentiality — ruled 2026-09-22 by Ty
 
-Identical on both. Tab switching re-tested after the panels became dynamic.
+The page is marked `Mật: restricted` and carries tenant names, rents, OTL terms
+and live disputes, and it is served from a **public** repo. That is a decision,
+not an oversight: Ty ruled on 2026-09-22 to keep it public, on a low-traffic URL
+with `robots.txt` disallowing crawlers, because the audience needs it without a
+login. `robots.txt` discourages indexing; it does not make the URL private, and
+a free-plan account cannot run Pages from a private repo. Do not quietly widen
+what is published here, and do not re-litigate the ruling on a refresh — if the
+sensitivity changes, that is a fresh decision for Ty.
 
 ## Layout
 
@@ -55,11 +71,87 @@ Identical on both. Tab switching re-tested after the panels became dynamic.
 | `data/index.json` | `generatedUtc`, `asof`, lead, source-freshness meta, tab labels, panel manifest. |
 | `data/panels/<tab>.json` | That tab's content. `exec`, `ops`, `ctrl`. |
 | `data/.last-check` | Heartbeat. Proves the job ran even when nothing changed. |
-| `.github/workflows/freshness-check.yml` | Opens an issue if the job stops, or if the trackers go quiet. |
+| `tools/validate-panels.py` | Tag-balance and section-letter check. **Run before publishing.** |
+| `tools/build-fragment.py` | Derives the artifact page from `index.html`. |
 | `tools/reconcile.py` | Diffs this repo's `data/` against the artifact's copy. Shared, shape-agnostic. |
+| `.github/workflows/freshness-check.yml` | Opens an issue if the job stops, or if the trackers go quiet. |
 
-The 7 KPI cards live inside the `exec` panel. They are deliberately **not** also
+The KPI cards live inside the `exec` panel. They are deliberately **not** also
 copied into `index.json` — two copies of the same number is how they drift.
+
+## What belongs on each tab
+
+Revised 2026-09-22. The executive tab had grown to 4,344 px — taller than either
+detail tab — because every refresh added to it and nothing ever left. It is now
+2,009 px and is the shortest of the three. Keep it that way.
+
+**`exec` — what gets decided in a meeting. Nothing else.**
+verdict · three KPI cards · the trust-tag key · the next contractual deadline ·
+§01 the five board-level decisions · a collapsed Δ-since-last-issue block.
+Three KPI cards, not six: a fourth costs more than it tells, and every number
+dropped from here still exists on another tab.
+
+**`ops` — the pipeline and the assets.**
+A three pillars · B revenue map by value · C unit funnel · D Vinh ·
+E the disputed Vinh "khai trương" block · F Long An · G land bank.
+
+**`ctrl` — history, control health, and how much to trust the numbers.**
+H operating timeline · I KSNB/QTRR health · J trust layer · K risk map.
+
+The section letters run **A–K across `ops` and `ctrl` as one sequence**; `exec`
+has its own numbered series. `tools/validate-panels.py` enforces this. If you
+add a section, extend the sequence — do not renumber, because the prose
+cross-references the letters.
+
+## Publishing a refresh
+
+1. Write `data/.last-check` first, every run, even a quiet one.
+2. Write only the panels whose numbers actually moved, plus `data/index.json`.
+3. `python3 tools/validate-panels.py` — it must pass. An unbalanced tag does not
+   fail loudly; the browser silently reparents what follows it.
+4. Reconcile the artifact (below).
+5. Recompute every interval ("còn N ngày") from the run date, in code. The
+   30/09 CT1 deadline on the exec tab is a live countdown, not a constant.
+
+### The artifact
+
+The artifact carries its **own copy** of `data/`, because an artifact cannot
+fetch across origins — `fetch()` to `ttrng3.github.io` fails on CSP. Supporting
+files published alongside the page are same-origin, so the renderer's relative
+`fetch('data/…')` resolves against them.
+
+- Publish the changed `data/` paths with the artifact's URL set. Files you omit
+  are kept, so a refresh is a small write.
+- **Send the data files and the page in separate calls**, data first. A page
+  published in the same call as a large files payload has come back blank with
+  byte-identical markup to one that rendered fine alone.
+- The page is the **fragment** from `tools/build-fragment.py`, never
+  `index.html` itself. The artifact service supplies its own
+  `<!doctype html><html><head>…<body>`; publishing a complete document nests one
+  inside another, the inner `<head>` is discarded, and the page renders blank
+  with no console error. `build-fragment.py` refuses to emit a fragment that
+  still contains a document tag.
+- To tell the two blank-page causes apart: read the artifact's `index.html`
+  back and count `<html>` tags. Two means it nested. One means the markup is
+  fine and it is the same-call publish problem above.
+
+## Why it changed
+
+The weekly routine used to rebuild the whole page, republish the artifact, drop
+a standalone HTML copy on Drive, and have a second routine mirror that file to
+GitHub. The published page was downstream of the artifact, every hop carried the
+whole document, and a dated `archive/status_*.html` series accumulated beside it.
+
+Now the routine writes data and the page renders it. A refresh rewrites only the
+panel whose numbers actually moved (~8–31 KB) instead of the whole page.
+
+**Retired 2026-09-22 — do not resurrect, and do not read as current:** the
+`TMDV GitHub mirror` routine, the Drive handoff at
+`93 Knowledge Base/Claude outputs/TMDV/index.html`, the dated
+`archive/status_*.html` series, and `20260909_TMDV_Update-Playbook_v1.md` /
+`20260909_TMDV_OptionB_runbook_v1.md` (both moved to `_archive/`). A refresh
+session that finds one of these and this file in conflict is not looking at
+kernel drift — this file is simply newer. Do not halt over it.
 
 ## Why the heartbeat matters here
 
@@ -82,3 +174,14 @@ no longer look the same from outside.
 - FX 27.000 đ/USD is an assumption carried from the Vinh file; keep it labelled.
 - Trust tags on decision-driving numbers: `✓ĐC` recomputed this run · `~`
   current source, not independently recomputed · `GĐ` assumption/unreconciled.
+- A source that could not be read is a **red, not a green**. Mark the panel
+  `dữ liệu chưa cập nhật — nguồn không truy cập được dd/mm`, keep the last
+  verified values, and say so in the run report.
+
+## Renderer gotcha
+
+The trust tags are written `class="pv v"`, `"pv l"`, `"pv a"`. Inside a KPI card
+the selectors `.kpi .v` and `.kpi .l` outrank a bare `.pv`, so the tag rules are
+written **`.pv.pv`** to match on specificity and win on order. Do not simplify
+them back to `.pv`: the symptom is a 9.5 px mono tag rendering as a 32 px
+Playfair headline, which is how it shipped from 2026-09-08 to 2026-09-22.

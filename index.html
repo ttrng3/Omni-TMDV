@@ -30,7 +30,13 @@ p{margin:10px 0;max-width:70ch}
 .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
 .hdr{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;padding-bottom:22px;border-bottom:2px solid var(--accent-deep)}
 .hdr h1{margin:10px 0 10px}
-.hdr .meta{font-family:var(--mono);font-size:11.5px;color:var(--muted);line-height:1.9;text-align:right}
+.hdr .meta{font-family:var(--mono);font-size:11.5px;color:var(--muted);line-height:1.9;text-align:right;max-width:52ch}
+.hdr .meta details{margin-top:2px}
+.hdr .meta summary{cursor:pointer;list-style:none;color:var(--accent);font-size:11px;letter-spacing:.04em}
+.hdr .meta summary::-webkit-details-marker{display:none}
+.hdr .meta summary::after{content:" +"}
+.hdr .meta details[open] summary::after{content:" \2013"}
+.hdr .meta .more{margin-top:6px;padding-top:7px;border-top:1px solid var(--rule);line-height:1.75}
 .num,.n{font-variant-numeric:tabular-nums}
 .tabs{display:flex;gap:4px;margin:26px 0 0;border-bottom:1px solid var(--rule);flex-wrap:wrap}
 .tab{appearance:none;background:none;border:0;border-bottom:2px solid transparent;padding:12px 18px 13px;font:inherit;font-weight:600;color:var(--muted);cursor:pointer;margin-bottom:-1px;transition:color .15s}
@@ -49,10 +55,13 @@ p{margin:10px 0;max-width:70ch}
 .kpi .s{font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-top:9px;line-height:1.6}
 .kpi.crit{border-top-color:var(--critical)}.kpi.crit .v{color:var(--critical)}
 .kpi.warn{border-top-color:var(--warning)}.kpi.warn .v{color:var(--warning)}
-.pv{font-family:var(--mono);font-size:9.5px;font-weight:500;padding:1px 4px;border-radius:2px;border:1px solid var(--rule);vertical-align:1px;white-space:nowrap;margin-left:3px;color:var(--muted)}
-.pv.v{color:var(--accent);border-color:var(--accent-line)}
-.pv.a{color:var(--warning);border-color:var(--warning-line)}
-.pv.l{color:var(--muted)}
+/* .pv.pv, not .pv: the tags are written class="pv v" / "pv l" / "pv a", and inside a
+   KPI card `.kpi .v` and `.kpi .l` would otherwise win on specificity and render a
+   9.5px mono tag as a 32px Playfair headline. Do not simplify these back to .pv. */
+.pv.pv{font-family:var(--mono);font-size:9.5px;font-weight:500;padding:1px 4px;border-radius:2px;border:1px solid var(--rule);vertical-align:1px;white-space:nowrap;margin-left:3px;color:var(--muted);line-height:1.4;letter-spacing:0}
+.pv.pv.v{color:var(--accent);border-color:var(--accent-line)}
+.pv.pv.a{color:var(--warning);border-color:var(--warning-line)}
+.pv.pv.l{color:var(--muted)}
 .provkey{display:flex;flex-wrap:wrap;gap:16px;margin-top:14px;font-size:11.5px;color:var(--muted)}
 .pillars{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:20px}
 .pil{border:1px solid var(--rule);background:var(--card);padding:20px 22px;border-radius:6px;box-shadow:var(--shadow-sm)}
@@ -145,6 +154,9 @@ details.acc .body .tw{border:1px solid var(--rule);box-shadow:none}
   :root{--muted:#333;--ink-soft:#222;--paper:#fff;--shadow:none;--shadow-sm:none}
   .verdict,.kpi,.pil,.stage,.tw,.xd .c,details.acc,.gov,.bar{box-shadow:none!important}
   .tabs{display:none}
+  .hdr .meta details{display:block}
+  .hdr .meta summary{display:none}
+  .hdr .meta .more{display:block!important}
   .panel[hidden]{display:block!important}
   .kpi,.stage,.pil,.xd .c,details.acc,.callout,.verdict,.tlrow,.govrow,tr{break-inside:avoid}
   .kpi,.stage,.pil,.xd .c,.callout,.verdict,th{background:#fff!important}
@@ -216,7 +228,13 @@ function wireTabs(){
 async function boot(){
   const idx = await getJSON('index.json');
   document.getElementById('lead').innerHTML = idx.lead || '';
-  document.getElementById('meta').innerHTML = idx.meta || '';
+  // idx.meta is one <br>-joined string, written by the weekly job. Line 1 (the data
+  // period) stays visible; per-source freshness and the confidentiality mark fold
+  // behind a disclosure so the header stops outweighing the numbers under it.
+  const metaLines = (idx.meta || '').split(/<br\s*\/?>/i).filter(l => l.trim());
+  document.getElementById('meta').innerHTML = metaLines.length < 2 ? (idx.meta || '')
+    : `${metaLines[0]}<details><summary>nguồn &amp; mật</summary>`
+      + `<div class="more">${metaLines.slice(1).join('<br>')}</div></details>`;
   document.getElementById('tabs').innerHTML = (idx.tabs || []).map((t, i) =>
     `<button class="tab" role="tab" id="tab-${t.id}" aria-selected="${i === 0}" aria-controls="${t.id}">`
     + `${t.label}<span class="hint">${t.hint}</span></button>`).join('');

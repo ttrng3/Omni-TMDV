@@ -1,5 +1,6 @@
-# Never commit credentials. The weekly job reads its token from an
-# account-level store (see docs/weekly-refresh.md), never from this tree.
+# Never commit credentials. The weekly job writes through the GitHub MCP file
+# tools with an injected credential and reads no token from this tree.
+# The runbook is README.md — there is deliberately no second copy.
 .github-token
 .github-token.save
 *.save
@@ -15,3 +16,4 @@ CHANGELOG.md
 SKILL.md.proposed
 sitecheck-history.json
 sitecheck-refresh-*.md
+build/
