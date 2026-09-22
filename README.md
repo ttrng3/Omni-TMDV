@@ -70,6 +70,7 @@ sensitivity changes, that is a fresh decision for Ty.
 | `index.html` | Renderer only. Header shell, tabs, tab-switching script. No data. |
 | `data/index.json` | `generatedUtc`, `asof`, lead, source-freshness meta, tab labels, panel manifest. |
 | `data/panels/<tab>.json` | That tab's content. `exec`, `ops`, `ctrl`. |
+| `data/history.json` | The trend. One append-only row per refresh, every value trust-tagged, every row citing its source. |
 | `data/.last-check` | Heartbeat. Proves the job ran even when nothing changed. |
 | `tools/validate-panels.py` | Tag-balance and section-letter check. **Run before publishing.** |
 | `tools/build-fragment.py` | Derives the artifact page from `index.html`. |
@@ -87,10 +88,18 @@ detail tab — because every refresh added to it and nothing ever left. It is no
 2,009 px and is the shortest of the three. Keep it that way.
 
 **`exec` — what gets decided in a meeting. Nothing else.**
-verdict · three KPI cards · the trust-tag key · the next contractual deadline ·
+verdict · three KPI cards · the trust-tag key · **the five-period trend strip** ·
+the next contractual deadline · **the three instrument-trust findings** ·
 §01 the five board-level decisions · a collapsed Δ-since-last-issue block.
 Three KPI cards, not six: a fourth costs more than it tells, and every number
 dropped from here still exists on another tab.
+
+The trend strip and the instrument-trust block were added 2026-09-22 and are
+part of the contract, not decoration. A snapshot cannot answer *"is this getting
+better or worse?"*, and that is the question that decides whether the board
+intervenes. The instrument-trust block is **not** the risk map: the risk map is
+about the business, that block is about whether these numbers can be relied on
+at all. Keep them distinct.
 
 **`ops` — the pipeline and the assets.**
 A three pillars · B revenue map by value · C unit funnel · D Vinh ·
@@ -104,10 +113,39 @@ has its own numbered series. `tools/validate-panels.py` enforces this. If you
 add a section, extend the sequence — do not renumber, because the prose
 cross-references the letters.
 
+## The trend series
+
+`data/history.json` is **append-only**. Add one row per refresh; never rewrite
+or delete a past row. `validate-panels.py` enforces this against git HEAD and
+will fail the build if the series shrinks or an existing row changes.
+
+This exists because the trend was thrown away once already. Before the
+2026-09-22 split every period lived inside a 300 KB HTML file that the next run
+deleted, so only 14/09 and 22/09 survived in git — the sibling repo
+`Omni-sitecheck` kept `data/weeks/` per period, this one kept nothing. Rows
+31/08 through 14/09 were reconstructed from the run records under
+`93 Knowledge Base/Claude outputs/TMDV/`, and each row cites the file it came
+from in `src`. There is no third copy to reconstruct from.
+
+**Every value carries a trust tag**, same vocabulary as the page (`v` = ✓ĐC,
+`l` = ~, `a` = GĐ). When a value's tag changes between periods, the delta column
+prints *"đổi cơ sở"* instead of subtracting — because the number moved for a
+reason the business did not produce. 6,94 → 7,69 on the committed block is
+exactly that: 6,94 was carried untouched from 21/08, 22/09 was recomputed per
+unit, and only +0,47 was real. Do not let a basis change render as growth.
+
+**It is a table, not a sparkline, on purpose.** Across the five recovered
+periods four of the five metrics vary by under 0.2% — they are flat lines — and
+the only one that moves does so because of the basis change above. Sparklines
+here would draw four dead lines and one fake step. Revisit if real variance ever
+appears; until then a table with an explicit delta is the honest form.
+
 ## Publishing a refresh
 
 1. Write `data/.last-check` first, every run, even a quiet one.
 2. Write only the panels whose numbers actually moved, plus `data/index.json`.
+   Append one row to `data/history.json` — every run, including a quiet one. A
+   quiet period is data: it is how the 22-day plateau became visible.
 3. `python3 tools/validate-panels.py` — it must pass. An unbalanced tag does not
    fail loudly; the browser silently reparents what follows it.
 4. Reconcile the artifact (below).

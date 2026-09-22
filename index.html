@@ -74,6 +74,7 @@ p{margin:10px 0;max-width:70ch}
 .trend .th h3{font-size:13.5px;margin:0}
 .trend .th .sub{font-family:var(--mono);font-size:10.5px;color:var(--muted)}
 .trend table{font-size:12.5px}
+.trend .tw{margin:0;border:0;border-radius:0;box-shadow:none}
 .trend th,.trend td{padding:7px 12px;border-bottom:1px solid var(--rule-soft)}
 .trend th{background:var(--surface);font-size:10px}
 .trend td.m{color:var(--ink-soft);white-space:nowrap}
@@ -85,7 +86,7 @@ p{margin:10px 0;max-width:70ch}
 .trend td.d.flat{color:var(--muted)}
 .trend td.d.up{color:var(--accent)}
 .trend td.d.basis{color:var(--warning)}
-.trend .foot{padding:11px 18px 13px;font-size:11.5px;color:var(--muted);line-height:1.6}
+.trend .tnote{margin:0;padding:11px 18px 13px;font-size:11.5px;color:var(--muted);line-height:1.6;max-width:none;border:0}
 /* Instrument trust — distinct from the risk map. The risk map is about the
    business; this is about whether the numbers on this page can be relied on. */
 .unsafe{margin-top:22px;border:1px solid var(--critical-line);border-left:4px solid var(--critical);border-radius:6px;background:var(--critical-soft);padding:16px 20px 14px}
@@ -311,9 +312,9 @@ function renderTrend(h){
     '<div class="trend">'
     + `<div class="th"><h3>Xu hướng ${rows.length} kỳ &middot; ${span}</h3>`
     + '<span class="sub">tỷ đ/năm · cột cuối = kỳ hiện hành</span></div>'
-    + `<div class="tw" style="margin:0;border:0;box-shadow:none"><table><thead><tr><th>Chỉ số</th>${head}`
+    + `<div class="tw"><table><thead><tr><th>Chỉ số</th>${head}`
     + '<th class="num">Δ</th></tr></thead><tbody>' + body + '</tbody></table></div>'
-    + '<p class="foot">Chuỗi trước 22/09 dựng lại từ bản ghi từng lần chạy trên Drive — '
+    + '<p class="tnote">Chuỗi trước 22/09 dựng lại từ bản ghi từng lần chạy trên Drive — '
     + 'mỗi dòng ghi nguồn trong <code>data/history.json</code>. "Đổi cơ sở" nghĩa là nhãn tin cậy '
     + 'giữa hai kỳ khác nhau: số đổi vì cách tính đổi, không phải vì việc kinh doanh đổi.</p>'
     + '</div>';
