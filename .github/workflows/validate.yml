@@ -16,12 +16,14 @@ on:
     paths:
       - "data/**"
       - "index.html"
-      - "tools/validate-panels.py"
+      - "tools/*.py"
+      - ".github/workflows/validate.yml"
   pull_request:
     paths:
       - "data/**"
       - "index.html"
-      - "tools/validate-panels.py"
+      - "tools/*.py"
+      - ".github/workflows/validate.yml"
   workflow_dispatch:
 
 permissions:
