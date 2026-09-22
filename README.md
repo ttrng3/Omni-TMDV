@@ -106,12 +106,19 @@ A three pillars · B revenue map by value · C unit funnel · D Vinh ·
 E the disputed Vinh "khai trương" block · F Long An · G land bank.
 
 **`ctrl` — history, control health, and how much to trust the numbers.**
-H operating timeline · I KSNB/QTRR health · J trust layer · K risk map.
+I operating timeline · J KSNB/QTRR health · K trust layer · L risk map.
 
-The section letters run **A–K across `ops` and `ctrl` as one sequence**; `exec`
-has its own numbered series. `tools/validate-panels.py` enforces this. If you
-add a section, extend the sequence — do not renumber, because the prose
-cross-references the letters.
+The section letters run **A–L across `ops` and `ctrl` as one sequence**; `exec`
+has its own numbered series. `tools/validate-panels.py` enforces both the
+sequence and, since 2026-09-22, that every prose reference (`"mục E"`) names a
+section that exists.
+
+If you add a section you must edit three things in the same change: the panel,
+`EXPECTED` in the validator, and any prose pointing at a letter that moved.
+Section H was inserted on 2026-09-22 and shifted `ctrl` from H–K to I–L; the
+same day's earlier renumber had silently left three `"(mục C)"` references
+pointing at the funnel instead of the disputed-openings block, which is why the
+reference check now exists.
 
 ## The trend series
 
@@ -227,6 +234,33 @@ That is precisely the shape of failure this dashboard could not see before.
 `data/.last-check` now records every run; the freshness check reads it
 separately from `generatedUtc`, so "the job died" and "the trackers were quiet"
 no longer look the same from outside.
+
+## What the source trackers actually contain
+
+Audited 2026-09-22 against the live files, so nobody re-derives it or assumes
+more than is there.
+
+| Field | `ER_Bazaar` (Long An) | `ECP_CT1_Tiến độ khách` (Vinh) |
+| --- | --- | --- |
+| Deposit date (`Ngày khách cọc`) | populated | **column exists, 0/63 filled** |
+| Agreed rent (`Tiền thuê thực tế` / `Giá thuê chốt`) | populated | **column exists, 0/63 filled** |
+| Expected opening (`Dự kiến Khai Trương`) | not present | **8/63 filled** |
+| Budget rate | populated | populated (62/63) |
+| Free-rent schedule · invoiced · collected | **absent** | **absent** |
+
+Consequences, and they bound what this dashboard can honestly claim:
+
+- **Aging works on Long An, not on Vinh.** Section H measures Vinh by missed
+  opening dates instead, which is why only 33% of Vinh's committed block by
+  money is measurable at all.
+- **No cash bridge is possible from Drive.** Free-rent terms live in email and
+  tờ trình; invoiced and collected live in accounting. Anything built from these
+  files is *contracted revenue timing*, never cash. Label it that way.
+- **`Database Khách thuê Vinh/LA` are lead logs, not contract databases** — 58
+  prospects with owner and status, no money in them. Do not read them as a
+  tenant ledger.
+- Both `Database` files have **stale July twins in a different folder**. Match on
+  the parent folder id, never on the filename.
 
 ## Data caveats
 

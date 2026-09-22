@@ -32,6 +32,7 @@ Exits 0 when every panel is clean, 1 on the first panel that is not.
 """
 import json
 import pathlib
+import re
 import subprocess
 import sys
 from html.parser import HTMLParser
@@ -39,10 +40,17 @@ from html.parser import HTMLParser
 VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input",
         "link", "meta", "param", "source", "track", "wbr"}
 FORBIDDEN = {"html", "head", "body"}
-# The letters run A-K across ops and ctrl; exec carries its own numbered series.
+# The letters run A-L across ops and ctrl as ONE sequence; exec carries its own
+# numbered series. Extending it means editing this map AND every prose reference
+# to a letter that moved — which REFERENCED below now checks.
 EXPECTED = {"exec": ["01"],
-            "ops": list("ABCDEFG"),
-            "ctrl": list("HIJK")}
+            "ops": list("ABCDEFGH"),
+            "ctrl": list("IJKL")}
+# Prose points at sections by letter ("(mục E)"). When a section moves, those
+# references go stale silently and send a reader to the wrong table. On
+# 2026-09-22 a renumber left three "(mục C)" pointing at the funnel instead of
+# the disputed-openings block, and nothing noticed until the next renumber.
+REFERENCE = re.compile(r"mục ([A-Z])\b")
 
 
 class Balance(HTMLParser):
@@ -145,6 +153,19 @@ def check_history(path):
     return errors
 
 
+def check_references(panels):
+    """Every 'mục X' in prose must name a section that exists somewhere."""
+    letters, refs = set(), []
+    for tab, html in panels:
+        letters.update(re.findall(r'<span class="k">(\w+)</span>', html))
+        for m in REFERENCE.finditer(html):
+            start = max(0, m.start() - 40)
+            refs.append((tab, m.group(1), html[start:m.end() + 10]))
+    return [f"{tab}: 'mục {ltr}' points at no section (letters in use: "
+            f"{''.join(sorted(letters))}) — near ...{ctx[-60:].strip()}"
+            for tab, ltr, ctx in refs if ltr not in letters]
+
+
 def main(root="data"):
     panels = sorted((pathlib.Path(root) / "panels").glob("*.json"))
     if not panels:
@@ -172,6 +193,17 @@ def main(root="data"):
                 print(f"  - {e}")
         else:
             print(f"ok   {path}  ({len(d.get('html','')):,} chars)")
+
+    loaded = [(json.loads(p.read_text(encoding="utf-8")).get("id", p.stem),
+               json.loads(p.read_text(encoding="utf-8")).get("html", "")) for p in panels]
+    ref_errors = check_references(loaded)
+    if ref_errors:
+        failed = True
+        print("FAIL cross-references")
+        for e in ref_errors:
+            print(f"  - {e}")
+    else:
+        print("ok   cross-references (every 'mục X' resolves)")
     return 1 if failed else 0
 
 
