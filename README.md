@@ -304,3 +304,39 @@ the selectors `.kpi .v` and `.kpi .l` outrank a bare `.pv`, so the tag rules are
 written **`.pv.pv`** to match on specificity and win on order. Do not simplify
 them back to `.pv`: the symptom is a 9.5 px tag rendering as a 30 px headline,
 which is how it shipped from 2026-09-08 to 2026-09-22.
+
+## Artifact mirror
+
+The chain is **repo-first**, the same shape KSNB has always used:
+
+    schedule → cloud routine → source → GitHub → Pages → artifact mirrored after
+
+**The repo is the source of truth and Pages is the live surface.** The artifact
+at https://claude.ai/artifact/CsyKTf8ToysYHRSPo2macg is a **mirror**, published *after* the repo
+is correct, and it is never authoritative. If the two ever disagree, the repo
+wins and the artifact is what gets corrected.
+
+How a refresh mirrors it, in this order:
+
+1. Write and verify the repo first. Do not touch the artifact until `main` has
+   moved and you have read the commit back.
+2. Publish the changed data paths — data/index.json, data/history.json and the changed data/panels/<tab>.json — with the artifact's `url` set.
+   Files you omit are kept, so a refresh is a small write.
+3. Republish the page only when the **renderer** changed, and then publish the
+   `tools/build-fragment.py` output, never `index.html` itself. The artifact
+   service wraps what you give it, so a complete document nests inside another,
+   the inner `<head>` is discarded, and the page renders **blank with no
+   console error**. To tell that apart from the other blank cause, read the
+   artifact's `index.html` back and count `<html>` tags: two means it nested,
+   one means the markup is fine and it is the same-call publish problem.
+4. **A failed mirror must never make you undo or retry the repo write.** Report
+   it and stop; the site is already correct.
+
+`tools/reconcile.py` diffs this repo's `data/` against the artifact's copy and
+says which side is newer.
+
+**Why the ordering is stated this bluntly.** On 2026-09-23 the TMDV artifact was
+found *ahead* of its repo, carrying four fixes that had never been committed,
+and the ECOPM artifact was found a whole renderer generation *behind*. Neither
+was caught by the freshness guards, because both read data timestamps and the
+drift was in the page. Repo-first is what keeps that from recurring.
