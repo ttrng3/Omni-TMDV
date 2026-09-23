@@ -125,13 +125,17 @@ code{font-family:var(--mono);font-size:.92em;background:var(--sunk);border-radiu
 .unsafe .where{font-size:12px;color:var(--muted);margin-left:4px}
 
 /* ---------- Pillars ---------- */
-.pillars{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:16px}
+.pillars{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
+/* A panel file once shipped the wrapper twice (<div class=pillars><div class=pillars>…),
+   which dropped all four cards into column 1. Flatten any nested wrapper so the
+   cards always sit in the outer grid, whatever the data writes. */
+.pillars>.pillars{display:contents}
 .pil{border:1px solid var(--line);background:var(--card);padding:20px 22px;border-radius:var(--r-card);box-shadow:none}
-.pil .top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.pil .top{display:flex;flex-direction:column;align-items:flex-start;gap:3px}
 .pil h3{margin:0;font-size:16px;font-weight:600}
 .pil .tag{font-size:12px;color:var(--muted)}
-.pil .big{font-family:var(--sans);font-size:28px;font-weight:600;font-variant-numeric:tabular-nums;margin-top:10px;letter-spacing:-.02em;color:var(--ink);line-height:1.15}
-.pil .big small{font-size:13px;color:var(--muted);font-weight:400;letter-spacing:0}
+.pil .big{font-family:var(--sans);font-size:26px;font-weight:600;font-variant-numeric:tabular-nums;margin-top:10px;letter-spacing:-.02em;color:var(--ink);display:flex;flex-wrap:wrap;align-items:baseline;column-gap:6px;row-gap:5px;line-height:1.15}
+.pil .big small{font-size:12px;color:var(--muted);font-weight:400;letter-spacing:0;order:1;flex-basis:100%;line-height:1.5}
 .pil ul{margin:14px 0 0;padding-left:18px}
 .pil li{margin:7px 0;font-size:13px;color:var(--ink-soft)}
 .pil .fresh{font-size:12px;color:var(--muted);margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
@@ -250,13 +254,15 @@ details.acc .body .tw{border:1px solid var(--line);box-shadow:none;background:no
 
 @media (max-width:900px){
   .kpis{grid-template-columns:repeat(2,1fr)}
-  .pillars,.xd,.two{grid-template-columns:1fr}
+  .pillars{grid-template-columns:repeat(2,1fr)}
+  .xd,.two{grid-template-columns:1fr}
   .stages{grid-template-columns:repeat(3,1fr)}
   .hdr .meta{text-align:left}
   .govrow{grid-template-columns:1fr;gap:4px}
 }
 @media (max-width:560px){
   .kpis{grid-template-columns:1fr}
+  .pillars{grid-template-columns:1fr}
   .stages{grid-template-columns:1fr}
   .tlrow{grid-template-columns:66px 14px 1fr}
   h1{font-size:24px}
