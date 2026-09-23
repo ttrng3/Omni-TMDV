@@ -312,9 +312,8 @@ details.acc .body .tw{border:1px solid var(--line);box-shadow:none;background:no
 <section class="panel" id="ctrl" role="tabpanel" aria-labelledby="tab-ctrl" hidden></section>
 
 <script>
-// Data lives beside the page. Opened from anywhere else (a claude.ai artifact,
-// a local copy) the relative path fails and we fall back to the published copy,
-// so one file works everywhere.
+// Data lives beside the page. Opened from a local copy the relative path
+// fails, so we fall back to the published copy and one file works everywhere.
 const DATA_ABS = 'https://ttrng3.github.io/Omni-TMDV/data/';
 let DATA_BASE = 'data/';
 

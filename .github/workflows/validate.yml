@@ -40,12 +40,6 @@ jobs:
         id: panels
         run: python3 tools/validate-panels.py | tee panels.log
 
-      - name: Artifact fragment still builds
-        # Catches the other way this page dies: a renderer edit that leaves a
-        # document tag in the fragment publishes an artifact that renders blank
-        # with no console error and nothing to debug from.
-        run: python3 tools/build-fragment.py
-
       - name: Open an issue if the published data is broken
         if: failure() && github.event_name == 'push'
         env:

@@ -20,16 +20,15 @@ Google Drive — shared drive "BAN ĐẦU TƯ, TMDV, PTCĐ" (leasing trackers)
         ▼
 weekly routine ──writes──▶ data/index.json + data/panels/<tab>.json
                                    │
-                    ┌──────────────┴──────────────┐
-                    ▼                             ▼
-             GitHub Pages                 claude.ai artifact
-             (index.html)                 (its own copy of data/)
+                                   ▼
+                            GitHub Pages
+                            (index.html)
 ```
 
 `index.html` is a **renderer with no data in it** (~18 KB, was ~77 KB). It
 fetches `data/` at load — relative first, falling back to the published
 `https://ttrng3.github.io/Omni-TMDV/data/` — so the same file works as a Pages
-site, as an artifact, and from a local copy.
+site and from a local copy.
 
 ## Sources and surfaces
 
@@ -44,7 +43,6 @@ here disagrees with a prompt or a Drive note, this table wins.
 | Escalation threads | OMNI mailbox via Microsoft 365, senders `@dbgroup.com.vn` (thanhlt@, daola@, hientt@) | M365 connector, **read-only — never send or modify** |
 | Weekly routine | `trig_01Ff3aQaqt1w2YEpUvo7LmXe` — "TMDV weekly refresh (Drive trackers → GitHub data)", cron `0 11 * * 0` (Sun 18:00 Asia/Saigon), cloud-only, model Opus | claude.ai/code/routines |
 | Pages surface | https://ttrng3.github.io/Omni-TMDV/ | public |
-| Artifact surface | https://claude.ai/artifact/G8dn2paT2MhyUMSsYukg4U (UUID form: `claude.ai/code/artifact/7a89f357-7a95-41eb-ae31-cf12bdf13c9d` — same artifact) · title + favicon 🏬 **frozen** | private |
 | Freshness guard | `.github/workflows/freshness-check.yml`, daily 11:00 Asia/Saigon | opens an issue on this repo |
 
 The three DB Group mailboxes are a different tenant and cannot be scanned
@@ -73,8 +71,6 @@ sensitivity changes, that is a fresh decision for Ty.
 | `data/history.json` | The trend. One append-only row per refresh, every value trust-tagged, every row citing its source. |
 | `data/.last-check` | Heartbeat. Proves the job ran even when nothing changed. |
 | `tools/validate-panels.py` | Tag-balance and section-letter check. **Run before publishing.** |
-| `tools/build-fragment.py` | Derives the artifact page from `index.html`. |
-| `tools/reconcile.py` | Diffs this repo's `data/` against the artifact's copy. Shared, shape-agnostic. |
 | `.github/workflows/freshness-check.yml` | Opens an issue if the job stops, or if the trackers go quiet. |
 | `.github/workflows/validate.yml` | Runs the two checks above on every push to `data/` or `index.html`, and opens an issue if what was published does not validate. |
 
@@ -176,31 +172,8 @@ appears; until then a table with an explicit delta is the honest form.
    quiet period is data: it is how the 22-day plateau became visible.
 3. `python3 tools/validate-panels.py` — it must pass. An unbalanced tag does not
    fail loudly; the browser silently reparents what follows it.
-4. Reconcile the artifact (below).
-5. Recompute every interval ("còn N ngày") from the run date, in code. The
+4. Recompute every interval ("còn N ngày") from the run date, in code. The
    30/09 CT1 deadline on the exec tab is a live countdown, not a constant.
-
-### The artifact
-
-The artifact carries its **own copy** of `data/`, because an artifact cannot
-fetch across origins — `fetch()` to `ttrng3.github.io` fails on CSP. Supporting
-files published alongside the page are same-origin, so the renderer's relative
-`fetch('data/…')` resolves against them.
-
-- Publish the changed `data/` paths with the artifact's URL set. Files you omit
-  are kept, so a refresh is a small write.
-- **Send the data files and the page in separate calls**, data first. A page
-  published in the same call as a large files payload has come back blank with
-  byte-identical markup to one that rendered fine alone.
-- The page is the **fragment** from `tools/build-fragment.py`, never
-  `index.html` itself. The artifact service supplies its own
-  `<!doctype html><html><head>…<body>`; publishing a complete document nests one
-  inside another, the inner `<head>` is discarded, and the page renders blank
-  with no console error. `build-fragment.py` refuses to emit a fragment that
-  still contains a document tag.
-- To tell the two blank-page causes apart: read the artifact's `index.html`
-  back and count `<html>` tags. Two means it nested. One means the markup is
-  fine and it is the same-call publish problem above.
 
 ## Guards on `main`
 
@@ -227,10 +200,10 @@ see an overwrite — the timestamps would look perfect.
 
 ## Why it changed
 
-The weekly routine used to rebuild the whole page, republish the artifact, drop
-a standalone HTML copy on Drive, and have a second routine mirror that file to
-GitHub. The published page was downstream of the artifact, every hop carried the
-whole document, and a dated `archive/status_*.html` series accumulated beside it.
+The weekly routine used to rebuild the whole page, drop a standalone HTML copy
+on Drive, and have a second routine mirror that file to GitHub. Every hop
+carried the whole document, and a dated `archive/status_*.html` series
+accumulated beside it.
 
 Now the routine writes data and the page renders it. A refresh rewrites only the
 panel whose numbers actually moved (~8–31 KB) instead of the whole page.
@@ -298,10 +271,9 @@ Consequences, and they bound what this dashboard can honestly claim:
 ## Visual standard
 
 Since 2026-09-23 the renderer follows the **Ty Artifact Standard** — the house
-Apple-HIG treatment that governs every artifact, not just this one. The skill
-`ty-artifact-standard` holds the full rules; the reference page is
-https://claude.ai/artifact/FjfqnpwZoftL7T3Vehvtfr. It replaced the warm-paper /
-Playfair treatment that ran from 2026-09-08.
+Apple-HIG treatment that governs every page Ty builds, not just this one. The skill
+`ty-artifact-standard` holds the full rules, and is the only place they live.
+It replaced the warm-paper / Playfair treatment that ran from 2026-09-08.
 
 What binds here, in short:
 
