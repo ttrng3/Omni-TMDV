@@ -295,10 +295,40 @@ Consequences, and they bound what this dashboard can honestly claim:
   `dữ liệu chưa cập nhật — nguồn không truy cập được dd/mm`, keep the last
   verified values, and say so in the run report.
 
+## Visual standard
+
+Since 2026-09-23 the renderer follows the **Ty Artifact Standard** — the house
+Apple-HIG treatment that governs every artifact, not just this one. The skill
+`ty-artifact-standard` holds the full rules; the reference page is
+https://claude.ai/artifact/FjfqnpwZoftL7T3Vehvtfr. It replaced the warm-paper /
+Playfair treatment that ran from 2026-09-08.
+
+What binds here, in short:
+
+- Page ground `#F2F2F7`, cards `#FFFFFF` at 12 px radius, hairlines
+  `1px solid #E5E5EA`. **No drop shadows.**
+- System font stack only. **Do not add a webfont link back** — it blocked first
+  paint and bought nothing a dashboard needs.
+- Ink in three tiers: `#1C1C1E` primary, `#3C3C43` body, `#8E8E93` muted.
+  Hierarchy comes from grading one ink, never from a second font colour.
+- Semantic accents: blue `#007AFF` active/info, green `#34C759` done, amber
+  `#FF9500` outstanding, red `#FF3B30` critical. Pills use a darkened ink of the
+  same hue on a tint, because the raw hexes fail contrast at 12 px.
+- **Every pill carries a dot and a word.** Amber and green sit 7.1 ΔE apart
+  under protanopia — colour alone does not separate them. Do not strip the dot.
+- Tables: no vertical rules, no filled header, one hairline per row,
+  `font-variant-numeric: tabular-nums` on every figure.
+- The `@media print` block and the `beforeprint` hook that expands every
+  `<details>` are load-bearing. This page gets photocopied; amber on white
+  washes out, and a collapsed lens on paper is a lens nobody reads.
+
+A refresh writes `data/`, never the stylesheet. If a refresh finds itself
+editing CSS, something has gone wrong — stop and ask.
+
 ## Renderer gotcha
 
 The trust tags are written `class="pv v"`, `"pv l"`, `"pv a"`. Inside a KPI card
 the selectors `.kpi .v` and `.kpi .l` outrank a bare `.pv`, so the tag rules are
 written **`.pv.pv`** to match on specificity and win on order. Do not simplify
-them back to `.pv`: the symptom is a 9.5 px mono tag rendering as a 32 px
-Playfair headline, which is how it shipped from 2026-09-08 to 2026-09-22.
+them back to `.pv`: the symptom is a 9.5 px tag rendering as a 30 px headline,
+which is how it shipped from 2026-09-08 to 2026-09-22.
