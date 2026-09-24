@@ -19,11 +19,11 @@
   --ink-soft:#3C3C43;    /* body prose */
   --muted:#8E8E93;       /* captions, labels, sources */
 
-  --blue:#007AFF;   --blue-bg:#E8F1FE;   --blue-ink:#0060DF;  --blue-line:#CFE3FD;
-  --accent:#007AFF; --accent-soft:#E8F1FE; --accent-line:#CFE3FD; --accent-deep:#0060DF;
-  --green:#34C759;  --green-bg:#E6F7EB;  --green-ink:#1E7F3C;  --green-line:#BFE9CC;
-  --warning:#8A5200; --warning-soft:#FFF4E5; --warning-line:#F6DFBC; --amber:#FF9500;
-  --critical:#C4271D; --critical-soft:#FFEBE9; --critical-line:#F7D2CE; --red:#FF3B30;
+  --blue:#007AFF;   --blue-bg:#E0EFFF;   --blue-ink:#0040DD;  --blue-line:#CCE4FF;
+  --accent:#007AFF; --accent-soft:#E0EFFF; --accent-line:#CCE4FF; --accent-deep:#0040DD;
+  --green:#34C759;  --green-bg:#E7F8EB;  --green-ink:#1E7F3C;  --green-line:#D6F4DE;
+  --warning:#8A5200; --warning-soft:#FFF2E0; --warning-line:#FFEACC; --amber:#FF9500;
+  --critical:#D70015; --critical-soft:#FFE7E6; --critical-line:#FFD8D6; --red:#FF3B30;
 
   --r-card:12px; --r-inner:8px; --r-pill:12px;
   --sans:-apple-system,BlinkMacSystemFont,"San Francisco","Helvetica Neue",Helvetica,Ubuntu,Roboto,sans-serif;
@@ -153,11 +153,11 @@ code{font-family:var(--mono);font-size:.92em;background:var(--sunk);border-radiu
 .b-live span{color:#FFFFFF}
 .b-signed{background:var(--blue);color:#FFFFFF}
 .b-signed span{color:#FFFFFF}
-.b-locked{background:#A8D0FF;color:var(--ink)}
+.b-locked{background:#A6D0FF;color:var(--ink)}
 .b-int{background:var(--amber);color:#FFFFFF}
 .b-int span{color:#FFFFFF}
-.b-neg{background:#FFD9A6;color:var(--ink)}
-.b-vac{background:#FFD5D1;color:var(--critical)}
+.b-neg{background:#FFDAA6;color:var(--ink)}
+.b-vac{background:#FFBAB7;color:var(--critical)}
 .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;font-size:12px;color:var(--muted)}
 .lg{display:inline-flex;align-items:center;gap:6px}
 .sw{width:10px;height:10px;border:0;display:inline-block;border-radius:3px}
@@ -306,7 +306,7 @@ details.acc .body .tw{border:1px solid var(--line);box-shadow:none;background:no
   --shadow-float:0 1px 3px rgba(0,0,0,.06),0 8px 24px rgba(0,0,0,.06);
   --chrome:rgba(242,242,247,.72);
   /* segment fills that were raw hex */
-  --seg-locked:#A8D0FF; --seg-neg:#FFD9A6; --seg-vac:#FFD5D1; --indigo:#5856D6; --purple:#AF52DE;
+  --seg-locked:#A6D0FF; --seg-neg:#FFDAA6; --seg-vac:#FFBAB7; --indigo:#5856D6; --purple:#AF52DE;
 }
 body{background:var(--bg);color:var(--ink-soft)}
 .b-locked{background:var(--seg-locked)} .b-neg{background:var(--seg-neg)} .b-vac{background:var(--seg-vac)}
