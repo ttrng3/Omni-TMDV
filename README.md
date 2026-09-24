@@ -270,15 +270,18 @@ Consequences, and they bound what this dashboard can honestly claim:
 
 ## Visual standard
 
-Since 2026-09-23 the renderer follows the **Ty Artifact Standard** — the house
-Apple-HIG treatment that governs every page Ty builds, not just this one. The skill
-`ty-artifact-standard` holds the full rules, and is the only place they live.
+Since 2026-09-24 the page follows the `apple-design` skill, which replaced the
+retired `ty-artifact-standard`. It is **light and dark**: the base sheet holds the
+Apple-HIG light tokens, and `<style id="apple-layer">` after it adds dark values
+(screen-only — **print always comes out light**), card shadows, translucent
+sticky tabs, press feedback and the reduced-motion / reduced-transparency /
+high-contrast queries. Any new colour must be a token with a dark value.
 It replaced the warm-paper / Playfair treatment that ran from 2026-09-08.
 
 What binds here, in short:
 
 - Page ground `#F2F2F7`, cards `#FFFFFF` at 12 px radius, hairlines
-  `1px solid #E5E5EA`. **No drop shadows.**
+  `1px solid #E5E5EA`. Soft `--shadow-card` in light, none in dark; none in print.
 - System font stack only. **Do not add a webfont link back** — it blocked first
   paint and bought nothing a dashboard needs.
 - Ink in three tiers: `#1C1C1E` primary, `#3C3C43` body, `#8E8E93` muted.
