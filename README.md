@@ -271,11 +271,10 @@ Consequences, and they bound what this dashboard can honestly claim:
 ## Visual standard
 
 Since 2026-09-24 the page follows the `apple-design` skill, which replaced the
-retired `ty-artifact-standard`. It is **light and dark**: the base sheet holds the
-Apple-HIG light tokens, and `<style id="apple-layer">` after it adds dark values
-(screen-only — **print always comes out light**), card shadows, translucent
-sticky tabs, press feedback and the reduced-motion / reduced-transparency /
-high-contrast queries. Any new colour must be a token with a dark value.
+retired `ty-artifact-standard`. **Light only — Ty ruled 2026-09-24** (dark mode ran for one morning and was withdrawn): the page stays light whatever the viewer's system setting, and there is no dark theme. Do not add one back. The base sheet holds the
+Apple-HIG light tokens, and `<style id="apple-layer">` after it adds card
+shadows, translucent sticky tabs, press feedback and the reduced-motion /
+reduced-transparency / high-contrast queries.
 It replaced the warm-paper / Playfair treatment that ran from 2026-09-08.
 
 What binds here, in short:
