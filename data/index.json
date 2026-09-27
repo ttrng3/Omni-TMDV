@@ -1,9 +1,9 @@
 {
- "generatedUtc": "2026-09-22T11:49:42Z",
- "asof": "22/09/2026",
+ "generatedUtc": "2026-09-27T11:11:40Z",
+ "asof": "27/09/2026",
  "lead": "Hệ sinh thái ba trụ cột trên hai dự án — Eco Central Park (Vinh) &amp; Eco Retreat (Long An) · 128 căn thương mại · ~34 lô quỹ đất HTXH · phát triển cộng đồng",
  "eyebrow": "Ban Đầu tư · Thương mại dịch vụ · Phát triển cộng đồng — OMNI / DB Group",
- "meta": "Kỳ dữ liệu: 22/09/2026 · nguồn mới nhất 16/09 · làm mới tự động qua Google Drive + Microsoft 365 (cloud) 22/09<br>Bản trình: 22/09/2026 · dành cho TGĐ · P.TGĐ Vận hành · Chủ tịch<br>Freshness nguồn: ECP_CT1_Tiến độ khách 15/09 · ER_Bazaar 15/09 · Database Khách thuê Vinh 16/09 · Database Khách thuê LA 15/09 · ECP_CT1 chào thuê (lead-log) 08/09 (không đổi) · Theo dõi ĐT đối tác 17/07 · thư: hộp OMNI qua Microsoft 365, người gửi @dbgroup.com.vn 13–22/09 — 3 hộp DB Group không quét trực tiếp<br>Mật: <span style=\"color:var(--critical)\">restricted</span> — tên khách thuê, giá thuê, tranh chấp",
+ "meta": "Kỳ dữ liệu: 27/09/2026 · <strong>nguồn không đổi từ 15/09 — 12 ngày im lặng</strong> · làm mới tự động qua Google Drive + Microsoft 365 (cloud) 27/09<br>Bản trình: 27/09/2026 · dành cho TGĐ · P.TGĐ Vận hành · Chủ tịch<br>Freshness nguồn: ECP_CT1_Tiến độ khách 15/09 (không đổi) · ER_Bazaar 15/09 (không đổi) · Database Khách thuê Vinh 16/09 (không đổi) · Database Khách thuê LA 15/09 (không đổi) · ECP_CT1 chào thuê (lead-log) 08/09 (không đổi) · Theo dõi ĐT đối tác 17/07 · thư: hộp OMNI qua Microsoft 365, người gửi @dbgroup.com.vn 22–27/09 (2 luồng mới) — 3 hộp DB Group không quét trực tiếp<br>Đổi cơ sở kỳ này: bỏ đơn giá tự điền 14 $/m² cho P2_0111 (ô trống trong file) — trần danh mục 23,09 → 22,60 tỷ, hiệu suất 16,0% → 16,3%. Đang thu không đổi 3,69 tỷ.<br>Mật: <span style=\"color:var(--critical)\">restricted</span> — tên khách thuê, giá thuê, tranh chấp",
  "tabs": [
   {
    "id": "exec",
