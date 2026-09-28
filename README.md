@@ -307,15 +307,27 @@ written **`.pv.pv`** to match on specificity and win on order. Do not simplify
 them back to `.pv`: the symptom is a 9.5 px tag rendering as a 30 px headline,
 which is how it shipped from 2026-09-08 to 2026-09-22.
 
-## One surface, on purpose
+## One address, one preview
 
-    schedule → cloud routine → source → GitHub → Pages
+    schedule → cloud routine → source → GitHub → Pages (the address) → artifact (Cowork preview)
 
-**GitHub Pages is the only published surface.** Ty ruled on 2026-09-23 that he
-wants control over what exists of his work, so there is no claude.ai artifact
-copy of this dashboard: the Pages URL above is the address, full stop.
+**https://ttrng3.github.io/Omni-TMDV/ is the only link.** A claude.ai artifact
+titled *TMDV Điều hành* exists as the Cowork preview of this page, and the
+routine refreshes it as its last step (STEP 9 of its prompt), only after the
+repo is correct. Its URL is never written here, in a Drive doc, or in a run
+report: Ty ruled on 2026-09-24 and again on 2026-09-26 that content with a
+Pages address gets no second link. The routine prompt is the only place it
+lives, because the job needs a publish target. The preview must exist: "no
+artifact link" means the URL stays out of sight, never that the artifact goes.
 
-A mirror artifact existed for a few hours that day and was deleted. Do not
-recreate one, and do not add an artifact URL to this repo. `tools/build-fragment.py`
-is kept only because it is the one thing that can derive a standalone fragment
-of this page if it is ever needed; nothing in the refresh calls it.
+**This replaces the 2026-09-23 rule** that stood here ("there is no claude.ai
+artifact copy … do not recreate one"). That older text is not a conflict to
+weigh; it is withdrawn. On 2026-09-27 the routine read it, as the runbook that
+wins, and skipped its mirror step, so the preview stayed at 22/09 while the
+page moved on. Across the pipelines, previews were deleted on 2026-09-23 and
+again on 2026-09-26 by reading "no artifact link" as "no artifact"; do not
+make that a third time.
+
+`tools/build-fragment.py` derives the fragment the preview needs from
+`index.html`. The routine uses it only when the renderer itself changes. A
+normal refresh sends just the changed `data/` files to the preview.
