@@ -331,3 +331,17 @@ make that a third time.
 `tools/build-fragment.py` derives the fragment the preview needs from
 `index.html`. The routine uses it only when the renderer itself changes. A
 normal refresh sends just the changed `data/` files to the preview.
+
+## The Artifact tool is attached: call it directly
+
+The routine prompt says to call ToolSearch for any tool that isn't in the
+immediate tool list "before concluding it is unavailable". **For the Artifact
+tool that is wrong, and this file overrides it.** The Artifact tool is
+attached to this routine: it's in the routine's allowed tools. An attached tool
+never shows up in ToolSearch, which finds only deferred tools, so a ToolSearch
+miss is exactly what an attached tool looks like. It is not evidence that the
+tool is absent. Call it directly for the mirror step. Only an error returned by
+the tool itself means it is unavailable, and then the mirror step reports that
+error and stops, as the prompt says. (2026-09-27: the TMDV routine searched,
+missed, reported "no Artifact tool" and skipped its mirror. The routines whose
+prompts say "call it directly" keep their previews in sync.)
