@@ -1,0 +1,11 @@
+# Files GitHub Pages publishes. Nothing else in this repo is served.
+# One path per line, relative to the repo root. A line with * is a glob that
+# stays inside its folder (it never crosses a /) and must match at least one
+# file. A missing path, an empty glob, or a path outside the repo fails the
+# deploy, and the live site stays as it was. Add a line only for a file the
+# page itself loads; never notes, tools, protocols or config.
+index.html
+robots.txt
+data/index.json
+data/history.json
+data/panels/*.json
