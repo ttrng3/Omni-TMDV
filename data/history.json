@@ -202,6 +202,36 @@
     "t": "v",
     "note": "ĐỔI CƠ SỞ: 7,69 → 7,19 do bỏ đơn giá tự điền cho P2_0111 (−0,50 tỷ). Không có chuyển động nguồn nào kỳ này — không tracker nào đổi từ 15/09."
    }
+  },
+  {
+   "asof": "29/09",
+   "iso": "2026-09-29",
+   "src": "data/panels/exec.json (kỳ hiện hành) · ECP_CT1_Tiến độ khách 15/09 · ER_Bazaar 15/09 — tính lại từng căn 29/09 từ nguồn sống (Drive), không lấy ô tổng",
+   "pct": {
+    "v": 16.3,
+    "t": "v",
+    "note": "Tính lại từng căn 29/09: tử số 3,688 tỷ / mẫu số 22,597 tỷ = 16,32%. KHÔNG có chuyển động nguồn kỳ này — không tracker nào đổi từ 15/09. Lưu ý đọc cột Δ: bước 16,0 → 16,3 xảy ra ở kỳ 27/09 và là ĐỔI CƠ SỞ (mẫu số 23,09 → 22,60 do bỏ đơn giá tự điền 14 $/m² cho P2_0111), không phải tăng thu. Trên cùng cơ sở, 31/08–22/09 cũng là 16,3%."
+   },
+   "collected": {
+    "v": 3.69,
+    "t": "v",
+    "note": "Tính lại từng căn 29/09: Vinh 0,559 (3 căn bán lẻ đã khai trương; 2 căn VP BQL loại ra) + Long An 3,129 (38 căn có tiền thuê; 4 căn VP BQL/BKD loại ra) = 3,688 tỷ. Không đổi so 27/09."
+   },
+   "vinh": {
+    "v": 0.56,
+    "t": "v",
+    "note": "P1_0110 + P3_0101 + P3_0103 = 287,41 m² × 6 $/m² × 27.000 × 12 = 0,559 tỷ. Tính lại 29/09."
+   },
+   "longan": {
+    "v": 3.13,
+    "t": "l",
+    "note": "File 38 căn vs BQL 27 — chưa kiểm chứng. 2.607,61 m² × 100.000 × 12 = 3,129 tỷ."
+   },
+   "committed": {
+    "v": 7.19,
+    "t": "v",
+    "note": "Tính lại từng căn 29/09 và khớp lại: Vinh 15 căn 5,856 tỷ + Long An 19 căn (1.113,50 m² × 100.000 × 12) 1,336 tỷ = 7,192 tỷ. Không đổi so 27/09 — không căn nào đổi trạng thái. Cột Δ hiện \"đổi cơ sở\" vì kỳ đầu chuỗi (31/08) mang tag ~: 6,94 khi đó được giữ từ 21/08 chưa tính lại."
+   }
   }
  ]
 }
