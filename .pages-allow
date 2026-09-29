@@ -4,8 +4,12 @@
 # file. A missing path, an empty glob, or a path outside the repo fails the
 # deploy, and the live site stays as it was. Add a line only for a file the
 # page itself loads; never notes, tools, protocols or config.
+# !path = known, deliberately not published. @prefix/ = watched area: every
+# file the routine changes under it must match a line, or the run fails.
 index.html
 robots.txt
 data/index.json
 data/history.json
 data/panels/*.json
+!data/.last-check
+@data/
