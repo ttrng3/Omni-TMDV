@@ -14,7 +14,7 @@
 # deployed. A failed read never deploys either, and it turns the run RED
 # (couldn't tell), while a read of 'legacy' is a green dry run.
 # Fails closed: a missing path, an empty glob, an escaping path or a symlink
-# stops the deploy, and the live site stays as it was.
+# anywhere in a listed path stops the deploy, and the live site stays as it was.
 name: Pages (allowlist)
 
 on:
@@ -87,8 +87,9 @@ jobs:
             for f in "${matches[@]}"; do
               [ -L "$f" ] && { echo "::error::refusing a symlink in .pages-allow: $f"; exit 1; }
               [ -f "$f" ] || { echo "::error::listed in .pages-allow but missing: $f"; exit 1; }
-              real="$(realpath -e -- "$f")"
-              case "$real" in "$PWD"/*) ;; *) echo "::error::refusing a path that resolves outside the repo (a symlinked directory?): $f"; exit 1;; esac
+              real="$(realpath -e -- "$f")"; root="$(pwd -P)"
+              case "$real" in "$root"/*) ;; *) echo "::error::refusing a path that resolves outside the repo (a symlinked directory?): $f"; exit 1;; esac
+              [ "$real" = "$root/$f" ] || { echo "::error::refusing a path that goes through a symlink (or is not written plainly): $f"; exit 1; }
               cp --parents "$f" _site/
               n=$((n+1))
             done
@@ -127,10 +128,10 @@ jobs:
           bad = []
           for f, is_link in tracked:
               if not watched(f): continue
-              if is_link: bad.append(f + " (a symlink: never allowed in a watched area, even on a ! line)")
-              elif not any(match(f, p) for p in pub + known): bad.append(f)
-          open("/tmp/uncovered.txt", "w").write("\n".join(bad))
-          for f in bad: print(f"::error::UNCOVERED: {f}" + ("" if f.endswith(")") else " (in a watched area, but on no .pages-allow line)"))
+              if is_link: bad.append((f, "a symlink: never allowed in a watched area, even on a ! line"))
+              elif not any(match(f, p) for p in pub + known): bad.append((f, "in a watched area, but on no .pages-allow line"))
+          open("/tmp/uncovered.txt", "w").write("\n".join(f for f, _ in bad))
+          for f, why in bad: print(f"::error::UNCOVERED: {f} ({why})")
           n = sum(1 for f, _ in tracked if watched(f))
           print(f"Coverage: {n} tracked in watched areas, {len(bad)} uncovered, watched: {watch or 'none'}")
           PY

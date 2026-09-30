@@ -1,11 +1,11 @@
 # Spec — Pages workflow template v2 (approved)
 
 Status: approved by Ty 30/09. The full spec lives in claude-config at
-`work/260929-pages-template-fixes/spec.md`, pinned to commit 0a63b43
+`work/260929-pages-template-fixes/spec.md`, pinned to commit 2893505 (0a63b43 plus the symlink fix, claude-config PR 10)
 (claude-config PR 9, 20/20 Linux tests in CI). This file records what it means here.
 
 ## Change
-`.github/workflows/pages.yml` becomes the template at 0a63b43, minus the optional
+`.github/workflows/pages.yml` becomes the template at 2893505, minus the optional
 workflow_run placeholder comment (this repo's data is pushed by a routine, which
 does trigger push runs). `.pages-allow` changes only its header comment.
 
@@ -15,7 +15,7 @@ does trigger push runs). `.pages-allow` changes only its header comment.
 - c. A line containing `?` or `[` is a glob. This repo has none.
 - d. Line trimming uses parameter expansion instead of xargs, so quotes are taken literally.
 - e. `fetch-depth: 50` is gone; the whole-tree check needs no history.
-- f. Symlinks and paths resolving outside the repo stop the deploy.
+- f. A symlink anywhere in a listed path, a path resolving outside the repo, or a path not written plainly (`./x`, `a//b`) stops the deploy. This repo has none.
 - g. Permissions: workflow `contents: read`; build `contents: read` + `pages: read`; deploy `pages: write` + `id-token: write`.
 
 ## Pass condition (after merge)
