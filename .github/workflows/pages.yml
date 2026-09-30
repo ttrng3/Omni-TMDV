@@ -1,5 +1,5 @@
-# Publishes only what .pages-allow lists, and checks that everything the
-# routine writes is accounted for.
+# Publishes only what .pages-allow lists, and checks that every tracked file
+# in a watched area is accounted for.
 #
 # .pages-allow line types:
 #   path or glob     published (a glob never crosses a / and must match a file)
@@ -79,7 +79,7 @@ jobs:
             case "$path" in !*|@*) continue;; esac
             case "$path" in /*|*..*) echo "::error::refusing path outside the repo: $path"; exit 1;; esac
             if [[ "$path" == *[\*\?\[]* ]]; then
-              matches=( $path )
+              IFS= ; matches=( $path ); unset IFS   # glob, but never split a line on spaces
               [ "${#matches[@]}" -gt 0 ] || { echo "::error::glob in .pages-allow matches nothing: $path"; exit 1; }
             else
               matches=( "$path" )

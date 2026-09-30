@@ -1,11 +1,11 @@
 # Spec — Pages workflow template v2 (approved)
 
 Status: approved by Ty 30/09. The full spec lives in claude-config at
-`work/260929-pages-template-fixes/spec.md`, pinned to commit 2893505 (0a63b43 plus the symlink fix, claude-config PR 10)
-(claude-config PRs 9 and 10; 23/23 Linux tests in CI at 2893505). This file records what it means here.
+`work/260929-pages-template-fixes/spec.md`, pinned to commit 3f62fe2 (0a63b43 plus the symlink fix, claude-config PR 10, and the glob-space fix, PR 11)
+(claude-config PRs 9 and 10; 24/24 Linux tests in CI at 3f62fe2). This file records what it means here.
 
 ## Change
-`.github/workflows/pages.yml` becomes the template at 2893505, minus the optional
+`.github/workflows/pages.yml` becomes the template at 3f62fe2, minus the optional
 workflow_run placeholder comment (this repo's data is pushed by a routine, which
 does trigger push runs). `.pages-allow` changes only its header comment.
 README.md (the routine's runbook) gains a `pages.yml` row in "Guards on `main`",
