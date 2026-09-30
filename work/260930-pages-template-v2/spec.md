@@ -1,14 +1,11 @@
 # Spec — Pages workflow template v2 (approved)
 
-Status: approved by Ty 30/09 at pin 2893505 (shipped as PR 10). Re-pinned to 3f62fe2 on
-30/09 under claude-config `work/260930-pages-glob-spaces/spec.md`, which states
-"Rollout: Omni-TMDV re-copies in a one-line PR" and which Ty shipped as claude-config
-PR 11 on 30/09. The re-copy is Omni-TMDV PR 11 (branch work/260930-pages-template-v3). The full spec lives in claude-config at
-`work/260929-pages-template-fixes/spec.md`, pinned to commit 3f62fe2 (0a63b43 plus the symlink fix, claude-config PR 10, and the glob-space fix, PR 11)
-(claude-config PRs 9, 10 and 11; 24/24 Linux tests in CI at 3f62fe2). This file records what it means here.
+Status: approved by Ty 30/09. The full spec lives in claude-config at
+`work/260929-pages-template-fixes/spec.md`, pinned to commit 2893505 (0a63b43 plus the symlink fix, claude-config PR 10)
+(claude-config PRs 9 and 10; 23/23 Linux tests in CI at 2893505). This file records what it means here.
 
 ## Change
-`.github/workflows/pages.yml` becomes the template at 3f62fe2, minus the optional
+`.github/workflows/pages.yml` becomes the template at 2893505, minus the optional
 workflow_run placeholder comment (this repo's data is pushed by a routine, which
 does trigger push runs). `.pages-allow` changes only its header comment.
 README.md (the routine's runbook) gains a `pages.yml` row in "Guards on `main`",
@@ -22,7 +19,6 @@ line, in its own PR, before the routine writes it; the guards intro mentions it.
 - d. Line trimming uses parameter expansion instead of xargs, so quotes are taken literally.
 - e. `fetch-depth: 50` is gone; the whole-tree check needs no history.
 - f. A symlink anywhere in a listed path, a path resolving outside the repo, or a path not written plainly (`./x`, `a//b`) stops the deploy. This repo has none.
-- h. A glob line containing a space is one pattern, never split (from 3f62fe2). This repo has none.
 - g. Permissions: workflow `contents: read`; build `contents: read` + `pages: read`; deploy `pages: write` + `id-token: write`.
 
 ## Pass condition (after merge)
