@@ -7,6 +7,8 @@
 # !path = known, deliberately not published. @prefix/ = watched area: every
 # tracked file under it must match a line, or the run fails. A * never
 # matches a leading dot: list dotfiles explicitly. Symlinks are refused.
+# Only simple [ ] sets ([abc], [!x], [^x]) are allowed, and no wildcard on an @
+# line; pages.yml's header lists everything that stops a deploy.
 index.html
 robots.txt
 data/index.json
