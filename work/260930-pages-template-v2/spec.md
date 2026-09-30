@@ -8,6 +8,9 @@ Status: approved by Ty 30/09. The full spec lives in claude-config at
 `.github/workflows/pages.yml` becomes the template at 2893505, minus the optional
 workflow_run placeholder comment (this repo's data is pushed by a routine, which
 does trigger push runs). `.pages-allow` changes only its header comment.
+README.md (the routine's runbook) gains a `pages.yml` row in "Guards on `main`",
+with the rule it implies: a new file under `data/` needs its own `.pages-allow`
+line, in its own PR, before the routine writes it; the guards intro mentions it.
 
 ## Behaviour changes, all checked against this repo's allowlist
 - a. Coverage reads every tracked file in a watched area, not the last diff.
