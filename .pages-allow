@@ -5,7 +5,8 @@
 # deploy, and the live site stays as it was. Add a line only for a file the
 # page itself loads; never notes, tools, protocols or config.
 # !path = known, deliberately not published. @prefix/ = watched area: every
-# file the routine changes under it must match a line, or the run fails.
+# tracked file under it must match a line, or the run fails. A * never
+# matches a leading dot: list dotfiles explicitly. Symlinks are refused.
 index.html
 robots.txt
 data/index.json
