@@ -2,7 +2,7 @@
 
 Status: approved by Ty 30/09. The full spec lives in claude-config at
 `work/260929-pages-template-fixes/spec.md`, pinned to commit 2893505 (0a63b43 plus the symlink fix, claude-config PR 10)
-(claude-config PR 9, 20/20 Linux tests in CI). This file records what it means here.
+(claude-config PRs 9 and 10; 23/23 Linux tests in CI at 2893505). This file records what it means here.
 
 ## Change
 `.github/workflows/pages.yml` becomes the template at 2893505, minus the optional

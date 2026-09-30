@@ -184,7 +184,7 @@ stale, or it can be fresh and wrong, and neither guard sees the other's case.
 | --- | --- | --- |
 | `freshness-check.yml` (daily) | Did the job run? Are the trackers moving? | Opening a `stale-data` issue |
 | `validate.yml` (every push) | Is what we published actually renderable? | Opening a `broken-data` issue |
-| `pages.yml` (every push) | Is every tracked file under `data/` on a `.pages-allow` line, and is only the allowlist published? | Refusing the deploy (missing path, empty glob, symlink) or a red run (uncovered file). A new file under `data/` needs its own `.pages-allow` line, in its own PR, before the routine writes it |
+| `pages.yml` (every push) | Is every tracked file under `data/` on a `.pages-allow` line, and is only the allowlist published? | Refusing the deploy (missing path, empty glob, or a symlink on a listed path), or a red run after the deploy (an uncovered file, or a tracked symlink under `data/`). A new file under `data/` needs its own `.pages-allow` line, in its own PR, before the routine writes it |
 
 `validate.yml` is deliberately **not** a required status check. The weekly
 routine commits straight to `main` through the GitHub API, and a required check
