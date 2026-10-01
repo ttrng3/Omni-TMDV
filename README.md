@@ -48,7 +48,7 @@ here disagrees with a prompt or a Drive note, this table wins.
 The three DB Group mailboxes are a different tenant and cannot be scanned
 directly by the automation identity. Escalations are picked up from the OMNI
 mailbox, which is CC'd on the TMDV threads. Say so on the page — do not let a
-narrower scan read as a full one. Name no person or mailbox on the page: write the run's account as "the OMNI account" and a sender as "DB Group" (01/10).
+narrower scan read as a full one. Write no email address, mailbox or account handle on the page: the run's account is "the OMNI account", a sender is "DB Group". Given names in timelines and approval chains stay; they are the decision record (Ty, 01/10).
 
 ### Confidentiality — ruled 2026-09-22 by Ty
 
