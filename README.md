@@ -40,7 +40,7 @@ here disagrees with a prompt or a Drive note, this table wins.
 | Vinh leasing tracker | Shared drive `BAN ĐẦU TƯ, TMDV, PTCĐ` → `1. Thông tin chung / 8. Báo cáo tuần` → `ECP_CT1_Theo dõi chào thuê mặt bằng`, `ECP_CT1_Tiến độ khách`, `Database Khách thuê Vinh.xlsx` | Google Drive connector, read-only |
 | Long An leasing tracker | same folder → `ER_Bazaar_Theo dõi chào thuê mặt bằng.xlsx`, `Database Khách thuê LA` | Google Drive connector, read-only |
 | Land bank (Trụ cột 2) | same shared drive → `2. ĐẦU TƯ HTXH`, `Theo dõi tiến độ đối tác.xlsx`, `TMDV - Đầu Tư Task list` | Google Drive connector, read-only |
-| Escalation threads | OMNI mailbox via Microsoft 365, senders `@dbgroup.com.vn` (thanhlt@, daola@, hientt@) | M365 connector, **read-only — never send or modify** |
+| Escalation threads | OMNI mailbox via Microsoft 365, senders `@dbgroup.com.vn` | M365 connector, **read-only — never send or modify** |
 | Weekly routine | `trig_01Ff3aQaqt1w2YEpUvo7LmXe` — "TMDV weekly refresh (Drive trackers → GitHub data)", cron `0 11 * * 0` (Sun 18:00 Asia/Saigon), cloud-only, model Opus | claude.ai/code/routines |
 | Pages surface | https://ttrng3.github.io/Omni-TMDV/ | public |
 | Freshness guard | `.github/workflows/freshness-check.yml`, daily 11:00 Asia/Saigon | opens an issue on this repo |
@@ -48,7 +48,7 @@ here disagrees with a prompt or a Drive note, this table wins.
 The three DB Group mailboxes are a different tenant and cannot be scanned
 directly by the automation identity. Escalations are picked up from the OMNI
 mailbox, which is CC'd on the TMDV threads. Say so on the page — do not let a
-narrower scan read as a full one.
+narrower scan read as a full one. Write no email address, mailbox or account handle on the page: the run's account is "the OMNI account", a sender is "DB Group". Given names in timelines and approval chains stay; they are the decision record (Ty, 01/10).
 
 ### Confidentiality — ruled 2026-09-22 by Ty
 
