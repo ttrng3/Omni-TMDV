@@ -112,6 +112,16 @@ def main():
         exec_html = json.loads((ROOT / f"data/panels/{panels.get('exec', 'exec')}.json").read_text(encoding="utf-8")).get("html", "")
     except (OSError, ValueError):
         exec_html = ""
+    # The validator compares history with git HEAD, which on a clean main is the run itself; so also compare
+    # with the previous commit that touched it: past rows must be an unchanged prefix.
+    hp = f"data/{d.get('history')}" if d.get("history") else None
+    prev = subprocess.run(["git", "log", "-2", "--format=%H", "--", hp], cwd=ROOT, capture_output=True, text=True).stdout.split() if hp else []
+    try:
+        now_rows = json.loads((ROOT / hp).read_text(encoding="utf-8")).get("series", [])
+        old_rows = json.loads(subprocess.run(["git", "show", f"{prev[1]}:{hp}"], cwd=ROOT, capture_output=True, text=True).stdout).get("series", []) if len(prev) > 1 else []
+        v["history_prefix_kept"] = now_rows[:len(old_rows)] == old_rows
+    except (OSError, ValueError, TypeError, AttributeError):
+        v["history_prefix_kept"] = False
     kc = KpiCount()
     kc.feed(exec_html)
     info["exec_kpi_cards"] = kc.n
@@ -127,14 +137,18 @@ def main():
     texts = {f"live:{p}": b.decode("utf-8", "replace") for p, b in live.items()}
     texts.update({f"main:{p}": (ROOT / p).read_text(encoding="utf-8") for p in served if (ROOT / p).exists()})
     # The repo is public too: every other tracked text file on main, except the two that spell out these patterns.
-    tracked = subprocess.run(["git", "ls-files"], cwd=ROOT, capture_output=True, text=True).stdout.split()
+    tracked = [p for p in subprocess.run(["git", "ls-files", "-z"], cwd=ROOT, capture_output=True, text=True).stdout.split("\0") if p]
+    info["unreadable"] = []
     for p in tracked:
         if p in served or p in ("tools/verify_live.py", "verification/dashboard.md"):
             continue
         try:
             texts[f"main:{p}"] = (ROOT / p).read_text(encoding="utf-8")
-        except (OSError, UnicodeDecodeError):
-            pass
+        except UnicodeDecodeError:
+            pass  # binary file
+        except OSError:
+            info["unreadable"].append(p)
+    v["all_tracked_read"] = not info["unreadable"]
     hits = {p: len(TRACES.findall(t)) for p, t in texts.items()}
     info["traces"] = {p: n for p, n in hits.items() if n}
     v["no_personal_traces"] = not info["traces"]
