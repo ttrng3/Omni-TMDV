@@ -16,7 +16,7 @@ Run after a weekly run (the TMDV routine's cron, `0 11 * * 0` UTC = 18:00 Sunday
 1. **Repo and live site.** `python3 tools/verify_live.py --forbid <words>` → exit 0 and `"pass": true`. The words come from the runner's own notes: the other entity's name, and every person's account handle that has appeared on this page before (four did, until 01/10, #14). Names of people are never written into this repo. Without `--forbid` the entity verdict fails on purpose.
 2. **Live page in Chrome.** Open https://ttrng3.github.io/Omni-TMDV/. Run the script under Invariants. Expected: one tab button per manifest tab; each panel's section letters in the page equal those in its panel file; `exec` shows three KPI cards; the trend table is present when `history.json` has two or more periods; the header loaded (no "Không nạp được dữ liệu"); no link to a storage host.
 3. **Console.** Reload, then read errors for `TypeError|ReferenceError|Uncaught|SyntaxError`. Expected: none.
-4. **Preview.** Get the preview link from the TMDV routine's prompt (`RemoteTrigger get`). Never write it here. Find the last weekly run: `c=$(git log --format='%h %s' -- data/index.json | grep -v ' (#[0-9]*)$' | head -1 | cut -d' ' -f1)`, the last commit to `index.json` that is not a squash-merged PR (their titles end `(#N)`); routine runs commit directly. `Artifact list` the preview's files and `Artifact read` `data/index.json` and `data/panels/exec.json`. Expected: `index.html` (the page fragment the routine's mirror step publishes) plus the data files `main` or `$c` holds, nothing else; each file read has the sha256 of either `main`'s copy (`shasum -a 256 <path>`) or `$c`'s (`git show $c:<path> | shasum -a 256`). Matching `$c` and not `main` means PRs changed data since the run: behind by design until the next run.
+4. **Preview.** Get the preview link from the TMDV routine's prompt (`RemoteTrigger get`). Never write it here. Find the last weekly run: `c=$(git log --format='%h %s' -- data/index.json | grep -v ' (#[0-9]*)$' | grep -v '^[0-9a-f]* Merge ' | head -1 | cut -d' ' -f1)`, the last commit to `index.json` that is not a PR merge (squash titles end `(#N)`; older merges start `Merge `); routine runs commit directly. `Artifact list` the preview's files and `Artifact read` `data/index.json` and `data/panels/exec.json`. Expected: `index.html` (the page fragment the routine's mirror step publishes) plus the data files `main` or `$c` holds, nothing else; each file read has the sha256 of either `main`'s copy (`shasum -a 256 <path>`) or `$c`'s (`git show $c:<path> | shasum -a 256`). Matching `$c` and not `main` means PRs changed data since the run: behind by design until the next run.
 
 ## Invariants
 
@@ -44,7 +44,7 @@ All of them must be true.
 
 ## Adversary
 
-- **A stranger on the public page** (public on purpose, README "Confidentiality"). `private_not_served`: README, CLAUDE.md, REVIEW.md, the heartbeat, the four `tools/` scripts, this protocol, one `work/` file found at run time, `.github/scripts/freshness.py` and `.pages-allow` all exist on `main` and answer 404 live. `robots_disallow_all` keeps search engines out. `no_personal_traces` (storage links, email addresses, and bare handles written as "name@") and `no_forbidden_words` keep people off every served file, live and on `main`: until 01/10 the page named the run account and three DB Group mailboxes (#14). Matches are reported by count and file, never by value.
+- **A stranger on the public page** (public on purpose, README "Confidentiality"). `private_not_served`: README, CLAUDE.md, REVIEW.md, the heartbeat, the four `tools/` scripts, this protocol, one `work/` file found at run time, `.github/scripts/freshness.py` and `.pages-allow` all exist on `main` and answer 404 live. `robots_disallow_all` keeps search engines out. `no_personal_traces` (storage links, email addresses, and bare handles written as "name@") and `no_forbidden_words` keep people off every served file, live and on `main`, and off every other tracked text file on `main`: until 01/10 the page named the run account and three DB Group mailboxes (#14). Matches are reported by count and file, never by value.
 - **A refresh that breaks the HTML** (a stray `</div>`, 22/09) or moves a section without its "mục X" references. `validator_passes`, and in the browser `sections_match`.
 - **A refresh that grows `exec`** past its contract (22/09). `exec_three_kpis`, in the file and in the page.
 - **A run that loses or rewrites the trend.** The validator's append-only history check, and `trend_rendered`.
@@ -53,7 +53,7 @@ All of them must be true.
 
 ## Sanctioned substitutes
 
-- The forbidden word list is passed on the command line, so it can change without a PR and the repo never names a person. This proves served files and tracked data don't contain those words; it cannot catch a name nobody has listed.
+- The forbidden word list is passed on the command line, so it can change without a PR and the repo never names a person. This proves no served file contains those words; it cannot catch a name nobody has listed. Docs may name the other entity's label (REVIEW.md allows it), so the word check reads served files only, while the personal-trace check reads every tracked text file too (the script and this protocol excepted: they spell out the patterns).
 - The preview cannot be fetched by a script, so step 4 is done by the runner with `Artifact list` and `Artifact read`.
 
 ## Evidence
@@ -67,7 +67,7 @@ All of them must be true.
 - Whether the figures are right against the Drive trackers. Revenue here is budget rate × NLA, a ceiling (README); the cash-gap card shows "?" until accounting supplies collected figures.
 - A person's name typed as plain words in a panel (not an address or a listed handle). Read the timeline by eye if in doubt.
 - "còn N ngày" values: computed from the run date by the routine, not re-derived here.
-- Git history still holds the names removed on 01/10 (#14).
+- Git history and #14's own diff page still hold the addresses removed on 01/10 (Ty ruled to leave history, 01/10).
 
 ## Traps
 
@@ -75,4 +75,4 @@ All of them must be true.
 - The page loads its panels in parallel after the first paint; step 2 waits 3 s before reading them.
 - `index.html` falls back to the published data only when the relative `data/` fetch fails (a `file://` open). Over a local http serve it reads the branch's data; opened as a file it silently shows live data.
 - `no_forbidden_words` can fail inside a timeline line the routine wrote. Do not edit around it silently: fix the line in a PR and check the README rule held.
-- Weekly-run commit titles vary and some PR merges predate squash titles, so step 4 takes the last `index.json` commit that is not a `(#N)` PR merge.
+- Weekly-run commit titles vary and some PR merges predate squash titles, so step 4 drops both `(#N)` squash titles and `Merge …` commits.

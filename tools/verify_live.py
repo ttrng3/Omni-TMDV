@@ -15,6 +15,7 @@ Prints one JSON object of verdicts and exits 0 only when every verdict is true.
 Matches of personal traces are reported by count and file, never by value.
 """
 import argparse, datetime as dt, glob, hashlib, json, pathlib, re, subprocess, sys, time, unicodedata, urllib.request, urllib.error
+from html.parser import HTMLParser
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 LIVE = "https://ttrng3.github.io/Omni-TMDV/"
@@ -49,6 +50,16 @@ def age_days(stamp):
         return round((dt.datetime.now(dt.timezone.utc) - t).total_seconds() / 86400, 1)
     except (ValueError, AttributeError):
         return None
+
+
+class KpiCount(HTMLParser):
+    """Counts elements whose class list holds `kpi`, as the browser's `#exec .kpi` does."""
+    def __init__(self):
+        super().__init__()
+        self.n = 0
+
+    def handle_starttag(self, tag, attrs):
+        self.n += "kpi" in (dict(attrs).get("class") or "").split()
 
 
 def norm(t):
@@ -101,7 +112,9 @@ def main():
         exec_html = json.loads((ROOT / f"data/panels/{panels.get('exec', 'exec')}.json").read_text(encoding="utf-8")).get("html", "")
     except (OSError, ValueError):
         exec_html = ""
-    info["exec_kpi_cards"] = len(re.findall(r'class="kpi(?:\s[^"]*)?"', exec_html))
+    kc = KpiCount()
+    kc.feed(exec_html)
+    info["exec_kpi_cards"] = kc.n
     v["exec_three_kpis"] = info["exec_kpi_cards"] == EXEC_KPIS
 
     beat = ((ROOT / "data/.last-check").read_text(encoding="utf-8").split() or [""])[0] if (ROOT / "data/.last-check").exists() else ""
@@ -113,11 +126,22 @@ def main():
     # Every served path, both as Pages serves it and as main holds it (main may not be deployed yet).
     texts = {f"live:{p}": b.decode("utf-8", "replace") for p, b in live.items()}
     texts.update({f"main:{p}": (ROOT / p).read_text(encoding="utf-8") for p in served if (ROOT / p).exists()})
+    # The repo is public too: every other tracked text file on main, except the two that spell out these patterns.
+    tracked = subprocess.run(["git", "ls-files"], cwd=ROOT, capture_output=True, text=True).stdout.split()
+    for p in tracked:
+        if p in served or p in ("tools/verify_live.py", "verification/dashboard.md"):
+            continue
+        try:
+            texts[f"main:{p}"] = (ROOT / p).read_text(encoding="utf-8")
+        except (OSError, UnicodeDecodeError):
+            pass
     hits = {p: len(TRACES.findall(t)) for p, t in texts.items()}
     info["traces"] = {p: n for p, n in hits.items() if n}
     v["no_personal_traces"] = not info["traces"]
     info["forbid_checked"] = len(forbid)
-    v["no_forbidden_words"] = bool(forbid) and not any(w in norm(t) for w in forbid for t in texts.values())
+    # Forbidden words on what is served only: docs may name the other entity's label (REVIEW.md allows it).
+    served_texts = [t for k, t in texts.items() if k.split(":", 1)[1] in served]
+    v["no_forbidden_words"] = bool(forbid) and not any(w in norm(t) for w in forbid for t in served_texts)
 
     print(json.dumps({"pass": all(v.values()), "verdicts": v, "info": info}, ensure_ascii=False, indent=1))
     sys.exit(0 if all(v.values()) else 1)
