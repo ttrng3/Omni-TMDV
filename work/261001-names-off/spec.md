@@ -1,6 +1,6 @@
-# Spec (awaiting Ty)
+# Spec
 
-Status: awaits Ty's "approve" with the intent.
+Status: approved by Ty 01/10, by shipping this PR in chat after choosing "Addresses only".
 
 - `data/panels/ctrl.json`: the run identity becomes "tài khoản OMNI"; the three mailboxes become "3 hộp thư DB Group"; each sender handle becomes "DB Group"; the person assigned the payment procedure on 18/09 becomes "đầu mối OMNI" (review #14).
 - `data/panels/exec.json`: each sender handle becomes "DB Group"; the parenthetical naming the two most recent senders reads "(mới nhất 24/09 và 23/09, đều từ DB Group)". No figure changes.
