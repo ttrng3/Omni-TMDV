@@ -232,6 +232,36 @@
     "t": "v",
     "note": "Tính lại từng căn 29/09 và khớp lại: Vinh 15 căn 5,856 tỷ + Long An 19 căn (1.113,50 m² × 100.000 × 12) 1,336 tỷ = 7,192 tỷ. Không đổi so 27/09 — không căn nào đổi trạng thái. Cột Δ hiện \"đổi cơ sở\" vì kỳ đầu chuỗi (31/08) mang tag ~: 6,94 khi đó được giữ từ 21/08 chưa tính lại."
    }
+  },
+  {
+   "asof": "04/10",
+   "iso": "2026-10-04",
+   "src": "data/panels/exec.json (kỳ hiện hành) · ER_Bazaar 02/10 (sửa — đối chiếu lại 66/66 căn) · ECP_CT1_Tiến độ khách 15/09 · báo cáo BQL Eco Retreat số liệu 02/10 — tính lại từng căn 04/10 từ nguồn sống, không lấy ô tổng",
+   "pct": {
+    "v": 16.3,
+    "t": "v",
+    "note": "Tính lại từng căn 04/10: tử số 3,688 tỷ / mẫu số 22,597 tỷ = 16,32%. File Long An được sửa 02/10 (chuyển động nguồn đầu tiên sau 17 ngày) nhưng đối chiếu lại cả 66 căn cho thấy không ô nào trang này đọc bị đổi; file Vinh vẫn ở bản 15/09, 19 ngày. Cảnh báo chiều ngược: BQL 02/10 ghi căn kinh doanh thường xuyên giảm 36 → 34 và K18+K49 vào kế hoạch thu hồi tháng 10 (203,5 tr/năm đang nằm trong tử số) — nếu thu hồi, chỉ số này về 15,4%."
+   },
+   "collected": {
+    "v": 3.69,
+    "t": "v",
+    "note": "Tính lại từng căn 04/10: Vinh 0,559 (3 căn bán lẻ đã khai trương; 2 căn VP BQL loại ra) + Long An 3,129 (38 căn có tiền thuê; 4 căn VP BQL/BKD loại ra) = 3,688 tỷ. Không đổi so 29/09 — đi ngang 34 ngày."
+   },
+   "vinh": {
+    "v": 0.56,
+    "t": "v",
+    "note": "P1_0110 + P3_0101 + P3_0103 = 287,41 m² × 6 $/m² × 27.000 × 12 = 0,559 tỷ. Tính lại 04/10."
+   },
+   "longan": {
+    "v": 3.13,
+    "t": "l",
+    "note": "2.607,61 m² × 100.000 × 12 = 3,129 tỷ. Điểm chưa hoà đọc lại kỳ này: không còn là 38-vs-27 mà là 38 căn có tiền thuê trong file vs 34 căn BQL xác nhận kinh doanh thường xuyên (BQL 02/10); 42 'khai trương' của file = 34 thường xuyên + 8 không thường xuyên, khớp tổng, chưa khớp từng mã."
+   },
+   "committed": {
+    "v": 7.19,
+    "t": "v",
+    "note": "Tính lại từng căn 04/10: Vinh 15 căn 5,856 tỷ + Long An 19 căn (1.113,50 m² × 100.000 × 12) 1,336 tỷ = 7,192 tỷ. Không đổi so 29/09 — không căn nào đổi trạng thái. Cơ sở giữ nguyên là đơn giá ngân sách; nếu tính Long An theo tiền thuê đã đàm phán (K41 và K56 cùng ở 80.000) thì khối LA là 1,297 tỷ và tổng là 7,15 tỷ — ghi ra để không đọc 7,19 như giá đã chốt, không đổi cơ sở của chuỗi."
+   }
   }
  ]
 }
