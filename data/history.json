@@ -262,6 +262,36 @@
     "t": "v",
     "note": "Tính lại từng căn 04/10: Vinh 15 căn 5,856 tỷ + Long An 19 căn (1.113,50 m² × 100.000 × 12) 1,336 tỷ = 7,192 tỷ. Không đổi so 29/09 — không căn nào đổi trạng thái. Cơ sở giữ nguyên là đơn giá ngân sách; nếu tính Long An theo tiền thuê đã đàm phán (K41 và K56 cùng ở 80.000) thì khối LA là 1,297 tỷ và tổng là 7,15 tỷ — ghi ra để không đọc 7,19 như giá đã chốt, không đổi cơ sở của chuỗi."
    }
+  },
+  {
+   "asof": "11/10",
+   "iso": "2026-10-11",
+   "src": "data/panels/exec.json (kỳ hiện hành) · ECP_CT1_Tiến độ khách 09/10 (sửa — 3 trạng thái đổi) · ER_Bazaar 09/10 (sửa — không ô số nào đổi) · báo cáo BQL Eco Retreat số liệu 02/10 — tính lại từng căn 11/10 từ nguồn sống, không lấy ô tổng",
+   "pct": {
+    "v": 16.3,
+    "t": "v",
+    "note": "Tính lại từng căn 11/10: tử số 3,688 tỷ / mẫu số 22,597 tỷ = 16,32% — kỳ thứ tư đi ngang. Cả hai tracker sửa 09/10 nhưng chỉ số này không đổi: trần Vinh 17,462 tỷ giữ nguyên vì NLA và đơn giá của 62 căn y nguyên (3 trạng thái đổi chỉ phân bổ tiền giữa các khối), và tử số giữ nguyên vì hai căn duy nhất có thể làm nó đổi chưa được xác nhận. CẢNH BÁO HAI CHIỀU: (a) file Vinh ghi P3_0216 · P3_0218 'đã khai trương' trong khi ghi chú cùng dòng, khối tổng hợp và XN OCC 14/09 đều phủ định — nếu BQL xác nhận thì chỉ số này là 18,6%, không phải 16,3%; (b) K18 + K49 (203,5 tr/năm) trong kế hoạch thu hồi tháng 10, nay do chính ER_Bazaar ghi — nếu thu hồi thì về 15,4%."
+   },
+   "collected": {
+    "v": 3.69,
+    "t": "v",
+    "note": "Tính lại từng căn 11/10: Vinh 0,559 (3 căn bán lẻ đã khai trương được xác nhận; 2 căn VP BQL loại ra) + Long An 3,129 (38 căn có tiền thuê; 4 căn VP BQL/BKD loại ra) = 3,688 tỷ. Không đổi so 04/10 — đi ngang 41 ngày. Hai căn Dino Billiards KHÔNG được cộng vào dù file 09/10 ghi 'đã khai trương': ghi kép, chưa xác nhận."
+   },
+   "vinh": {
+    "v": 0.56,
+    "t": "v",
+    "note": "P1_0110 + P3_0101 + P3_0103 = 287,41 m² × 6 $/m² × 27.000 × 12 = 0,559 tỷ. Tính lại 11/10. Nếu P3_0216 · P3_0218 được xác nhận đã mở: +0,510 tỷ → 1,07 tỷ."
+   },
+   "longan": {
+    "v": 3.13,
+    "t": "l",
+    "note": "2.607,61 m² × 100.000 × 12 = 3,129 tỷ. File sửa 09/10 nhưng không ô số nào đổi — kỳ thứ hai liền. Điểm chưa hoà giữ nguyên: 38 căn có tiền thuê trong file vs 34 căn BQL xác nhận kinh doanh thường xuyên (BQL 02/10), khớp tổng 42 nhưng chưa khớp từng mã."
+   },
+   "committed": {
+    "v": 7.46,
+    "t": "v",
+    "note": "CHUYỂN ĐỘNG NGUỒN THẬT, KHÔNG PHẢI ĐỔI CƠ SỞ: 7,19 → 7,46 tỷ do file Vinh sửa 09/10 đổi hai trạng thái — P3_0119A (The Dark house, 162,39 m² @14 $) vào 'đã chốt' +0,736 tỷ, P3_0116 (Phê La/Pizza 4P, 104,25 m² @14 $) rời 'đã chốt' về 'trống' −0,473 tỷ; ròng +0,264. NLA, đơn giá và tỷ giá y nguyên — khác hẳn các bước 6,94 → 7,69 (22/09) và 7,69 → 7,19 (27/09) vốn là đổi cơ sở. Tính lại từng căn 11/10: Vinh 15 căn 6,120 tỷ + Long An 19 căn (1.113,50 m² × 100.000 × 12) 1,336 tỷ = 7,456 tỷ. Hai căn Dino vẫn nằm trong khối này vì việc mở chưa được xác nhận nên doanh thu chưa ghi nhận. Nếu tính Long An theo tiền thuê đã đàm phán (K41 và K56 ở 80.000) thì khối LA là 1,297 tỷ và tổng là 7,42 tỷ — ghi ra để không đọc 7,46 như giá đã chốt, không đổi cơ sở của chuỗi."
+   }
   }
  ]
 }
