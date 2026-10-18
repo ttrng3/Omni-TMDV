@@ -292,6 +292,36 @@
     "t": "v",
     "note": "CHUYỂN ĐỘNG NGUỒN THẬT, KHÔNG PHẢI ĐỔI CƠ SỞ: 7,19 → 7,46 tỷ do file Vinh sửa 09/10 đổi hai trạng thái — P3_0119A (The Dark house, 162,39 m² @14 $) vào 'đã chốt' +0,736 tỷ, P3_0116 (Phê La/Pizza 4P, 104,25 m² @14 $) rời 'đã chốt' về 'trống' −0,473 tỷ; ròng +0,264. NLA, đơn giá và tỷ giá y nguyên — khác hẳn các bước 6,94 → 7,69 (22/09) và 7,69 → 7,19 (27/09) vốn là đổi cơ sở. Tính lại từng căn 11/10: Vinh 15 căn 6,120 tỷ + Long An 19 căn (1.113,50 m² × 100.000 × 12) 1,336 tỷ = 7,456 tỷ. Hai căn Dino vẫn nằm trong khối này vì việc mở chưa được xác nhận nên doanh thu chưa ghi nhận. Nếu tính Long An theo tiền thuê đã đàm phán (K41 và K56 ở 80.000) thì khối LA là 1,297 tỷ và tổng là 7,42 tỷ — ghi ra để không đọc 7,46 như giá đã chốt, không đổi cơ sở của chuỗi."
    }
+  },
+  {
+   "asof": "18/10",
+   "iso": "2026-10-18",
+   "src": "data/panels/exec.json (kỳ hiện hành) · ECP_CT1_Tiến độ khách 09/10 (KHÔNG được sửa trong kỳ) · ER_Bazaar 09/10 (KHÔNG được sửa trong kỳ) · báo cáo BQL Eco Retreat số liệu 02/10 · hộp OMNI (Microsoft 365) — thư 15/10 chậm thanh toán môi giới — tính lại từng căn 18/10 từ nguồn sống, không lấy ô tổng",
+   "pct": {
+    "v": 16.3,
+    "t": "v",
+    "note": "Tính lại từng căn 18/10: tử số 3,688 tỷ / mẫu số 22,597 tỷ = 16,32% — kỳ thứ năm đi ngang. KHÔNG có chuyển động nguồn kỳ này: không tracker nào được sửa, cả hai vẫn ở bản 09/10 (9 ngày); đối chiếu lại 63 dòng/62 căn Vinh và 66/66 căn Long An cho đúng cùng con số. Chuyển động của kỳ nằm ở hộp thư, không ở tracker: thư 15/10 đòi thanh toán môi giới 129,89 tr chưa VAT, quá hạn 11 ngày — không vào chỉ số này vì là tiền đi ra, không phải tiền thuê. CẢNH BÁO HAI CHIỀU vẫn mở: (a) P3_0216 · P3_0218 nếu được BQL xác nhận đã mở thì chỉ số này là 18,6%; (b) K18 + K49 (203,5 tr/năm) trong kế hoạch thu hồi tháng 10 — nếu thu hồi thì về 15,4%, và tháng 10 còn 13 ngày."
+   },
+   "collected": {
+    "v": 3.69,
+    "t": "v",
+    "note": "Tính lại từng căn 18/10: Vinh 0,559 (3 căn bán lẻ đã khai trương được xác nhận; 2 căn VP BQL loại ra) + Long An 3,129 (38 căn có tiền thuê; 4 căn VP BQL/BKD loại ra) = 3,688 tỷ. Không đổi so 11/10 — đi ngang 48 ngày. Hai căn Dino Billiards vẫn KHÔNG được cộng vào: chưa có xác nhận vận hành nào sau mốc dự kiến 16/09, nay 32 ngày."
+   },
+   "vinh": {
+    "v": 0.56,
+    "t": "v",
+    "note": "P1_0110 + P3_0101 + P3_0103 = 287,41 m² × 6 $/m² × 27.000 × 12 = 0,559 tỷ. Tính lại 18/10. Nếu P3_0216 · P3_0218 được xác nhận đã mở: +0,510 tỷ → 1,07 tỷ. ĐỌC LẠI SỬA BẢN 11/10: khối tổng hợp của file Vinh CÓ tính hai căn Dino là đã khai trương (Ecopark 494,81 m² = 67,13 + 115,55 + 94,25 + 102,33 + 115,55; tổng khai trương 715,09 m²), và bảng XN OCC mang ngày 14/09 tức TRƯỚC mốc dự kiến 16/09 nên là số cũ, không phải bằng chứng ngược — bản 11/10 ghi rằng cả hai 'phủ định', điều đó không đúng. Giá trị 0,56 không đổi và cách xử lý không đổi (chưa ghi nhận), nhưng lý do đổi: chưa ai xác nhận, không phải file tự phủ định."
+   },
+   "longan": {
+    "v": 3.13,
+    "t": "l",
+    "note": "2.607,61 m² × 100.000 × 12 = 3,129 tỷ. File không được sửa trong kỳ (vẫn bản 09/10) và đối chiếu lại 66/66 căn không ô nào đổi — kỳ thứ ba liền không có chuyển động số. Điểm chưa hoà giữ nguyên: 38 căn có tiền thuê trong file vs 34 căn BQL xác nhận kinh doanh thường xuyên (BQL 02/10), khớp tổng 42 nhưng chưa khớp từng mã."
+   },
+   "committed": {
+    "v": 7.46,
+    "t": "v",
+    "note": "Tính lại từng căn 18/10: Vinh 15 căn 6,120 tỷ + Long An 19 căn (1.113,50 m² × 100.000 × 12) 1,336 tỷ = 7,456 tỷ. KHÔNG đổi so 11/10 — không tracker nào được sửa nên không căn nào đổi trạng thái. Bước 7,19 → 7,46 ở kỳ 11/10 là chuyển động nguồn thật (P3_0119A vào 'đã chốt', P3_0116 ra), không phải đổi cơ sở. Chi phí trì hoãn trên khối này tính lại theo ngày chạy: 898 → 950 tr (Vinh 386,0 + Long An 564,0), tốc độ 7,48 tr/ngày, mốc 1 tỷ ~25/10 — toàn bộ phần tăng là 7 ngày trôi, không mốc nào mới. Nếu tính Long An theo tiền thuê đã đàm phán (K41 và K56 ở 80.000) thì khối LA là 1,297 tỷ và tổng là 7,42 tỷ — ghi ra để không đọc 7,46 như giá đã chốt, không đổi cơ sở của chuỗi."
+   }
   }
  ]
 }
