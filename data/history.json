@@ -322,6 +322,36 @@
     "t": "v",
     "note": "Tính lại từng căn 18/10: Vinh 15 căn 6,120 tỷ + Long An 19 căn (1.113,50 m² × 100.000 × 12) 1,336 tỷ = 7,456 tỷ. KHÔNG đổi so 11/10 — không tracker nào được sửa nên không căn nào đổi trạng thái. Bước 7,19 → 7,46 ở kỳ 11/10 là chuyển động nguồn thật (P3_0119A vào 'đã chốt', P3_0116 ra), không phải đổi cơ sở. Chi phí trì hoãn trên khối này tính lại theo ngày chạy: 898 → 950 tr (Vinh 386,0 + Long An 564,0), tốc độ 7,48 tr/ngày, mốc 1 tỷ ~25/10 — toàn bộ phần tăng là 7 ngày trôi, không mốc nào mới. Nếu tính Long An theo tiền thuê đã đàm phán (K41 và K56 ở 80.000) thì khối LA là 1,297 tỷ và tổng là 7,42 tỷ — ghi ra để không đọc 7,46 như giá đã chốt, không đổi cơ sở của chuỗi."
    }
+  },
+  {
+   "asof": "25/10",
+   "iso": "2026-10-25",
+   "src": "data/panels/exec.json (kỳ hiện hành) · ECP_CT1_Tiến độ khách 09/10 (KHÔNG được sửa trong kỳ, nay 16 ngày) · ER_Bazaar 09/10 (KHÔNG được sửa trong kỳ) · báo cáo BQL Eco Retreat số liệu 02/10 · hộp OMNI (Microsoft 365) — công văn đòi công nợ môi giới 21/10, phản hồi TM-01 của Central Retail 20/10 — tính lại từng căn 25/10 từ nguồn sống, không lấy ô tổng",
+   "pct": {
+    "v": 16.3,
+    "t": "v",
+    "note": "Tính lại từng căn 25/10: tử số 3,688 tỷ / mẫu số 22,597 tỷ = 16,32% — kỳ thứ sáu đi ngang. KHÔNG có chuyển động nguồn kỳ này: không tracker nào được sửa, cả hai vẫn ở bản 09/10 (nay 16 ngày); đối chiếu lại 63 dòng/62 căn Vinh và 66/66 căn Long An cho đúng cùng con số, và khối tổng hợp của cả hai file vẫn khớp từng ô với tổng tính lại từ dòng chi tiết. Chuyển động của kỳ nằm ở hộp thư, không ở tracker: công văn 21/10 đòi công nợ môi giới quá hạn 129,89 tr — không vào chỉ số này vì là tiền đi ra, không phải tiền thuê. CẢNH BÁO HAI CHIỀU vẫn mở: (a) P3_0216 · P3_0218 nếu được BQL xác nhận đã mở thì chỉ số này là 18,6%, nay 39 ngày sau mốc dự kiến 16/09; (b) K18 + K49 (203,5 tr/năm) trong kế hoạch thu hồi tháng 10 — nếu thu hồi thì về 15,4%, và tháng 10 còn 6 ngày."
+   },
+   "collected": {
+    "v": 3.69,
+    "t": "v",
+    "note": "Tính lại từng căn 25/10: Vinh 0,559 (3 căn bán lẻ đã khai trương được xác nhận; 2 căn VP BQL loại ra) + Long An 3,129 (38 căn có tiền thuê; 4 căn VP BQL/BKD loại ra) = 3,688 tỷ. Không đổi so 18/10 — đi ngang 55 ngày. Hai căn Dino Billiards vẫn KHÔNG được cộng vào: chưa có xác nhận vận hành nào sau mốc dự kiến 16/09, nay 39 ngày, và hai kỳ sitecheck tiếp theo (12/10 · 19/10) đều không chứa dữ liệu cho thuê nên không trả lời được."
+   },
+   "vinh": {
+    "v": 0.56,
+    "t": "v",
+    "note": "P1_0110 + P3_0101 + P3_0103 = 287,41 m² × 6 $/m² × 27.000 × 12 = 0,559 tỷ. Tính lại 25/10. Nếu P3_0216 · P3_0218 được xác nhận đã mở: +0,510 tỷ → 1,07 tỷ."
+   },
+   "longan": {
+    "v": 3.13,
+    "t": "l",
+    "note": "2.607,61 m² × 100.000 × 12 = 3,129 tỷ. File không được sửa trong kỳ (vẫn bản 09/10) và đối chiếu lại 66/66 căn không ô nào đổi — kỳ thứ tư liền không có chuyển động số. Điểm chưa hoà giữ nguyên: 38 căn có tiền thuê trong file vs 34 căn BQL xác nhận kinh doanh thường xuyên (BQL 02/10), khớp tổng 42 nhưng chưa khớp từng mã."
+   },
+   "committed": {
+    "v": 7.46,
+    "t": "v",
+    "note": "Tính lại từng căn 25/10: Vinh 15 căn 6,120 tỷ (13 căn file ghi đã ký/đã chốt = 5,610 tỷ, cộng 2 căn Dino 0,510 tỷ vẫn giữ trong khối này vì việc mở chưa được xác nhận nên doanh thu chưa ghi nhận) + Long An 19 căn (1.113,50 m² × 100.000 × 12) 1,336 tỷ = 7,456 tỷ. KHÔNG đổi so 18/10 — không tracker nào được sửa nên không căn nào đổi trạng thái. Chi phí trì hoãn trên khối này tính lại theo ngày chạy: 950 → <strong>1.002,4 tr</strong> (Vinh 425,7 + Long An 576,7), tốc độ 7,48 tr/ngày — MỐC 1 TỶ BỊ VƯỢT ĐÚNG NGÀY 25/10 (24/10 là 994,9 tr), tức đúng ngày kỳ 18/10 dự báo; toàn bộ phần tăng 52 tr là 7 ngày trôi, không mốc nào mới. Nếu tính Long An theo tiền thuê đã đàm phán (K41 và K56 ở 80.000) thì khối LA là 1,297 tỷ và tổng là 7,42 tỷ — ghi ra để không đọc 7,46 như giá đã chốt, không đổi cơ sở của chuỗi."
+   }
   }
  ]
 }
