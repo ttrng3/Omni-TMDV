@@ -412,6 +412,36 @@
     "t": "v",
     "note": "Tính lại từng căn 08/11: Vinh 15 căn 6,120 tỷ (13 căn file ghi đã ký/đã chốt = 5,610 tỷ, cộng 2 căn Dino 0,510 tỷ vẫn giữ trong khối này vì việc mở chưa được xác nhận — và kỳ này chứng cứ nghiêng thêm về \"chưa mở\") + Long An 19 căn (1.113,50 m² × 100.000 × 12) 1,336 tỷ = 7,456 tỷ. KHÔNG đổi so 01/11 — kỳ thứ năm ở mức này, vì không tracker nào được sửa nên không căn nào đổi trạng thái. CẢNH BÁO MỚI, KHÔNG PHẢI ĐỔI SỐ: hai sheet của cùng file Vinh lệch trạng thái trên 22 trong 35 căn có mặt ở cả hai (63%). 9 căn đang nằm trong khối tiền của sheet được dùng bị sheet thứ hai xếp thấp hơn — 1.161,71 m², 4,204 tỷ đ/năm, tức 56% khối cam kết: P3_0118 · P3_0119 · P3_0120 (\"Đã chốt\" → \"Đang đàm phán\"), P3_0109A và P3_0121 (\"Đã ký HĐ\" → \"Đang đàm phán\" / \"Đã chốt\"), P2_0105 · P2_0105A (\"Đã ký HĐ\" → \"Tiếp cận khách\" / \"Đã chốt\"), P3_0216 · P3_0218 (\"Đã khai trương\" → \"đã nhận mặt bằng, chưa mở\"). Chiều ngược: 7 căn được sheet thứ hai xếp cao hơn, 1,995 tỷ/năm. Khối KHÔNG bị hạ vì sheet được dùng (Tình trạng shop CT01) có nền diện tích đầy đủ và khớp đúng ô NLA(Tổng) 6.522,96 m², còn sheet thứ hai chỉ phủ tầng 1 (nền 4.470,61 m², 43 dòng/35 căn) và không có bằng chứng nào cho thấy nó mới hơn — nhưng 4,204 tỷ là UNVERIFIED, không phải đã hoà. Cùng gốc: file công bố hai tỷ lệ lấp đầy cho cùng dự án, 36,63% và 27,15% (khách cọc). Chi phí trì hoãn trên khối này tính lại theo ngày chạy: 1.054,7 → 1.107,1 tr (Vinh 505,0 trên 8 căn, trễ bq 89 ngày + Long An 602,1 trên 12 căn, cầm MB bq 331 ngày), tốc độ 7,48 tr/ngày; toàn bộ phần tăng 52,4 tr là 7 ngày trôi — không mốc nào mới, không mốc nào được xoá, không căn nào mở. Mốc gần nhất: 13/11, còn 5 ngày, khi 11 căn Long An tròn 365 ngày cầm mặt bằng (nay 360 ngày). Nếu tính Long An theo tiền thuê đã đàm phán (K41 và K56 ở 80.000) thì khối LA là 1,297 tỷ và tổng là 7,42 tỷ — ghi ra để không đọc 7,46 như giá đã chốt, không đổi cơ sở của chuỗi."
    }
+  },
+  {
+   "asof": "15/11",
+   "iso": "2026-11-15",
+   "src": "data/panels/exec.json (kỳ hiện hành) · ECP_CT1_Tiến độ khách 09/10 (KHÔNG được sửa trong kỳ, nay 37 ngày) · ER_Bazaar 09/10 (KHÔNG được sửa trong kỳ, nay 37 ngày) · báo cáo BQL Eco Retreat số liệu 02/10 · hộp OMNI (Microsoft 365) — 9 thư từ 08/11, không thư nào từ DB Group, diễn biến có ngày duy nhất là nguyên tắc ghi nhận tuân thủ của Pháp chế ngày 10/11 — tính lại từng căn 15/11 từ nguồn sống, không lấy ô tổng",
+   "pct": {
+    "v": 16.3,
+    "t": "v",
+    "note": "Tính lại từng căn 15/11: tử số 3,688 tỷ / mẫu số 22,597 tỷ = 16,32% — kỳ thứ chín đi ngang, đang thu không đổi 76 ngày. KHÔNG có chuyển động nguồn kỳ này, kỳ thứ năm liền: không tracker nào được sửa, cả hai vẫn ở bản 09/10 (nay 37 ngày); thư mục quỹ đất 2. ĐẦU TƯ HTXH cũng không file nào được sửa (bản mới nhất 17/07, 121 ngày). Fill-count đếm lại từng ô: Vinh ngày cọc 0/63 · giá thuê chốt 0/63 · dự kiến khai trương 8/63 (kỳ thứ chín cùng ba con số) · Long An ngày cọc 40/66 · tiền thuê thực tế 54/66 · đơn giá ngân sách 65/66. Hai chiều có thể làm chỉ số này đổi vẫn chưa ai trả lời: (a) P3_0216 · P3_0218 nếu được xác nhận đã mở thì chỉ số là 18,6% — nhánh này đã yếu đi từ kỳ 08/11 khi sheet thứ hai của chính file Vinh ghi hai căn là đã nhận mặt bằng chưa mở, nay 60 ngày sau mốc 16/09; (b) K18 + K49 (203,5 tr/năm) có cửa sổ thu hồi 'trong tháng 10' đã đóng 31/10, nay 15 ngày, mà không có ngày thu hồi nào vào sổ — nếu đã thu hồi thì chỉ số này là 15,4%. Không hạ tử số vì không có bằng chứng thu hồi đã diễn ra."
+   },
+   "collected": {
+    "v": 3.69,
+    "t": "v",
+    "note": "Tính lại từng căn 15/11: Vinh 0,559 (3 căn bán lẻ đã khai trương được xác nhận: P1_0110 + P3_0101 + P3_0103 = 287,41 m²; 2 căn VP BQL loại ra) + Long An 3,129 (38 căn có tiền thuê; 4 căn VP BQL/BKD loại ra) = 3,688 tỷ. Không đổi so 08/11 — đi ngang 76 ngày, kỳ thứ mười cùng một con số. Hai căn Dino Billiards vẫn KHÔNG được cộng vào và không có nguồn nào trong kỳ làm quyết định đó đổi lại. Rủi ro pháp lý trên chính dòng này được nhắc lại trong kỳ, không phải rủi ro số: 42 căn đang kinh doanh của Long An (3,13 tỷ/năm, 85% đang thu của danh mục) đang vận hành mà khu Eco Bazaar chưa có bảo hiểm cháy nổ bắt buộc; thư Pháp chế 10/11 chốt rằng có kế hoạch khắc phục (mục tiêu T12/2026) KHÔNG làm mục đó thành đã tuân thủ."
+   },
+   "vinh": {
+    "v": 0.56,
+    "t": "v",
+    "note": "P1_0110 + P3_0101 + P3_0103 = 287,41 m² × 6 $/m² × 27.000 × 12 = 0,559 tỷ. Tính lại 15/11, không đổi. Nhánh ngược (P3_0216 · P3_0218, +0,510 tỷ → 1,07 tỷ và hiệu suất 18,6%) vẫn là khả năng ĐANG YẾU: kết luận đảo chiều ở kỳ 08/11 dựa trên sheet thứ hai của cùng file ('Đàm phán HĐ thuê, Đã nhận mặt bằng' / 'Đã chốt, Đã nhận mặt bằng') không bị nguồn nào trong kỳ này phản bác, và không có báo cáo vận hành mới nào về hộp OMNI trong kỳ để trả lời. Nay 60 ngày sau mốc dự kiến 16/09 mà chưa ai hỏi BQL một câu."
+   },
+   "longan": {
+    "v": 3.13,
+    "t": "l",
+    "note": "2.607,61 m² × 100.000 × 12 = 3,129 tỷ. File không được sửa trong kỳ (vẫn bản 09/10) và tính lại 66/66 căn không ô nào đổi — kỳ thứ bảy liền không có chuyển động số. Điểm chưa hoà giữ nguyên nên nhãn vẫn là ~ chứ không phải ✓ĐC: 38 căn có tiền thuê trong file vs 34 căn BQL xác nhận kinh doanh thường xuyên (BQL 02/10), khớp tổng 42 nhưng chưa khớp từng mã. Rủi ro giảm đã quá hạn 15 ngày: K18 + K49 (169,57 m², 203,5 tr/năm) nằm trong cửa sổ 'thu hồi trong tháng 10' đã đóng 31/10 — nếu đã thu hồi thì dòng này về ~2,93 tỷ."
+   },
+   "committed": {
+    "v": 7.46,
+    "t": "v",
+    "note": "Tính lại từng căn 15/11: Vinh 15 căn 6,120 tỷ (13 căn file ghi đã ký/đã chốt = 5,610 tỷ + 2 căn Dino 0,510 tỷ vẫn giữ trong khối này vì việc mở chưa được xác nhận) + Long An 19 căn (1.113,50 m² × 100.000 × 12) 1,336 tỷ = 7,456 tỷ. KHÔNG đổi so 08/11 — kỳ thứ sáu ở mức này, vì không tracker nào được sửa nên không căn nào đổi trạng thái. Chi phí trì hoãn trên khối này tính lại theo ngày chạy: 1.107,1 → 1.159,5 tr (Vinh 544,6 trên 8 căn, trễ bq 96 ngày + Long An 614,9 trên 12 căn, cầm MB bq 338 ngày), tốc độ 7,48 tr/ngày; toàn bộ phần tăng 52,4 tr là 7 ngày trôi và nó rơi ĐÚNG con số bản 08/11 chiếu tới. MỐC MỘT NĂM ĐÃ ĐI QUA: 11 căn Long An cọc cùng ngày 13/11/2025 tròn 365 ngày vào 13/11 và nay 367 ngày — 487,92 m² · 48,79 tr/tháng · 588,3 tr đã mất trên riêng nhóm này, không một văn bản nào của ta vào hồ sơ trước ngày đó. SỬA MỘT CON SỐ CỦA KỲ 08/11, tổng khối không đổi: §01 ghi nhóm này là '528,72 m² · ~52,9 tr/tháng'; đếm lại từng căn cho 487,92 m² · 48,79 tr/tháng vì 528,72 đã cộng thêm K59 Coffee & Music (40,80 m², 4,08 tr/tháng) — căn KHÔNG có ngày cọc, nên không thuộc nhóm đếm được tuổi và mục H chưa bao giờ đưa nó vào bảng. Sửa cơ sở đếm của một nhóm con, không đổi cơ sở của chuỗi: khối cam kết vẫn 7,456 tỷ. Cảnh báo của kỳ trước còn nguyên: 9 trong 34 căn của khối (4,204 tỷ/năm, 56% khối) bị sheet thứ hai của chính file Vinh xếp trạng thái thấp hơn — UNVERIFIED, không phải đã hoà. Nếu tính Long An theo tiền thuê đã đàm phán (K41 và K56 ở 80.000) thì khối LA là 1,297 tỷ và tổng là 7,42 tỷ — ghi ra để không đọc 7,46 như giá đã chốt, không đổi cơ sở của chuỗi."
+   }
   }
  ]
 }
